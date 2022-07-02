@@ -44,7 +44,7 @@ const Login = () => {
     buttons = (
       <ul style={{ listStyleType: "none" }}>
         {providersNames.map((providerName, i) => (
-          <li key={providerName}>
+          <li key={providerName} className="border w-fit my-2">
             <LoginButton providerName={providerName} />
           </li>
         ))}
