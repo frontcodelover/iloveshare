@@ -1,4 +1,5 @@
 import Head from "next/head";
+
 import Component from "../components/login-btn";
 import Login from "../components/login";
 import React, { useState, useEffect } from "react";
@@ -23,14 +24,16 @@ export default function Home() {
       </Head>
 
       <main>
-        {console.log(data)}
-        {data?.map((item) => (
-          <div key={item.id}>
-            <a href={item.attributes.url}>{item.attributes.name}</a>
-          </div>
-        ))}
 
         <Login />
+        {console.log(data)}
+        {data?.map((item) => (
+          <div className="grid grid-cols-2 row-auto">
+          <div key={item.id} className="col-span-1 border p-9">
+            <a href={item.attributes.url}>{item.attributes.name}</a>
+          </div>
+          </div>
+        ))}
       </main>
 
       <footer></footer>

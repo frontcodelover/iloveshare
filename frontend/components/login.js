@@ -39,7 +39,7 @@ const Login = () => {
   let buttons;
 
   if (isLogged) {
-    buttons = <LogoutButton onClick={logout} />;
+    buttons = <div className="bg-red-600 w-fit text-white p-2"><LogoutButton onClick={logout} /></div>;
   } else {
     buttons = (
       <ul style={{ listStyleType: "none" }}>
