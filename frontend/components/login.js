@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+
 const backendUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const providersNames = ["github", "google", "twitter", "auth0"];
@@ -10,16 +11,21 @@ const LoginButton = (props) => (
   </a>
 );
 
+
+
+
 const LogoutButton = (props) => <button onClick={props.onClick}>Logout</button>;
 
-const Login = () => {
+const Login = (props) => {
   const [isLogged, setIsLogged] = useState(false);
   const [userName, setUserName] = useState(null);
   const [dataJwt, setDataJwt] = useState("");
 
   useEffect(() => {
+
+
     let data = !localStorage.getItem("jwt");
-    console.log(localStorage);
+
     if (!data) {
       setIsLogged(false);
     } else {

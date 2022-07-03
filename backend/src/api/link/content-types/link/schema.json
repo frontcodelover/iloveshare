@@ -25,6 +25,29 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "categories": {
+      "type": "enumeration",
+      "enum": [
+        "animaux",
+        "art",
+        "food",
+        "lifestyle",
+        "maison",
+        "pop culture",
+        "tech",
+        "société",
+        "sport",
+        "voyage"
+      ]
+    },
+    "public": {
+      "type": "boolean"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tag.tag"
     }
   }
 }
