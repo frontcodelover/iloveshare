@@ -18,36 +18,41 @@
     "url": {
       "type": "string"
     },
-    "Image": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "categories": {
-      "type": "enumeration",
-      "enum": [
-        "animaux",
-        "art",
-        "food",
-        "lifestyle",
-        "maison",
-        "pop culture",
-        "tech",
-        "société",
-        "sport",
-        "voyage"
-      ]
-    },
     "public": {
       "type": "boolean"
     },
-    "tags": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "lien",
+        "Image",
+        "video"
+      ]
+    },
+    "category": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::tag.tag"
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "nsfw": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "picture": {
+      "displayName": "picture",
+      "type": "component",
+      "repeatable": true,
+      "component": "picture.picture"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tags.tags"
     }
   }
 }

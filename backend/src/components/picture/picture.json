@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_picture_pictures",
+  "info": {
+    "displayName": "picture",
+    "icon": "folder-plus",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "photo": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

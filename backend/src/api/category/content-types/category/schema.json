@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categories",
+  "info": {
+    "singularName": "category",
+    "pluralName": "categories",
+    "displayName": "category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "enumeration",
+      "enum": [
+        "animaux",
+        "art",
+        "food",
+        "lifestyle",
+        "maison",
+        "pop culture",
+        "tech",
+        "société",
+        "sport",
+        "voyage"
+      ]
+    }
+  }
+}
