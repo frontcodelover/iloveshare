@@ -36,14 +36,14 @@ export default function Home() {
               <a href={item.attributes.url}>{item.attributes.name}</a>
               <p>{item.attributes.url}</p>
               <div className="flex">
-              <p className="bg-gray-200 w-fit py-1 px-5 rounded-lg mx-2">#{item.attributes.tags.data[0]?.attributes.tags}</p>
+              {/* <p className="bg-gray-200 w-fit py-1 px-5 rounded-lg mx-2">#{item.attributes.tags.data[0]?.attributes.tags}</p>
               <p className="bg-gray-200 w-fit py-1 px-5 rounded-lg mx-2">#{item.attributes.tags.data[1]?.attributes.tags}</p>
-              <p className="bg-gray-200 w-fit py-1 px-5 rounded-lg mx-2">#{item.attributes.tags.data[2]?.attributes.tags}</p>
+              <p className="bg-gray-200 w-fit py-1 px-5 rounded-lg mx-2">#{item.attributes.tags.data[2]?.attributes.tags}</p> */}
               </div>
-              {console.log(
+              {/* {console.log(
                 "tags",
                 item.attributes.tags.data[0]?.attributes.tags
-              )}
+              )} */}
             </div>
           </div>
         ))}
