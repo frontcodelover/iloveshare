@@ -8,7 +8,7 @@ const providersNames = ["google", "twitter", "auth0"];
 
 const LoginButton = (props) => (
   <a href={`${backendUrl}/api/connect/${props.providerName}`}>
-    <button style={{ width: "150px" }}>Connect to {props.providerName}</button>
+    <button>Connect to {props.providerName}</button>
   </a>
 );
 
@@ -23,6 +23,7 @@ const Login = (props) => {
   const [texts, setTexts] = useState("");
   const [dataJwt, setDataJwt] = useState("");
   const [logoutEffect, setLogoutEffect] = useState(false);
+  const [idUser, setIdUser] = useState(null);
 
   useEffect(() => {
 
@@ -43,7 +44,9 @@ const Login = (props) => {
       setDataJwt(res.jwt);
       setUserName(res.user.username);
       setIsLogged(true);
-      setTexts('You have been successfully logged in. You will be redirected in a few seconds...');
+      setIdUser(res.user.id);
+      setTexts('You have been successfully logged in. ');
+      console.log(res);
       
     })
     .catch(err => {
@@ -89,16 +92,26 @@ const logout = (e) => {
   let text;
 
   if (isLogged) {
-    text = `Welcome ${userName}, you are connected! Your JWT is => ${dataJwt}.`;
+    text = `Welcome ${userName}, you are connected! Your JWT is => ${dataJwt}. Your ID is => ${idUser}`;
   } else {
     text = `Please login to continue.`; 
   }
+
+  const ButtonForDashBood = (props) => (
+    <a href={`/user/${idUser}`}>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Go to Dashboard</button>
+    </a>
+  );
 
   return (
     <div>
       <p>{text}</p>
       {buttons}
       {texts}
+      {(isLogged) ?  <ButtonForDashBood idUser={idUser} /> : null}
+      
+  
+      
     </div>
   );
 };
