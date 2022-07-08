@@ -1,20 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { ChakraProvider } from '@chakra-ui/react'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { ChakraProvider } from "@chakra-ui/react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Trending from "./components/Trending";
+import SidebarWithHeader from "./components/Layout/Sidebar";
+import Home from "./components/Home/Home";
+import Favourites from "./components/Favourites";
+import Explore from "./components/Explore";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ChakraProvider>
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-  </ChakraProvider>
+  <BrowserRouter>
+    <ChakraProvider>
+      <React.StrictMode>
+      <SidebarWithHeader >
+        <App />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/trending" element={<Trending />} />
+            <Route path="/favourites" element={<Favourites />} />
+            <Route path="/explore" element={<Explore />} />
+          </Routes>
+        </SidebarWithHeader >
+      </React.StrictMode>
+    </ChakraProvider>
+  </BrowserRouter>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 reportWebVitals();
