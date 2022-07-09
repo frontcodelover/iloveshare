@@ -63,10 +63,17 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "boards": {
+    "users_permissions_users": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::board.board"
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "users"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "users_permissions_users"
     }
   }
 }
