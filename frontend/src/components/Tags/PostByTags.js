@@ -5,10 +5,11 @@ import { Heading, Tag, Stack, Feature, Box, Text } from "@chakra-ui/react";
 export default function PostByTags() {
   let { tags } = useParams();
   const [dataResFilterByTags, setDataResFilterByTags] = useState([]);
+  const backendUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     fetch(
-      `http://localhost:1337/api/links?populate=*&filters[tag][name]=${tags}`
+      `${backendUrl}/api/links?populate=*&filters[tag][name]=${tags}`
     )
       .then((res) => res.json())
       .then((data) => setDataResFilterByTags(data.data))

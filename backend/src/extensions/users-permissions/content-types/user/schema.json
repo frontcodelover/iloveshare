@@ -63,17 +63,35 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "users_permissions_users": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "users"
+    "bio": {
+      "type": "richtext"
     },
-    "users": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "users_permissions_users"
+    "photo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "place": {
+      "type": "string"
+    },
+    "genre": {
+      "type": "enumeration",
+      "enum": [
+        "Homme",
+        "Femme",
+        "Non-binaire"
+      ]
+    },
+    "age": {
+      "type": "string"
+    },
+    "pseudo": {
+      "type": "string"
     }
   }
 }
