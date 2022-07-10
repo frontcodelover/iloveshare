@@ -9,12 +9,12 @@ export default function Dashboard() {
   const [dataRes, setDataRes] = useState('{}');
   const params = useParams();
   let tab = [];
-  useEffect(() => {
+  useEffect(() => { 
     fetch(`${backendUrl}/api/users/${params.id}`)
       .then((res) => res.json())
       .then((data) => setDataRes(data))
       .catch((err) => console.log(err));
-  }, [params.id]);
+  }, [params.id, backendUrl]);
 
 tab.push(dataRes);
  
