@@ -63,10 +63,35 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "boards": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::board.board"
+    "bio": {
+      "type": "richtext"
+    },
+    "photo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "place": {
+      "type": "string"
+    },
+    "genre": {
+      "type": "enumeration",
+      "enum": [
+        "Homme",
+        "Femme",
+        "Non-binaire"
+      ]
+    },
+    "age": {
+      "type": "string"
+    },
+    "pseudo": {
+      "type": "string"
     }
   }
 }

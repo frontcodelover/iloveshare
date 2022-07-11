@@ -1,7 +1,5 @@
 import React from "react";
-import { Link as ReachLink,  BrowserRouter,
-  Routes,
-  Route } from "react-router-dom"
+import { Link as ReachLink} from "react-router-dom"
 import {
   IconButton,
   Avatar,
@@ -22,6 +20,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -45,6 +44,7 @@ const LinkItems = [
 export default function SidebarWithHeader({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
+
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
@@ -68,7 +68,8 @@ export default function SidebarWithHeader({ children }) {
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
-    </Box>
+      </Box>
+
   );
 }
 
@@ -76,9 +77,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue("white", "gray.900")}
-      borderRight="1px"
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
+      bg={useColorModeValue("gray.100","gray.900")}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
@@ -86,7 +85,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          I love Share
+        ILoveShare
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
@@ -95,7 +94,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
           <Link as={ReachLink} to={link.url}> {link.name}</Link>
         </NavItem>
       ))}
-    </Box>
+      </Box>
+      
   );
 };
 
@@ -141,8 +141,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue("white", "gray.900")}
-      borderBottomWidth="1px"
+      bg={useColorModeValue("gray.100", "gray.900")}
+
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       justifyContent={{ base: "space-between", md: "flex-end" }}
       {...rest}
@@ -161,7 +161,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        Logo
+        ILoveShare
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
@@ -214,6 +214,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
           </Menu>
         </Flex>
       </HStack>
-    </Flex>
+      </Flex>
+      
   );
 };

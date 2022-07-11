@@ -29,11 +29,6 @@
         "video"
       ]
     },
-    "category": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category"
-    },
     "nsfw": {
       "type": "boolean",
       "default": false,
@@ -49,10 +44,15 @@
       "repeatable": true,
       "component": "picture.picture"
     },
-    "tags": {
+    "tag": {
       "type": "component",
       "repeatable": true,
       "component": "tags.tags"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
