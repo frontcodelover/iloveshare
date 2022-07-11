@@ -1,7 +1,5 @@
 import React from "react";
-import { Link as ReachLink,  BrowserRouter,
-  Routes,
-  Route } from "react-router-dom"
+import { Link as ReachLink} from "react-router-dom"
 import {
   IconButton,
   Avatar,

@@ -4,7 +4,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 const backendUrl = process.env.REACT_APP_API_URL;
 
 const LoginRedirect = (props) => {
-  const [text, setText] = useState('');
+
   const [currentUserId, setCurrentUserId] = useState(0);
   const location = useLocation();
   const params = useParams();
@@ -37,7 +37,7 @@ const LoginRedirect = (props) => {
       });
   }, [history, location.search, params.providerName, currentUserId]);
 
-  return <p>{text}</p>
+  return <p></p>
 };
 
 export default LoginRedirect;

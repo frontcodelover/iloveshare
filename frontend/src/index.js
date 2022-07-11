@@ -11,7 +11,6 @@ import Home from "./components/Home/Home";
 import Favourites from "./components/Favourites";
 import Explore from "./components/Explore";
 import PostByTags from "./components/Tags/PostByTags";
-import LoginBtn from "./components/User/LoginBtn";
 import LoginRedirect from "./components/User/LoginRedirect";
 import SignUp from "./components/User/SignUp";
 import Dashboard from "./components/User/Dashboard";

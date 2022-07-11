@@ -1,21 +1,10 @@
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Heading, Tag, Stack, Feature, Box, Text } from "@chakra-ui/react";
+import { Heading, Tag, Stack, Text } from "@chakra-ui/react";
+import useFetchDataByTags from "../Hooks/useFetchDataByTags";
 
 export default function PostByTags() {
   let { tags } = useParams();
-  const [dataResFilterByTags, setDataResFilterByTags] = useState([]);
-  const backendUrl = process.env.REACT_APP_API_URL;
-
-  useEffect(() => {
-    fetch(
-      `${backendUrl}/api/links?populate=*&filters[tag][name]=${tags}`
-    )
-      .then((res) => res.json())
-      .then((data) => setDataResFilterByTags(data.data))
-
-      .catch((err) => console.log(err));
-  }, []);
+  let dataResFilterByTags = useFetchDataByTags();
 
   return (
     <div>
