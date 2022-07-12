@@ -13,7 +13,7 @@ export function useFetchData(url) {
         if (response.ok) {
           if (!ignore) {
             const fetchedData = await response.json();
-            setData(fetchedData.data);
+            setData(fetchedData);
           }
         } else {
           setError("Error");
