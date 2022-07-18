@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Link as ReachLink} from "react-router-dom"
 import {
   IconButton,
@@ -41,15 +41,34 @@ const LinkItems = [
   { name: "Settings", icon: FiSettings, url: "/settings" },
 ];
 
+let userId = localStorage.id;
+
 export default function SidebarWithHeader({ children }) {
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    if(localStorage.id != null) {
+      setUserId(localStorage.id);
+    } else {
+    
+        <div>
+          <Link href="/signup">
+            <Text>Sign Up</Text>
+          </Link>
+          <Link href="/login">
+            <Text>Login</Text>
+          </Link>
+        </div>
+      }
+      
+  }, [])
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-
+    
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
-      />
+        />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -58,7 +77,7 @@ export default function SidebarWithHeader({ children }) {
         returnFocusOnClose={false}
         onOverlayClick={onClose}
         size="full"
-      >
+        >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
@@ -70,18 +89,18 @@ export default function SidebarWithHeader({ children }) {
       </Box>
       </Box>
 
-  );
+);
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
-      transition="3s ease"
-      bg={useColorModeValue("gray.100","gray.900")}
-      w={{ base: "full", md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}
+    transition="3s ease"
+    bg={useColorModeValue("gray.100","gray.900")}
+    w={{ base: "full", md: 60 }}
+    pos="fixed"
+    h="full"
+    {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
@@ -205,7 +224,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Profile</MenuItem>
+              <MenuItem as={ReachLink} to={`dashboard/:${userId}`}>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />

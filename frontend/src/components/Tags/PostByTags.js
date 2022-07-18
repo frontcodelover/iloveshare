@@ -9,9 +9,11 @@ export default function PostByTags() {
   return (
     <div>
       <Heading as="h1" size="xl" noOfLines={1}>{`#${tags}`}</Heading>
-      {console.log(dataResFilterByTags)}
-      {dataResFilterByTags.map((link) => {
-        return (
+
+      {dataResFilterByTags.length === 0 ? (
+        <Text>No result for this tag #{tags}</Text>
+      ) : (
+        dataResFilterByTags.map((link) => (
           <Stack
             key={link.id}
             background={"white"}
@@ -34,8 +36,8 @@ export default function PostByTags() {
               })}
             </p>
           </Stack>
-        );
-      })}
+        ))
+      )}
     </div>
   );
 }

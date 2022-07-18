@@ -14,6 +14,7 @@ import PostByTags from "./components/Tags/PostByTags";
 import LoginRedirect from "./components/User/LoginRedirect";
 import SignUp from "./components/User/SignUp";
 import Dashboard from "./components/User/Dashboard";
+import PageNotFound from "./404";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,14 +25,15 @@ root.render(
       <SidebarWithHeader >
         <App />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/t/:tags" element={<PostByTags />} />
-            <Route path="/trending" element={<Trending />} />
-            <Route path="/favourites" element={<Favourites />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/dashboard/:id" element={<Dashboard />} />
-              <Route path="/connect/:providerName/redirect" component={LoginRedirect} />
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/t/:tags" element={<PostByTags />} />
+            <Route exact path="/trending" element={<Trending />} />
+            <Route exact path="/favourites" element={<Favourites />} />
+              <Route exact path="/explore" element={<Explore />} />
+              <Route exact path="/signup" element={<SignUp />} />
+              <Route exact path="/dashboard/:id" element={<Dashboard />} />
+              <Route exact path="/connect/:providerName/redirect" component={LoginRedirect} />
+              <Route path="*" element={<PageNotFound />} />
           </Routes>
           </SidebarWithHeader >
       </Container>
