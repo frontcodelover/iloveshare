@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -7,9 +8,9 @@ const providersNames = [
   'auth0',
 ];
 
-const LoginButton = (props) => <a href={`${backendUrl}/api/connect/${props.providerName}`}>
-    <button style={{ width: '150px' }}>Connect to {props.providerName}</button>
-  </a>;
+const LoginButton = (props) => 
+    <button style={{ width: '150px' }}><a href={`${backendUrl}/api/connect/${props.providerName}`}>Connect to {props.providerName} </a></button>
+ ;
 
 const LogoutButton = (props) => <button onClick={props.onClick}>Logout</button>;
 

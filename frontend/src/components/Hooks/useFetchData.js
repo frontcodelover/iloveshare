@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setLinkData } from "../../feature/link.slice";
 
 export function useFetchData(url) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const dispatch = useDispatch() 
 
   useEffect(() => {
     let ignore = false;
@@ -14,6 +18,8 @@ export function useFetchData(url) {
           if (!ignore) {
             const fetchedData = await response.json();
             setData(fetchedData);
+            const disp = dispatch(setLinkData(fetchedData));
+
           }
         } else {
           setError("Error");
@@ -30,11 +36,12 @@ export function useFetchData(url) {
     return () => {
       ignore = true;
     };
-  }, [url]);
+  }, [url, dispatch]);
 
   return {
     data,
     isLoading,
     error,
+    dispatch,
   };
 }
