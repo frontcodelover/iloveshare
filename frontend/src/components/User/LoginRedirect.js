@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setLinkData } from "../../feature/link.slice";
+import { setCurrentUserData } from "../../feature/user.slice";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
 const LoginRedirect = (props) => {
-
+  
   const [currentUserId, setCurrentUserId] = useState(0);
   const location = useLocation();
   const params = useParams();
   const history = useNavigate();
-
+  const dispatch = useDispatch() 
+  const { user } = useSelector((state) => state.user)
+  
   useEffect(() => {
+    if (user) return;
     // Successfully logged with the provider
     // Now logging with strapi by using the access_token (given by the provider) in props.location.search
     fetch(`${backendUrl}/api/auth/google/callback${location.search}`)
@@ -29,13 +35,15 @@ const LoginRedirect = (props) => {
         localStorage.setItem('id', res.user.id);
         setCurrentUserId(res.user.id);
         console.log(res);
+        const disp = dispatch(setCurrentUserData(res));
         setTimeout(() => history(`/dashboard/${currentUserId}`), 3000); // Redirect to homepage after 3 sec
       })
       .catch(err => {
         console.log(err);
        
       });
-  }, [history, location.search, params.providerName, currentUserId]);
+    
+  }, [history, location.search, params.providerName, currentUserId, dispatch, user]);
 
   return <p></p>
 };
