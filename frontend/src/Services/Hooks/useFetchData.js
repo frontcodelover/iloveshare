@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setLinkData } from "../../feature/link.slice";
+import { setLinkData } from "../../Services/Redux/feature/link.slice";
 
 export function useFetchData(url) {
   const [data, setData] = useState([]);

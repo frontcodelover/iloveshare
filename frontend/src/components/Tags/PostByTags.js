@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Heading, Tag, Stack, Text } from "@chakra-ui/react";
-import useFetchDataByTags from "../Hooks/useFetchDataByTags";
+import useFetchDataByTags from "../../Services/Hooks/useFetchDataByTags";
 
 export default function PostByTags() {
   let { tags } = useParams();

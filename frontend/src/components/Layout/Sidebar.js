@@ -33,6 +33,7 @@ import {
   FiBell,
   FiChevronDown,
 } from "react-icons/fi";
+import LogoutBtn from "../User/LogoutBtn";
 
 
 const LinkItems = [
@@ -43,31 +44,13 @@ const LinkItems = [
   { name: "Profile", icon: FiSettings, url: "/dashboard/" },
 ];
 
-let userId = localStorage.id;
+
 
 export default function SidebarWithHeader({ children }) {
-  const {user} = useSelector((state) => state.user)
-  const [userId, setUserId] = useState(null);
-  useEffect(() => {
 
-    if(user) {
-     
-    } else {
-    
-        <div>
-          <Link href="/signup">
-            <Text>Sign Up</Text>
-          </Link>
-          <Link href="/login">
-            <Text>Login</Text>
-          </Link>
-        </div>
-      }
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    return (
       
-  }, [])
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
@@ -119,14 +102,14 @@ const SidebarContent = ({ onClose, ...rest }) => {
       ))}
       </Box>
       
-  );
-};
+      );
+    };
 
-const NavItem = ({ icon, children, url, ...rest }) => {
-  return (
+    const NavItem = ({ icon, children, url, ...rest }) => {
+      return (
     <Link
-      style={{ textDecoration: "none" }}
-      _focus={{ boxShadow: "none" }}
+    style={{ textDecoration: "none" }}
+    _focus={{ boxShadow: "none" }}
     >
       <Flex
         align="center"
@@ -140,17 +123,17 @@ const NavItem = ({ icon, children, url, ...rest }) => {
           color: "white",
         }}
         {...rest}
-      >
+        >
         {icon && (
           <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: "white",
-            }}
-            as={icon}
+          mr="4"
+          fontSize="16"
+          _groupHover={{
+            color: "white",
+          }}
+          as={icon}
           />
-        )}
+          )}
         {children}
       </Flex>
     </Link>
@@ -159,11 +142,24 @@ const NavItem = ({ icon, children, url, ...rest }) => {
 
 const MobileNav = ({ onOpen, ...rest }) => {
   const {user} = useSelector((state) => state.user)
+  const userId = localStorage.getItem("id");
+  const [isUser, setIsUser] = useState(false);
+ 
+  useEffect(() => {
+    
+    if (user) {
+      setIsUser(true);
+    } else {
+      setIsUser(false);
+    }
+      
+  }, [user])
+
   return (
     <>
 
-    {user ? (
-
+    {user && isUser ? (
+      
       
       <Flex
       ml={{ base: 0, md: 60 }}
@@ -222,7 +218,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   >
                   <Text fontSize="sm">{user.user.username}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Admin
+                    {user.user.email}
                   </Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
@@ -234,10 +230,17 @@ const MobileNav = ({ onOpen, ...rest }) => {
               
               >
               <MenuItem as={ReachLink} to={`dashboard/`}>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
+                  <MenuItem>Settings</MenuItem>
+                  
+                  <Link as={ReachLink} to={`/addlink`}> 
+                    <MenuItem>Add Link</MenuItem>
+                  </Link>
               
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+                  <MenuItem> <LogoutBtn>
+                    Sign Out
+                  </LogoutBtn>
+                    </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

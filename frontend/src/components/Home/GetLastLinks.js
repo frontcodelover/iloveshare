@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useFetchData } from "../Hooks/useFetchData";
+import { useFetchData } from "../../Services/Hooks/useFetchData";
 import {
   Flex,
   Tag,
@@ -10,6 +10,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -101,16 +102,18 @@ export default function GetLastLinks() {
               <h1>{link.attributes.name}</h1>
               <p>{link.id}</p>
               <Text mt={4}>{link.attributes.url}</Text>
+              <p>
 
               {link.attributes.tag.map((tag) => {
                 return (
-                  <div key={tag.id * randomNumberForKey}>
+                  
                     <Tag mr={2} mt={5}>
-                      {tag.name}
+                      <Link to={`/t/${tag.name}`}>{tag.name}</Link>
                     </Tag>
-                  </div>
+                
                 );
               })}
+              </p>
             </Stack>
           );
         })

@@ -7,8 +7,8 @@ import { ChakraProvider, Container } from "@chakra-ui/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SidebarWithHeader from "./components/Layout/Sidebar";
 import { Provider } from "react-redux";
-import store from "./app/store";
-import Routing from "./Routing/Routing";
+import store from "./Services/app/store";
+import Routing from "./Services/Routing/Routing";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

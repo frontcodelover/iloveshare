@@ -1,7 +1,7 @@
 
 import React, {useEffect, useState} from 'react'
 import { useSelector } from 'react-redux'
-import { useFetchData } from "./Hooks/useFetchData";
+import { useFetchData } from "../Services/Hooks/useFetchData";
 
 
 export default function Explore() {
