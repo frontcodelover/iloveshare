@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useSelector } from "react-redux";
 import { Link as ReachLink} from "react-router-dom"
 import {
   IconButton,
@@ -33,21 +34,24 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 
+
 const LinkItems = [
   { name: "Home", icon: FiHome, url: "/" },
   { name: "Trending", icon: FiTrendingUp, url: "/trending" },
   { name: "Explore", icon: FiCompass, url: "/explore" },
   { name: "Favourites", icon: FiStar, url: "/favourites" },
-  { name: "Settings", icon: FiSettings, url: "/settings" },
+  { name: "Profile", icon: FiSettings, url: "/dashboard/" },
 ];
 
 let userId = localStorage.id;
 
 export default function SidebarWithHeader({ children }) {
+  const {user} = useSelector((state) => state.user)
   const [userId, setUserId] = useState(null);
   useEffect(() => {
-    if(localStorage.id != null) {
-      setUserId(localStorage.id);
+
+    if(user) {
+     
     } else {
     
         <div>
@@ -154,15 +158,21 @@ const NavItem = ({ icon, children, url, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const {user} = useSelector((state) => state.user)
   return (
-    <Flex
+    <>
+
+    {user ? (
+
+      
+      <Flex
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue("gray.100", "gray.900")}
-
-      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+      
+      
+     
       justifyContent={{ base: "space-between", md: "flex-end" }}
       {...rest}
     >
@@ -172,45 +182,45 @@ const MobileNav = ({ onOpen, ...rest }) => {
         variant="outline"
         aria-label="open menu"
         icon={<FiMenu />}
-      />
-
+        />
+        
       <Text
-        display={{ base: "flex", md: "none" }}
+      display={{ base: "flex", md: "none" }}
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold"
-      >
+        >
         ILoveShare
       </Text>
 
-      <HStack spacing={{ base: "0", md: "6" }}>
+<HStack spacing={{ base: "0", md: "6" }}>
         <IconButton
           size="lg"
           variant="ghost"
           aria-label="open menu"
           icon={<FiBell />}
-        />
+          />
         <Flex alignItems={"center"}>
           <Menu>
             <MenuButton
               py={2}
               transition="all 0.3s"
               _focus={{ boxShadow: "none" }}
-            >
+              >
               <HStack>
                 <Avatar
                   size={"sm"}
                   src={
                     "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
                   }
-                />
+                  />
                 <VStack
                   display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2"
-                >
-                  <Text fontSize="sm">Justina Clark</Text>
+                  >
+                  <Text fontSize="sm">{user.user.username}</Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>
@@ -221,12 +231,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
               </HStack>
             </MenuButton>
             <MenuList
-              bg={useColorModeValue("white", "gray.900")}
-              borderColor={useColorModeValue("gray.200", "gray.700")}
-            >
-              <MenuItem as={ReachLink} to={`dashboard/:${userId}`}>Profile</MenuItem>
+              
+              >
+              <MenuItem as={ReachLink} to={`dashboard/`}>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
+              
               <MenuDivider />
               <MenuItem>Sign out</MenuItem>
             </MenuList>
@@ -234,6 +243,81 @@ const MobileNav = ({ onOpen, ...rest }) => {
         </Flex>
       </HStack>
       </Flex>
+    ) : (  
+      <Flex
+      ml={{ base: 0, md: 60 }}
+      px={{ base: 4, md: 4 }}
+      height="20"
+      alignItems="center"
       
-  );
-};
+      
+     
+      justifyContent={{ base: "space-between", md: "flex-end" }}
+      {...rest}
+    >
+      <IconButton
+        display={{ base: "flex", md: "none" }}
+        onClick={onOpen}
+        variant="outline"
+        aria-label="open menu"
+        icon={<FiMenu />}
+        />
+        
+      <Text
+      display={{ base: "flex", md: "none" }}
+        fontSize="2xl"
+        fontFamily="monospace"
+        fontWeight="bold"
+        >
+        ILoveShare
+      </Text>
+
+<HStack spacing={{ base: "0", md: "6" }}>
+        
+        <Flex alignItems={"center"}>
+          <Menu>
+            <MenuButton
+              py={2}
+              transition="all 0.3s"
+              _focus={{ boxShadow: "none" }}
+              >
+              <HStack>
+                <Avatar
+                  size={"sm"}
+                  src={
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1024px-User-avatar.svg.png"
+                  }
+                  />
+                <VStack
+                  display={{ base: "none", md: "flex" }}
+                  alignItems="flex-start"
+                  spacing="1px"
+                  ml="2"
+                  >
+                  <Text fontSize="sm">Non connecté</Text>
+                  <Text fontSize="xs" color="gray.600">
+                    anonyme
+                  </Text>
+                </VStack>
+                <Box display={{ base: "none", md: "flex" }}>
+                  <FiChevronDown />
+                </Box>
+              </HStack>
+            </MenuButton>
+            <MenuList>
+  
+              <MenuItem as={ReachLink} to={'/signup'}>Login</MenuItem>
+              <MenuItem as={ReachLink} to={'/signup'}>Sign up</MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+      </HStack>
+      </Flex>
+    )}
+    
+  
+  </>
+      
+    );
+    };
+    

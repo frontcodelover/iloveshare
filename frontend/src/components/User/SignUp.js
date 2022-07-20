@@ -14,12 +14,12 @@ export default function SignUp() {
   useEffect(() => {
     if (user) {
       console.log("use",user == null)
-      setTimeout(() => history(`/`), 3000); // Redirect to homepage after 3 sec
+      setTimeout(() => history(`/dashboard/`), 3000); // Redirect to homepage after 3 sec
   } else {
       setIsLoading(false);
     }
   }
-  , [user]);
+  , [user, history]);
 
   return (
     <>

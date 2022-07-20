@@ -1,27 +1,47 @@
-import React from 'react'
+
+import React, {useEffect, useState} from 'react'
 import { useSelector } from 'react-redux'
 import { useFetchData } from "./Hooks/useFetchData";
 
+
 export default function Explore() {
   const backendUrl = process.env.REACT_APP_API_URL;
-  const dataExplore = useSelector(state => state.link.link)
-  console.log(dataExplore)
+  const { link } = useSelector((state) => state.link)
+  const [isLoading, setIsLoading] = useState(true);
+
+  
+  console.log(link)
+  
+
    useFetchData(
-    `${backendUrl}/api/links?populate=*`
-  );
+     `${backendUrl}/api/links?populate=*`
+     );
+    useEffect(() => {
+      if (link) {
+        setIsLoading(false);
+      }
+    }
+    , [link]);
+
 
 
   return (
     <>
-    {/* {dataExplore.map((item, index) => {
+      {isLoading ? (
+        <p>Loading...</p>
+          ) : (
+    link.data.map((item) => {
       return (
-        <div key={index}>
-          <h1>{item.title}</h1>
+        <div>
+          <h1>{item.attributes.name}</h1>
           <p>{item.description}</p>
         </div>
       )
     }
-    )} */}
+    )
+    )
+    }
+
     </>
   )
 }

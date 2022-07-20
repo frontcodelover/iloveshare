@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Button } from '@chakra-ui/react'
+import { FaGoogle } from 'react-icons/fa';
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
 const providersNames = [
   'google',
-  'auth0',
 ];
 
 const LoginButton = (props) => 
-    <button style={{ width: '150px' }}><a href={`${backendUrl}/api/connect/${props.providerName}`}>Connect to {props.providerName} </a></button>
+    <Button colorScheme='blue'  leftIcon={<FaGoogle />}><a href={`${backendUrl}/api/connect/${props.providerName}`}>Connect to {props.providerName} </a></Button>
  ;
 
 const LogoutButton = (props) => <button onClick={props.onClick}>Logout</button>;

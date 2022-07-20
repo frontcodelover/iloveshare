@@ -36,7 +36,7 @@ const LoginRedirect = (props) => {
         setCurrentUserId(res.user.id);
         console.log(res);
         const disp = dispatch(setCurrentUserData(res));
-        setTimeout(() => history(`/dashboard/${currentUserId}`), 3000); // Redirect to homepage after 3 sec
+        setTimeout(() => history(`/dashboard/`), 3000); // Redirect to homepage after 3 sec
       })
       .catch(err => {
         console.log(err);

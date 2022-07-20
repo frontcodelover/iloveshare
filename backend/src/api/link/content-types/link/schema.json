@@ -53,6 +53,10 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "admin": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
