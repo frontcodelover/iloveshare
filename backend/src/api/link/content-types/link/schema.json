@@ -57,6 +57,9 @@
     "admin": {
       "type": "boolean",
       "default": false
+    },
+    "userid": {
+      "type": "integer"
     }
   }
 }
