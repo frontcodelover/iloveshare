@@ -8,6 +8,11 @@ import {
   Button,
   ButtonGroup,
   Spacer,
+  Heading,
+  Wrap,
+  WrapItem,
+  Avatar,
+  VStack,
 } from "@chakra-ui/react";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -68,20 +73,19 @@ export default function GetLastLinks() {
           Page {page} / {pageCountMax}
         </Text>
         <ButtonGroup gap="2">
-          <Button onClick={handlePrevious}>
+          <Button onClick={handlePrevious} colorScheme="teal" color="white">
             <IoMdArrowDropleft />
-            <Text>Previous</Text>
+            
           </Button>
 
-          <Button onClick={handleNext}>
-            <Text>Next</Text>
+          <Button onClick={handleNext} colorScheme="teal" color="white">
+            
             <IoMdArrowDropright />
           </Button>
         </ButtonGroup>
       </Flex>
 
-      <input type="button" value="Next" onClick={handleNext} />
-      <input type="button" value="Previous" onClick={handlePrevious} />
+     
       <input
         type="number"
         value={nbArticles}
@@ -98,22 +102,36 @@ export default function GetLastLinks() {
               p={5}
               mt={5}
               borderRadius={10}
+              borderColor="gray.200"
+              borderWidth="1px"
             >
+              <Wrap>
+                <WrapItem>
+                  <Avatar size='sm' name="Nicolas" src="https://bit.ly/dan-abramov" />
+       
+                  <Stack direction='column' ml={2} mt={0} p={0}>
+                  <Text fontSize="xs" fontWeight="bold"> Name Surname</Text>
+                  <Text fontSize="xs" mt={0}> 22/07/2022</Text>
+                  </Stack>
+                </WrapItem>
+              </Wrap>
+              <Stack pl={10}>
+
+              <Heading as="h1" size="xl">
               <h1>{link.attributes.name}</h1>
-              <p>{link.id}</p>
+              </Heading>
               <Text mt={4}>{link.attributes.url}</Text>
               <p>
 
               {link.attributes.tag.map((tag) => {
-                return (
-                  
-                    <Tag mr={2} mt={5}>
-                      <Link to={`/t/${tag.name}`}>{tag.name}</Link>
+                return (      
+                  <Tag mr={2} mt={5} px={2} py={1} colorScheme="white" color="teal.900" border="1px" borderColor="transparent" _hover={{ bg: "gray.50", borderColor:"gray.600"}}>
+                      <Link to={`/t/${tag.name}`}>#{tag.name}</Link>
                     </Tag>
-                
                 );
               })}
               </p>
+              </Stack>
             </Stack>
           );
         })

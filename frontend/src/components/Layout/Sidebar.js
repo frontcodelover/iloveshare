@@ -37,11 +37,11 @@ import LogoutBtn from "../User/LogoutBtn";
 
 
 const LinkItems = [
-  { name: "Home", icon: FiHome, url: "/" },
-  { name: "Trending", icon: FiTrendingUp, url: "/trending" },
-  { name: "Explore", icon: FiCompass, url: "/explore" },
-  { name: "Favourites", icon: FiStar, url: "/favourites" },
-  { name: "Profile", icon: FiSettings, url: "/dashboard/" },
+  { name: "Home", icon: FiHome, url: "/", color: "gray.900" },
+  { name: "Trending", icon: FiTrendingUp, url: "/trending", color: "gray.900" },
+  { name: "Explore", icon: FiCompass, url: "/explore", color: "gray.900"},
+  { name: "Favourites", icon: FiStar, url: "/favourites", color: "gray.900" },
+  { name: "Profile", icon: FiSettings, url: "/dashboard/", color: "gray.900" },
 ];
 
 
@@ -51,7 +51,7 @@ export default function SidebarWithHeader({ children }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
       
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box minH="100vh" bg={useColorModeValue("gray.50", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -83,7 +83,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
     transition="3s ease"
-    bg={useColorModeValue("gray.100","gray.900")}
+    bg={useColorModeValue("gray.50","gray.900")}
     w={{ base: "full", md: 60 }}
     pos="fixed"
     h="full"
@@ -96,7 +96,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} color={link.color}>
           <Link as={ReachLink} to={link.url}> {link.name}</Link>
         </NavItem>
       ))}
