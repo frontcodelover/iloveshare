@@ -20,16 +20,10 @@ import { Link } from "react-router-dom";
 const backendUrl = process.env.REACT_APP_API_URL;
 
 export default function GetLastLinks() {
-  // State for pagination number from backend
   const [pageCountMax, setPageCountMax] = useState(0);
-
-  // State of number articles per page
   const [nbArticles, setNbArticles] = useState(5);
-
-  // State of current page
   const [page, setPage] = useState(1);
 
-  // custom hook for fetching data from backend with pagination
   const {
     data: lastLinks,
     isLoading,
