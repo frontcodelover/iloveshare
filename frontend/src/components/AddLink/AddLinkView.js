@@ -7,6 +7,7 @@ import {
   Checkbox,
   VStack,
   Select,
+  Heading,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -49,10 +50,11 @@ export default function AddLinkView() {
 
   return (
     <>
-      <h1>Add Link</h1>
       <form onSubmit={handleSubmit}>
         <FormControl bg="white" p={6} rounded="xl">
-          <VStack spacing={2} align="stretch">
+       <Heading as="h1" size="xl" pb={6}>Add your link</Heading>
+          <VStack spacing={2} align="stretch" w="75%">
+
             <FormLabel>Your URL</FormLabel>
             <Input
               bg="white"
@@ -103,12 +105,14 @@ export default function AddLinkView() {
               Private link
             </Checkbox>
 
-            <Button colorScheme="green" type="submit">
+            <Button colorScheme="green" type="submit"  w={{ base: '100%', md: 'max-content' }}>
               Submit
             </Button>
           </VStack>
         </FormControl>
       </form>
+
+      
     </>
   );
 }
