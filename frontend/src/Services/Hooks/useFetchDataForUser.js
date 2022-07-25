@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setAllUsersData } from "../../Services/Redux/feature/allUsers.slice";
 
 export default function useFetchDataForUser(url) {
-    const [dataLinks, setDataLinks] = useState([]);
+    const dispatch = useDispatch() 
+    const [userInfos, setUserInfos] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -13,8 +16,9 @@ export default function useFetchDataForUser(url) {
                 if (response.ok) {
                     if (!ignore) {
                         const fetchedData = await response.json();
-                        setDataLinks(fetchedData);
-
+                        setUserInfos(fetchedData);
+                        setAllUsersData(fetchedData);
+                        const disp = dispatch(setAllUsersData(fetchedData));
                     }
                 } else {
                     setError("Error");
@@ -31,11 +35,11 @@ export default function useFetchDataForUser(url) {
         return () => {
             ignore = true;
         };
-    }, [url]);
+    }, [url, dispatch]);
 
 
     return {
-        dataLinks,
+        userInfos,
         isLoading,
         error,
     };

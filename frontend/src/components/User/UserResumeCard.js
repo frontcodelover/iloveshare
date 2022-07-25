@@ -2,16 +2,14 @@ import {
   chakra,
   Box,
   Stack,
-  Link,
   HStack,
   Text,
   Container,
-  Icon,
   Avatar,
   Tooltip,
   Divider,
-  useColorModeValue
 } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 import  useFetchDataForUser from '../../Services/Hooks/useFetchDataForUser';
 // Here we have used react-icons package for the icons
 import { AiFillGithub } from 'react-icons/ai';
@@ -19,31 +17,36 @@ import { useParams } from 'react-router-dom';
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
+
 const UserRemuseCard = () => {
+
+  const {allUsers} = useSelector((state) => state.allUsers);
+  
   const { id } = useParams();
   console.log(id)
   
-  const { dataLinks, isLoading, error } = useFetchDataForUser(
+  const { userInfos, isLoading, error } = useFetchDataForUser(
     `${backendUrl}/api/users?filters[id][$eq]=${id}`
   );
-  console.log(dataLinks)
+  console.log(userInfos)
     
   return (
     <Container maxW="5xl" p={{ base: 5, md: 6 }}>
+ 
+        
+      {userInfos?.map((link) => (
       
       <Stack
         w="17rem"
         spacing={2}
         p={4}
         border="1px solid"
-        borderColor={useColorModeValue('gray.400', 'gray.600')}
+        borderColor={'gray.400'}
         rounded="md"
         margin="0 auto"
         _hover={{
-          boxShadow: useColorModeValue(
-            '0 4px 6px rgba(160, 174, 192, 0.6)',
-            '0 4px 6px rgba(9, 17, 28, 0.4)'
-            )
+          boxShadow: 
+            '0 4px 6px rgba(160, 174, 192, 0.6)'
           }}
           >
         <HStack justifyContent="space-between" alignItems="baseline">
@@ -54,37 +57,27 @@ const UserRemuseCard = () => {
             size="sm"
             // Sizes for Tooltip are not implemented in the default theme. You can extend the theme to implement them
             >
+              
             <Box pos="relative">
-                
-                {dataLinks?.map((link) => (
-              
-                    <p>{link.username}</p>
-              
-                ))}
-    
+            
+             
+            
+  
               <Avatar
-                src="https://avatars2.githubusercontent.com/u/37842853?v=4"
-                name="Muhammad Ahmad"
-                size="xl"
-                borderRadius="md"
-                />
-              <Avatar
-                src="https://flagcdn.com/pk.svg"
-                name="Pakistan Flag"
-                size="xs"
-                borderRadius="full"
-                pos="absolute"
-                bottom={0}
-                right="-12px"
-                />
+              src="https://avatars2.githubusercontent.com/u/37842853?v=4"
+              name={link.username}
+              size="xl"
+              borderRadius="md"
+              />
+              
             </Box>
           </Tooltip>
-          <Link isExternal href="https://github.com/MA-Ahmad">
-            <Icon as={AiFillGithub} w={6} h={6} />
-          </Link>
+         
+           
+         
         </HStack>
         <chakra.h1 fontSize="xl" fontWeight="bold">
-          Muhammad Ahmad
+        {link.username}
         </chakra.h1>
         <Text fontSize="md" color="gray.500">
           Software Engineer, Creator of TemplatesKart
@@ -94,6 +87,7 @@ const UserRemuseCard = () => {
           Sports lover ⚽️, exercise addict 🏋 and lifelong learner 👨🏻‍💻
         </Text>
       </Stack>
+          ))}
     </Container>
       );
     };

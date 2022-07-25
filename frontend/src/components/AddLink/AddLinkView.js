@@ -34,7 +34,7 @@ export default function AddLinkView() {
         `${backendUrl}/api/links`,
         {
           data: {
-            userid: user?.user.id,
+            userid: user?.user?.id,
             ...inputs,
           },
         },

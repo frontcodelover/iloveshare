@@ -39,7 +39,7 @@ export default function Dashboard() {
           </Text>
           <p>{user?.user?.email || dataRes?.email}</p>
           <LogoutBtn />
-          {dataLinks.data?.map((link) => (
+          {dataLinks?.data?.map((link) => (
             <>
               <p>{link.attributes.name}</p>
               <p>{link.attributes.url}</p>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFetchData } from "../../Services/Hooks/useFetchData";
+import useFetchDataForUser from "../../Services/Hooks/useFetchDataForUser";
 import {
   Flex,
   Tag,
@@ -15,6 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -23,6 +26,12 @@ export default function GetLastLinks() {
   const [nbArticles, setNbArticles] = useState(5);
   const [page, setPage] = useState(1);
 
+  const {allUsers} = useSelector((state) => state.allUsers);
+
+
+    
+  console.log({ allUsers });
+
   const {
     data: lastLinks,
     isLoading,
@@ -30,6 +39,15 @@ export default function GetLastLinks() {
   } = useFetchData(
     `${backendUrl}/api/links?populate=*&pagination[pageSize]=${nbArticles}&pagination[page]=${page}`
   );
+
+  const userIdForPost = lastLinks?.data?.map((link) => link.attributes.userid);
+
+  console.log(userIdForPost);
+
+  const { userInfos } = useFetchDataForUser(
+    `${backendUrl}/api/users/`
+  );
+
 
   useEffect(() => {
     if (!isLoading) {
@@ -96,17 +114,28 @@ export default function GetLastLinks() {
                     name="Nicolas"
                     src="https://bit.ly/dan-abramov"
                   />
-
+                  
+                   
                   <Stack direction="column" ml={2} mt={0} p={0}>
-                    <Text fontSize="xs" fontWeight="bold">
-                      {" "}
-                      Name Surname
-                    </Text>
+                    
+                      {allUsers?.map((user) => {
+                        if (user.id == link.attributes.userid) {
+                          return (
+                            <Link to={`/profile/${user.id}`}>
+                              <Text fontSize="xs" fontWeight="bold">{user?.username}</Text>
+                            </Link>
+                          );
+                        }
+                      }
+                      )}
+                      
+                  
                     <Text fontSize="xs" mt={0}>
-                      {" "}
-                      22/07/2022
+                      {(link.attributes.createdAt).split("T")[0]}
+                      
                     </Text>
                   </Stack>
+                   
                 </WrapItem>
               </Wrap>
               <Stack pl={10}>
