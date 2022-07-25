@@ -93,6 +93,24 @@
     },
     "pseudo": {
       "type": "string"
+    },
+    "twitter": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "linkedin": {
+      "type": "string"
+    },
+    "discord": {
+      "type": "string"
+    },
+    "github": {
+      "type": "string"
     }
   }
 }

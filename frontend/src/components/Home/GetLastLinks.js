@@ -29,8 +29,6 @@ export default function GetLastLinks() {
   const {allUsers} = useSelector((state) => state.allUsers);
 
 
-    
-  console.log({ allUsers });
 
   const {
     data: lastLinks,
