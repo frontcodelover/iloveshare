@@ -9,7 +9,6 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 export default function CardLink({
   avatar,
@@ -21,8 +20,6 @@ export default function CardLink({
   userid,
   userName,
 }) {
-  const { allUsers } = useSelector((state) => state.allUsers);
-
   return (
     <Stack
       key={linkid}
@@ -39,7 +36,7 @@ export default function CardLink({
 
           <Stack direction="column" ml={2} mt={0} p={0}>
             <Text fontSize="xs" fontWeight="bold">
-            {userName}
+              {userName}
             </Text>
             <Text fontSize="xs" mt={0}>
               {createdAt.split("T")[0]}

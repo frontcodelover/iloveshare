@@ -13,11 +13,12 @@ import {
   Wrap,
   WrapItem,
   Avatar,
+  Image,
 } from "@chakra-ui/react";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { BsPersonLinesFill } from "react-icons/bs";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -26,9 +27,7 @@ export default function GetLastLinks() {
   const [nbArticles, setNbArticles] = useState(5);
   const [page, setPage] = useState(1);
 
-  const {allUsers} = useSelector((state) => state.allUsers);
-
-
+  const { allUsers } = useSelector((state) => state.allUsers);
 
   const {
     data: lastLinks,
@@ -38,14 +37,15 @@ export default function GetLastLinks() {
     `${backendUrl}/api/links?populate=*&pagination[pageSize]=${nbArticles}&pagination[page]=${page}`
   );
 
+  console.log("coucou", lastLinks);
+
   const userIdForPost = lastLinks?.data?.map((link) => link.attributes.userid);
 
   console.log(userIdForPost);
 
   const { userInfos } = useFetchDataForUser(
-    `${backendUrl}/api/users/`
+    `${backendUrl}/api/users/?populate=*`
   );
-
 
   useEffect(() => {
     if (!isLoading) {
@@ -98,47 +98,61 @@ export default function GetLastLinks() {
           return (
             <Stack
               key={link.id}
-              background={"white"}
-              p={5}
+              background={"white"}      
               mt={5}
               borderRadius={10}
               borderColor="gray.200"
               borderWidth="1px"
+              pb={5}
             >
               <Wrap>
-                <WrapItem>
-                  <Avatar
-                    size="sm"
-                    name="Nicolas"
-                    src="https://bit.ly/dan-abramov"
+                {link?.attributes?.featuredimg?.data?.attributes?.url ? (
+                  <Image
+                  src={
+                    backendUrl +
+                    link?.attributes?.featuredimg?.data?.attributes?.url
+                  }
+                  alt="avatar"
+                  maxH={300}
+                  width="100%"
+                  objectFit="cover"
+                  roundedTop={10}
                   />
-                  
-                   
-                  <Stack direction="column" ml={2} mt={0} p={0}>
-                    
-                      {allUsers?.map((user) => {
-                        if (user.id == link.attributes.userid) {
-                          return (
+                ) : (
+                  <Image />
+                  )
+                }
+                <WrapItem p={5}>
+                  {allUsers.map((user) => {
+                    if (user.id === link.attributes.userid) {
+                      return (
+                        <>
+                          <Avatar
+                            size="sm"
+                            name={user?.username}
+                            src={backendUrl + user?.photo?.url}
+                          />
+
+                          <Stack direction="column" ml={2} mt={0} p={0}>
                             <Link to={`/profile/${user.id}`}>
-                              <Text fontSize="xs" fontWeight="bold">{user?.username}</Text>
+                              <Text fontSize="xs" fontWeight="bold">
+                                {user?.username}
+                              </Text>
                             </Link>
-                          );
-                        }
-                      }
-                      )}
-                      
-                  
-                    <Text fontSize="xs" mt={0}>
-                      {(link.attributes.createdAt).split("T")[0]}
-                      
-                    </Text>
-                  </Stack>
-                   
+
+                            <Text fontSize="xs" mt={0}>
+                              {link.attributes.createdAt.split("T")[0]}
+                            </Text>
+                          </Stack>
+                        </>
+                      );
+                    }
+                  })}
                 </WrapItem>
               </Wrap>
               <Stack pl={10}>
                 <Heading as="h2" size="xl">
-                  <h1>{link.attributes.name}</h1>
+                  {link.attributes.name}
                 </Heading>
                 <Text mt={4}>{link.attributes.url}</Text>
                 <p>
