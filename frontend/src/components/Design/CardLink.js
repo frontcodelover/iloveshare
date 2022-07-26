@@ -32,7 +32,7 @@ export default function CardLink({
     >
       <Wrap>
         <WrapItem>
-          <Avatar size="sm" name="Nicolas" src={avatar} />
+          <Avatar size="sm" name={userName} src={avatar} />
 
           <Stack direction="column" ml={2} mt={0} p={0}>
             <Text fontSize="xs" fontWeight="bold">

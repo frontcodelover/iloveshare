@@ -12,6 +12,7 @@ import PageNotFound from "../../404";
 import { useSelector } from "react-redux";
 import AddLinkView from "../../components/AddLink/AddLinkView";
 import Profile from "../../components/User/Profile";
+import SinglePost from "../../components/Post/SinglePost";
 
 export default function Routing() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -27,6 +28,7 @@ export default function Routing() {
       <Route exact path="/dashboard/" element={<Dashboard />} />
       <Route exact path="/addlink" element={<AddLinkView />} />
       <Route exact path="/profile/:id" element={<Profile />} />
+      <Route exact path="/post/:slug" element={<SinglePost />} />
       <Route
         exact
         path="/connect/:providerName/redirect"

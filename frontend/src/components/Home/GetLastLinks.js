@@ -19,6 +19,7 @@ import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BsPersonLinesFill } from "react-icons/bs";
+import TitleBase from "../Design/TitleBase";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -98,7 +99,7 @@ export default function GetLastLinks() {
           return (
             <Stack
               key={link.id}
-              background={"white"}      
+              background={"white"}
               mt={5}
               borderRadius={10}
               borderColor="gray.200"
@@ -108,20 +109,19 @@ export default function GetLastLinks() {
               <Wrap>
                 {link?.attributes?.featuredimg?.data?.attributes?.url ? (
                   <Image
-                  src={
-                    backendUrl +
-                    link?.attributes?.featuredimg?.data?.attributes?.url
-                  }
-                  alt="avatar"
-                  maxH={300}
-                  width="100%"
-                  objectFit="cover"
-                  roundedTop={10}
+                    src={
+                      backendUrl +
+                      link?.attributes?.featuredimg?.data?.attributes?.url
+                    }
+                    alt="avatar"
+                    maxH={300}
+                    width="100%"
+                    objectFit="cover"
+                    roundedTop={10}
                   />
                 ) : (
                   <Image />
-                  )
-                }
+                )}
                 <WrapItem p={5}>
                   {allUsers.map((user) => {
                     if (user.id === link.attributes.userid) {
@@ -151,9 +151,14 @@ export default function GetLastLinks() {
                 </WrapItem>
               </Wrap>
               <Stack pl={10}>
-                <Heading as="h2" size="xl">
-                  {link.attributes.name}
-                </Heading>
+                <Link to={`/post/${link.attributes.slug}`}>
+                  <TitleBase
+                    as="h2"
+                    size="2xl"
+                    fontWeight={"extrabold"}
+                    title={link.attributes.name}
+                  ></TitleBase>
+                </Link>
                 <Text mt={4}>{link.attributes.url}</Text>
                 <p>
                   {link.attributes.tag.map((tag) => {
