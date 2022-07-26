@@ -23,3 +23,21 @@ background: #f8fafc;
 .css-yyii79 {
   margin-top: 0!important;
 }
+
+.markdown-body h2 {
+  font-size: 1.75em;
+  font-weight: bold;
+  margin: 0.5em 0;
+}
+
+.markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0.5em 0;
+}
+
+.markdown-body p, img {
+  font-size: 1.25em;
+  margin: 0.5em 0;
+  padding: 0.5em 0;
+}

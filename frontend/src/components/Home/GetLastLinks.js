@@ -123,7 +123,7 @@ export default function GetLastLinks() {
                   <Image />
                 )}
                 <WrapItem p={5}>
-                  {allUsers.map((user) => {
+                  {allUsers?.map((user) => {
                     if (user.id === link.attributes.userid) {
                       return (
                         <>
@@ -151,7 +151,7 @@ export default function GetLastLinks() {
                 </WrapItem>
               </Wrap>
               <Stack pl={10}>
-                <Link to={`/post/${link.attributes.slug}`}>
+                <Link to={`/post/${link?.attributes?.slug}`}>
                   <TitleBase
                     as="h2"
                     size="2xl"
