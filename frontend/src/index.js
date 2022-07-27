@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider, Container } from "@chakra-ui/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -18,7 +17,6 @@ root.render(
         <Provider store={store}>
           <Container maxW="1280px">
             <SidebarWithHeader>
-              <App />
               <Routing />
             </SidebarWithHeader>
           </Container>

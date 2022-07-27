@@ -2,17 +2,17 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../../components/Home/Home";
 import PostByTags from "../../components/Tags/PostByTags";
-import Trending from "../../components/Trending";
-import Favourites from "../../components/Favourites";
-import Explore from "../../components/Explore";
-import SignUp from "../../components/User/SignUp";
+import Trending from "../../Pages/Trending";
+import Favourites from "../../Pages/Favourites";
+import Explore from "../../Pages/Explore";
+import SignUp from "../../Pages/SignUp";
 import LoginRedirect from "../../components/User/LoginRedirect";
-import Dashboard from "../../components/User/Dashboard";
-import PageNotFound from "../../404";
+import PageNotFound from "../../Pages/404";
 import { useSelector } from "react-redux";
-import AddLinkView from "../../components/AddLink/AddLinkView";
-import Profile from "../../components/User/Profile";
+import AddLinkView from "../../Pages/AddLink/AddLinkView";
+import Profile from "../../Pages/Profile";
 import SinglePost from "../../components/Post/SinglePost";
+import UserDashboard from "../../Pages/UserDashboard";
 
 export default function Routing() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -25,7 +25,7 @@ export default function Routing() {
       <Route exact path="/favourites" element={<Favourites />} />
       <Route exact path="/explore" element={<Explore />} />
       <Route exact path="/signup" element={<SignUp />} />
-      <Route exact path="/dashboard/" element={<Dashboard />} />
+      <Route exact path="/dashboard/" element={<UserDashboard /> } />
       <Route exact path="/addlink" element={<AddLinkView />} />
       <Route exact path="/profile/:id" element={<Profile />} />
       <Route exact path="/post/:slug" element={<SinglePost />} />

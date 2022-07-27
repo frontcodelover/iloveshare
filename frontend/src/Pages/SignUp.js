@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import LoginRedirect from "./LoginRedirect";
-import LoginBtn from "./LoginBtn";
+import LoginRedirect from "../components/User/LoginRedirect";
+import LoginBtn from "../components/User/LoginBtn";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
