@@ -24,8 +24,10 @@ export default function AddLinkView() {
     const name = e.target.name;
     const value = e.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
-    console.log(name)
   };
+
+  const randomNumberForSlug = Math.floor(Math.random() * 10000);
+  console.log(randomNumberForSlug);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +37,7 @@ export default function AddLinkView() {
         {
           data: {
             userid: user.user.id,
+            slug: inputs.name.replace(/\W+/g, '-') + "-" + randomNumberForSlug,
             ...inputs,
           },
         },
@@ -52,9 +55,10 @@ export default function AddLinkView() {
     <>
       <form onSubmit={handleSubmit}>
         <FormControl bg="white" p={6} rounded="xl">
-       <Heading as="h1" size="xl" pb={6}>Add your link</Heading>
+          <Heading as="h1" size="xl" pb={6}>
+            Add your link
+          </Heading>
           <VStack spacing={2} align="stretch" w="75%">
-
             <FormLabel>Your URL</FormLabel>
             <Input
               bg="white"
@@ -87,7 +91,11 @@ export default function AddLinkView() {
             >
               Adult only
             </Checkbox>
-            <Select placeholder="Select option" name='type' onChange={handleChange}>
+            <Select
+              placeholder="Select option"
+              name="type"
+              onChange={handleChange}
+            >
               <option value="lien">lien</option>
               <option value="image">image</option>
               <option value="video">video</option>
@@ -105,14 +113,16 @@ export default function AddLinkView() {
               Private link
             </Checkbox>
 
-            <Button colorScheme="green" type="submit"  w={{ base: '100%', md: 'max-content' }}>
+            <Button
+              colorScheme="green"
+              type="submit"
+              w={{ base: "100%", md: "max-content" }}
+            >
               Submit
             </Button>
           </VStack>
         </FormControl>
       </form>
-
-      
     </>
   );
 }

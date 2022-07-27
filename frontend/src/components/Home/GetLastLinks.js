@@ -9,7 +9,6 @@ import {
   Button,
   ButtonGroup,
   Spacer,
-  Heading,
   Wrap,
   WrapItem,
   Avatar,
@@ -18,7 +17,6 @@ import {
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { BsPersonLinesFill } from "react-icons/bs";
 import TitleBase from "../Design/TitleBase";
 
 const backendUrl = process.env.REACT_APP_API_URL;
@@ -95,7 +93,7 @@ export default function GetLastLinks() {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        lastLinks.data.map((link) => {
+        lastLinks?.data.map((link) => {
           return (
             <Stack
               key={link.id}

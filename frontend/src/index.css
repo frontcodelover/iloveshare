@@ -36,7 +36,7 @@ background: #f8fafc;
   margin: 0.5em 0;
 }
 
-.markdown-body p, img {
+.markdown-body p, .markdown-body img {
   font-size: 1.25em;
   margin: 0.5em 0;
   padding: 0.5em 0;

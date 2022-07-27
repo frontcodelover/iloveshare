@@ -25,7 +25,7 @@
       "type": "enumeration",
       "enum": [
         "lien",
-        "Image",
+        "image",
         "video"
       ]
     },
