@@ -11,6 +11,7 @@ import {
   Flex,
   Heading,
   Wrap,
+  Divider,
 } from "@chakra-ui/react";
 import LogoutBtn from "./LogoutBtn";
 import useFetchDataForUser from "../../Services/Hooks/useFetchDataForUser";
@@ -34,8 +35,6 @@ export default function Dashboard() {
     `${backendUrl}/api/links?filters[userid][$eq]=${user?.user.id || userId}`
   );
 
-  console.log("coucou", backendUrl + dataRes?.photo?.url);
-
   return (
     <>
       {!token ? (
@@ -46,11 +45,9 @@ export default function Dashboard() {
       ) : (
         <>
           <Heading as="h1" fontSize="4xl">
-            Your dashboard
+            Tableau de bord
           </Heading>
-          <Heading as="h3" fontSize="2xl">
-            Welcome back
-          </Heading>
+
           <Wrap
             spacing={4}
             bg={"white"}
@@ -65,19 +62,22 @@ export default function Dashboard() {
               <Box ml="3">
                 <Text fontWeight="bold">
                   {user?.user?.username || dataRes?.username}
-                  <Badge ml="1" colorScheme="green">
-                    Verified
+                  <Badge ml="1" colorScheme="green" variant='outline' px={2}>
+                    Vérifié
                   </Badge>
                 </Text>
                 <Text fontSize="sm">
-                  Created at {dataRes?.createdAt?.split("T")[0]}
+                  Membre depuis le {dataRes?.createdAt?.split("T")[0]}
                 </Text>
               </Box>
             </Flex>
+            <Divider />
+            <Heading as="h2" fontSize="2xl">Votre bio</Heading>
+            
             <Text fontSize="sm">{user?.user?.bio || dataRes?.bio}</Text>
-          <LogoutBtn />
+            <Divider />
+            <LogoutBtn color={'red'} />
           </Wrap>
-
 
           <CurrentUserAllLinks />
           {userInfos?.data?.map((link) => (

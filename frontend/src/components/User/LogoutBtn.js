@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 
-export default function LogoutBtn() {
+export default function LogoutBtn({color}) {
   const history = useNavigate();
 
   const logout = (e) => {
@@ -14,12 +14,12 @@ export default function LogoutBtn() {
   };
 
   const LogoutButton = (props) => (
-    <button onClick={props.onClick}>Logout</button>
+    <button onClick={props.onClick}>Se déconnecter</button>
   );
 
   return (
-    <Button colorScheme="red">
-      <LogoutButton onClick={logout} />
-    </Button>
+    <Text color={color}>
+      <LogoutButton onClick={logout}/> 
+    </Text>
   );
 }

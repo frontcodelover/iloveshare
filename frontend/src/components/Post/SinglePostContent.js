@@ -1,5 +1,5 @@
 import { VStack, Wrap, Text, Skeleton, Image } from "@chakra-ui/react";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { useFetchData } from "../../Services/Hooks/useFetchData";
 import TitleBase from "../Design/TitleBase";
@@ -11,6 +11,8 @@ const backendUrl = process.env.REACT_APP_API_URL;
 
 export default function SinglePostContent() {
   const { slug } = useParams();
+  const [bodyEmoji, setBodyEmoji] = useState('');
+
 
   const {
     data: singlePostData,
@@ -19,6 +21,17 @@ export default function SinglePostContent() {
   } = useFetchData(
     `${backendUrl}/api/links?filters[slug][$eq]=${slug}&populate=*`
   );
+
+  useEffect(() => {
+    if (!isLoading) {
+      const emojified = singlePostData.data[0].attributes.body.replace(/:(\w+):/g, '![:$1:](https://emojiapi.dev/api/v1/$1/32.png)')    
+      setBodyEmoji(emojified);
+    }
+  }
+  , [singlePostData, isLoading]);
+
+
+
 
   return (
     <>
@@ -55,7 +68,9 @@ export default function SinglePostContent() {
               <TitleBase title={link?.attributes?.name} />
               <Text>{link?.attributes?.url}</Text>
               <div className="markdown-body">
-                <ReactMarkdown children={link?.attributes?.body} />
+              
+                  <ReactMarkdown children={bodyEmoji} />
+               
               </div>
               <SinglePostLike />
             </VStack>

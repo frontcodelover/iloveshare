@@ -16,8 +16,8 @@ export default function CurrentUserAllLinks() {
 
   return (
     <>
-      <Heading mt={5}> All Your links </Heading>
-      You have {userInfos?.meta?.pagination.total} links published.
+      <Heading mt={5}> Vos partages </Heading>
+      Vous avez partagé {userInfos?.meta?.pagination.total} articles.
     </>
   )
 }

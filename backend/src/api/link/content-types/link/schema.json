@@ -76,8 +76,7 @@
     },
     "body": {
       "type": "richtext",
-      "required": true,
-      "minLength": 100
+      "required": true
     }
   }
 }

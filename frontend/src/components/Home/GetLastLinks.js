@@ -36,11 +36,11 @@ export default function GetLastLinks() {
     `${backendUrl}/api/links?populate=*&pagination[pageSize]=${nbArticles}&pagination[page]=${page}`
   );
 
-  console.log("coucou", lastLinks);
+
 
   const userIdForPost = lastLinks?.data?.map((link) => link.attributes.userid);
 
-  console.log(userIdForPost);
+
 
   const { userInfos } = useFetchDataForUser(
     `${backendUrl}/api/users/?populate=*`
