@@ -19,7 +19,8 @@
       "type": "string"
     },
     "public": {
-      "type": "boolean"
+      "type": "boolean",
+      "required": false
     },
     "type": {
       "type": "enumeration",
@@ -27,12 +28,13 @@
         "lien",
         "image",
         "video"
-      ]
+      ],
+      "required": true
     },
     "nsfw": {
       "type": "boolean",
       "default": false,
-      "required": true
+      "required": false
     },
     "slug": {
       "type": "uid",
@@ -73,7 +75,9 @@
       ]
     },
     "body": {
-      "type": "richtext"
+      "type": "richtext",
+      "required": true,
+      "minLength": 100
     }
   }
 }

@@ -8,6 +8,7 @@ import {
   VStack,
   Select,
   Heading,
+  Textarea,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -37,7 +38,7 @@ export default function AddLinkView() {
         {
           data: {
             userid: user.user.id,
-            slug: inputs.name.replace(/\W+/g, '-') + "-" + randomNumberForSlug,
+            slug: inputs.name.replace(/\W+/g, "-") + "-" + randomNumberForSlug,
             ...inputs,
           },
         },
@@ -54,12 +55,12 @@ export default function AddLinkView() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <FormControl bg="white" p={6} rounded="xl">
+        <FormControl bg="white" p={6} rounded="xl" >
           <Heading as="h1" size="xl" pb={6}>
-            Add your link
+            Ajouter un article
           </Heading>
           <VStack spacing={2} align="stretch" w="75%">
-            <FormLabel>Your URL</FormLabel>
+            <FormLabel>URL</FormLabel>
             <Input
               bg="white"
               type="text"
@@ -67,9 +68,9 @@ export default function AddLinkView() {
               placeholder="Add your URL"
               value={inputs.url || ""}
               onChange={handleChange}
-              isRequired
+              
             />
-            <FormLabel>Title of your link</FormLabel>
+            <FormLabel>Titre</FormLabel>
             <Input
               bg="white"
               type="text"
@@ -77,9 +78,30 @@ export default function AddLinkView() {
               placeholder="Name"
               value={inputs.name || ""}
               onChange={handleChange}
-              isRequired
+              
             />
-
+            <FormLabel>Description </FormLabel>
+            <Textarea
+              bg="white"
+              type="textarea"
+              name="body"
+              placeholder="Add your description"
+              value={inputs.body || ""}
+              onChange={handleChange}
+              
+            />
+            <FormLabel>Type</FormLabel>
+            <Select
+              placeholder="Select option"
+              name="type"
+              onChange={handleChange}
+              
+            >
+              <option value="lien">lien</option>
+              <option value="image">image</option>
+              <option value="video">video</option>
+            </Select>
+            <FormLabel>Votre lien est pour un public adulte ?</FormLabel>
             <Checkbox
               colorScheme="red"
               bg="white"
@@ -88,19 +110,11 @@ export default function AddLinkView() {
               placeholder="nsfw"
               value={true || false}
               onChange={handleChange}
+              
             >
               Adult only
             </Checkbox>
-            <Select
-              placeholder="Select option"
-              name="type"
-              onChange={handleChange}
-            >
-              <option value="lien">lien</option>
-              <option value="image">image</option>
-              <option value="video">video</option>
-            </Select>
-
+            <FormLabel>Rendre ce lien privé</FormLabel>
             <Checkbox
               colorScheme="red"
               bg="white"
