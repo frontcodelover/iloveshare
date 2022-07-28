@@ -18,7 +18,7 @@ import useFetchDataForUser from "../../Services/Hooks/useFetchDataForUser";
 import CardLink from "../Design/CardLink";
 
 export default function Dashboard() {
-  const { user } = useSelector((state) => state.user);
+  const { user, pouetpouet } = useSelector((globalState) => globalState.user);
   const backendUrl = process.env.REACT_APP_API_URL;
   const [dataRes, setDataRes] = useState("{}");
   const userId = localStorage.getItem("id");
@@ -28,12 +28,26 @@ export default function Dashboard() {
     fetch(`${backendUrl}/api/users/${user?.user.id || userId}?&populate=*`)
       .then((res) => res.json())
       .then((data) => setDataRes(data))
+      //.then((data) => setDataRes(transformStrapiResToUser(data)))
       .catch((err) => console.log(err));
   }, [backendUrl, user?.user.id, userId]);
 
   const { userInfos } = useFetchDataForUser(
-    `${backendUrl}/api/links?populate=*&filters[userid][$eq]=${user?.user.id || userId}`
+    `${backendUrl}/api/links?populate=*&filters[userid][$eq]=${
+      user?.user.id || userId
+    }`
   );
+
+  // Doit aller dans Services (StrapiTransform.js)
+  // function transformStrapiResToUser(data) {
+  //   return {
+  //     id: user?.user.id || userId,
+  //     username: user?.user.username,
+  //     email: user?.user.email,
+  //     avatar: user?.user.avatar,
+  //     links: userInfos,
+  //   };
+  // }
 
   return (
     <>
@@ -62,7 +76,7 @@ export default function Dashboard() {
               <Box ml="3">
                 <Text fontWeight="bold">
                   {user?.user?.username || dataRes?.username}
-                  <Badge ml="1" colorScheme="green" variant='outline' px={2}>
+                  <Badge ml="1" colorScheme="green" variant="outline" px={2}>
                     Vérifié
                   </Badge>
                 </Text>
@@ -72,30 +86,30 @@ export default function Dashboard() {
               </Box>
             </Flex>
             <Divider />
-            <Heading as="h2" fontSize="2xl">Votre bio</Heading>
-            
+            <Heading as="h2" fontSize="2xl">
+              Votre bio
+            </Heading>
             <Text fontSize="sm">{user?.user?.bio || dataRes?.bio}</Text>
             <Divider />
-            <LogoutBtn color={'red'} />
+            <LogoutBtn color={"red"} />
           </Wrap>
-
           <CurrentUserAllLinks />
           {userInfos?.data?.map((link) => (
-            <CardLink 
-            avatar={backendUrl + dataRes?.photo?.url}
-            linkid={link.id}
-            createdAt={link.attributes.createdAt}
-            name={link.attributes.name}
-            url={link.attributes.url}
-            userid={link.attributes.userid}
-            userName={dataRes.username}
-            featuredImgSrc={backendUrl +
-              link?.attributes?.featuredimg?.data?.attributes?.url}
-            tagName={link?.attributes?.tag?.map((tag) => (tag.name))}             
+            <CardLink
+              avatar={backendUrl + dataRes?.photo?.url}
+              linkid={link.id}
+              createdAt={link.attributes.createdAt}
+              name={link.attributes.name}
+              url={link.attributes.url}
+              userid={link.attributes.userid}
+              userName={dataRes.username}
+              featuredImgSrc={
+                backendUrl +
+                link?.attributes?.featuredimg?.data?.attributes?.url
+              }
+              tagName={link?.attributes?.tag?.map((tag) => tag.name)}
             />
-            )
-          
-          )}
+          ))}
         </>
       )}
     </>

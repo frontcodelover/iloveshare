@@ -50,11 +50,11 @@ export default function CardLink({
           <Avatar size="sm" name={userName} src={avatar} />
 
           <Stack direction="column" ml={2} mt={0}>
-          <Link to={`/profile/${userId}`}>
-            <Text fontSize="xs" fontWeight="bold">
-              {userName}
-            </Text>
-              </Link>
+            <Link to={`/profile/${userId}`}>
+              <Text fontSize="xs" fontWeight="bold">
+                {userName}
+              </Text>
+            </Link>
             <Text fontSize="xs" mt={0}>
               {createdAt.split("T")[0]}
             </Text>
@@ -62,14 +62,14 @@ export default function CardLink({
         </WrapItem>
       </Wrap>
       <Stack pl={10}>
-      <Link to={`/post/${slug}`}>
-                  <TitleBase
-                    as="h2"
-                    size="2xl"
-                    fontWeight={"extrabold"}
-                    title={name}
-                  ></TitleBase>
-                </Link>
+        <Link to={`/post/${slug}`}>
+          <TitleBase
+            as="h2"
+            size="2xl"
+            fontWeight={"extrabold"}
+            title={name}
+          ></TitleBase>
+        </Link>
         <Text mt={4}>{url}</Text>
         <p>
           <Tag
