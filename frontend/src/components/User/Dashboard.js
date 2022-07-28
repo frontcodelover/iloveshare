@@ -32,7 +32,7 @@ export default function Dashboard() {
   }, [backendUrl, user?.user.id, userId]);
 
   const { userInfos } = useFetchDataForUser(
-    `${backendUrl}/api/links?filters[userid][$eq]=${user?.user.id || userId}`
+    `${backendUrl}/api/links?populate=*&filters[userid][$eq]=${user?.user.id || userId}`
   );
 
   return (
@@ -81,17 +81,21 @@ export default function Dashboard() {
 
           <CurrentUserAllLinks />
           {userInfos?.data?.map((link) => (
-            <CardLink
-              avatar={backendUrl + dataRes?.photo?.url}
-              linkid={link.id}
-              createdAt={link.attributes.createdAt}
-              name={link.attributes.name}
-              tags={link.attributes.tags}
-              url={link.attributes.url}
-              userid={link.attributes.userid}
-              userName={dataRes?.username}
+            <CardLink 
+            avatar={backendUrl + dataRes?.photo?.url}
+            linkid={link.id}
+            createdAt={link.attributes.createdAt}
+            name={link.attributes.name}
+            url={link.attributes.url}
+            userid={link.attributes.userid}
+            userName={dataRes.username}
+            featuredImgSrc={backendUrl +
+              link?.attributes?.featuredimg?.data?.attributes?.url}
+            tagName={link?.attributes?.tag?.map((tag) => (tag.name))}             
             />
-          ))}
+            )
+          
+          )}
         </>
       )}
     </>

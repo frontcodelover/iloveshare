@@ -111,6 +111,9 @@
     },
     "github": {
       "type": "string"
+    },
+    "website": {
+      "type": "string"
     }
   }
 }
