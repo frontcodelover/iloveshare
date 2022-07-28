@@ -18,7 +18,7 @@ import useFetchDataForUser from "../../Services/Hooks/useFetchDataForUser";
 import CardLink from "../Design/CardLink";
 
 export default function Dashboard() {
-  const { user, pouetpouet } = useSelector((globalState) => globalState.user);
+  const { user } = useSelector((globalState) => globalState.user);
   const backendUrl = process.env.REACT_APP_API_URL;
   const [dataRes, setDataRes] = useState("{}");
   const userId = localStorage.getItem("id");
@@ -101,13 +101,16 @@ export default function Dashboard() {
               createdAt={link.attributes.createdAt}
               name={link.attributes.name}
               url={link.attributes.url}
-              userid={link.attributes.userid}
+              userId={link.attributes.userid}
               userName={dataRes.username}
               featuredImgSrc={
                 backendUrl +
                 link?.attributes?.featuredimg?.data?.attributes?.url
               }
-              tagName={link?.attributes?.tag?.map((tag) => tag.name)}
+              slug={link?.attributes?.slug}
+              tagName={link?.attributes?.tag?.map((tag) => tag.name)
+            }
+
             />
           ))}
         </>
