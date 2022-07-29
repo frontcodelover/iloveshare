@@ -26,13 +26,13 @@ import {
 const backendUrl = process.env.REACT_APP_API_URL;
 
 const UserRemuseCard = () => {
-  const { id } = useParams();
+  const { username } = useParams();
 
   const [isFollowed, setIsFollowed] = useState(false);
   const [follow, setFollow] = useState("Suivre");
 
   const { userInfos } = useFetchDataForUser(
-    `${backendUrl}/api/users?populate=*&filters[id][$eq]=${id}`
+    `${backendUrl}/api/users?populate=*&filters[username][$eq]=${username}`
   );
 
   function handleFollow(e) {

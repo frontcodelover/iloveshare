@@ -27,7 +27,7 @@ export default function Routing() {
       <Route exact path="/signup" element={<SignUp />} />
       <Route exact path="/dashboard/" element={<UserDashboard /> } />
       <Route exact path="/addlink" element={<AddLinkView />} />
-      <Route exact path="/profile/:id" element={<Profile />} />
+      <Route exact path="/profile/:username" element={<Profile />} />
       <Route exact path="/post/:slug" element={<SinglePost />} />
       <Route
         exact

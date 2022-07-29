@@ -121,7 +121,7 @@ export default function GetLastLinks() {
                   <Image />
                 )}
                 <WrapItem p={5}>
-                  {allUsers?.map((user) => {
+                  {userInfos.map((user) => {
                     if (user.id === link.attributes.userid) {
                       return (
                         <>
@@ -132,7 +132,7 @@ export default function GetLastLinks() {
                           />
 
                           <Stack direction="column" ml={2} mt={0} p={0}>
-                            <Link to={`/profile/${user.id}`}>
+                            <Link to={`/profile/${user.username}`}>
                               <Text fontSize="xs" fontWeight="bold">
                                 {user?.username}
                               </Text>
