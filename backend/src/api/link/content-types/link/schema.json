@@ -77,6 +77,16 @@
     "body": {
       "type": "richtext",
       "required": true
+    },
+    "files": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

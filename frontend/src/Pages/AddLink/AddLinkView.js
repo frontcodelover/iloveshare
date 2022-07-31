@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { nanoid } from 'nanoid'
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -27,10 +28,22 @@ export default function AddLinkView() {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const randomNumberForSlug = Math.floor(Math.random() * 10000);
-  console.log(randomNumberForSlug);
+  const handleImgChange = (e) => {
+    setInputs({featuredimg: e.target.files[0]});
+  }
 
   console.log(inputs.featuredimg);
+  
+  const randomNumberForId = Math.floor(Math.random() * 10000000);
+
+  const formData = new FormData();
+  formData.append("files", inputs.featuredimg);
+  formData.append("ref", "api::link.link");
+  formData.append("refId", randomNumberForId);
+  formData.append("field", "featuredimg");
+  
+  const randomNumberForSlug = Math.floor(Math.random() * 10000);
+  console.log(randomNumberForSlug);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +59,7 @@ export default function AddLinkView() {
           type: inputs.type,
           nsfw: inputs.nsfw,
           public: inputs.public,
+          id: randomNumberForId,
         },
       },
       { headers: { Authorization: `Bearer ${token}` } }
@@ -54,14 +68,9 @@ export default function AddLinkView() {
     await axios
       .post(
         `${backendUrl}/api/upload`,
-        {
-          featuredimg: {
-            data: {
-              file: inputs.featuredimg,
-            },
-          },
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
+        formData,
+  
+        { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" }  }
       )
       .then((response) => {
         console.log(response);
@@ -102,9 +111,11 @@ export default function AddLinkView() {
               type="file"
               name="featuredimg"
               placeholder="Featured Image"
-              value={inputs.featuredimg || ""}
-              onChange={handleChange}
+              // value={inputs.featuredimg || ""}
+              onChange={handleImgChange}
             />
+            {/* <input type="text" name="ref" value="api::links.links" />
+            <input type="text" name="refId" value="5c126648c7415f0c0ef1bccd" /> */}
 
             <FormLabel>Description </FormLabel>
             <Textarea
