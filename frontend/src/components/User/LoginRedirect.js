@@ -32,7 +32,7 @@ const LoginRedirect = (props) => {
         localStorage.setItem("id", res.user.id);
         setCurrentUserId(res.user.id);
         console.log(res);
-        dispatch(setCurrentUserData(res));
+        dispatch(setCurrentUserData(res.user));
         setTimeout(() => history(`/dashboard/`), 0); // Redirect to homepage after 3 sec
       })
       .catch((err) => {

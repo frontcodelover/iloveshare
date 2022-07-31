@@ -10,7 +10,7 @@ export default function CurrentUserAllLinks() {
   const userId = localStorage.getItem("id");
 
   const { userInfos } = useFetchDataForUser(
-    `${backendUrl}/api/links?filters[userid][$eq]=${user?.user.id || userId}`
+    `${backendUrl}/api/links?filters[userid][$eq]=${user?.id || userId}`
   );
   console.log({userInfos})
 

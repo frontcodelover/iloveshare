@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useFetchData } from "../Services/Hooks/useFetchData";
+import { allLinks } from "../Services/ApiCalls/AllApiCalls";
 
 export default function Explore() {
-  const backendUrl = process.env.REACT_APP_API_URL;
   const { link } = useSelector((state) => state.link);
   const [isLoading, setIsLoading] = useState(true);
 
   console.log(link);
 
-  useFetchData(`${backendUrl}/api/links?populate=*`);
+  useFetchData(`${allLinks}`);
+
   useEffect(() => {
     if (link) {
       setIsLoading(false);

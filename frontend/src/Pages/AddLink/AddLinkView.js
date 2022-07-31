@@ -17,7 +17,7 @@ const backendUrl = process.env.REACT_APP_API_URL;
 
 export default function AddLinkView() {
   const { user } = useSelector((state) => state.user);
-
+  console.log(user.id);
   const token = localStorage.getItem("jwt");
   const [inputs, setInputs] = useState({});
 
@@ -30,16 +30,35 @@ export default function AddLinkView() {
   const randomNumberForSlug = Math.floor(Math.random() * 10000);
   console.log(randomNumberForSlug);
 
+  console.log(inputs.featuredimg);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await axios.post(
+      `${backendUrl}/api/links`,
+      {
+        data: {
+          userid: user.id,
+          slug: inputs.name.replace(/\W+/g, "-") + "-" + randomNumberForSlug,
+          name: inputs.name,
+          url: inputs.url,
+          body: inputs.body,
+          type: inputs.type,
+          nsfw: inputs.nsfw,
+          public: inputs.public,
+        },
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    //! Need to fix this part
     await axios
       .post(
-        `${backendUrl}/api/links`,
+        `${backendUrl}/api/upload`,
         {
-          data: {
-            userid: user.user.id,
-            slug: inputs.name.replace(/\W+/g, "-") + "-" + randomNumberForSlug,
-            ...inputs,
+          featuredimg: {
+            data: {
+              file: inputs.featuredimg,
+            },
           },
         },
         { headers: { Authorization: `Bearer ${token}` } }
@@ -55,7 +74,7 @@ export default function AddLinkView() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <FormControl bg="white" p={6} rounded="xl" >
+        <FormControl bg="white" p={6} rounded="xl">
           <Heading as="h1" size="xl" pb={6}>
             Ajouter un article
           </Heading>
@@ -68,7 +87,6 @@ export default function AddLinkView() {
               placeholder="Add your URL"
               value={inputs.url || ""}
               onChange={handleChange}
-              
             />
             <FormLabel>Titre</FormLabel>
             <Input
@@ -78,8 +96,16 @@ export default function AddLinkView() {
               placeholder="Name"
               value={inputs.name || ""}
               onChange={handleChange}
-              
             />
+            <FormLabel>Image</FormLabel>
+            <Input
+              type="file"
+              name="featuredimg"
+              placeholder="Featured Image"
+              value={inputs.featuredimg || ""}
+              onChange={handleChange}
+            />
+
             <FormLabel>Description </FormLabel>
             <Textarea
               bg="white"
@@ -88,14 +114,12 @@ export default function AddLinkView() {
               placeholder="Add your description"
               value={inputs.body || ""}
               onChange={handleChange}
-              
             />
             <FormLabel>Type</FormLabel>
             <Select
               placeholder="Select option"
               name="type"
               onChange={handleChange}
-              
             >
               <option value="lien">lien</option>
               <option value="image">image</option>
@@ -110,7 +134,6 @@ export default function AddLinkView() {
               placeholder="nsfw"
               value={true || false}
               onChange={handleChange}
-              
             >
               Adult only
             </Checkbox>

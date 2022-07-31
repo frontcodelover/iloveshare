@@ -6,6 +6,7 @@ import TitleBase from "../Design/TitleBase";
 import SinglePostLike from "./SinglePostLike";
 import ReactMarkdown from "react-markdown";
 import Emoji from "react-emoji-render";
+import { allLinks, populateAll } from "../../Services/ApiCalls/AllApiCalls";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -18,7 +19,7 @@ export default function SinglePostContent() {
     isLoading,
     error,
   } = useFetchData(
-    `${backendUrl}/api/links?filters[slug][$eq]=${slug}&populate=*`
+    `${allLinks}filters[slug][$eq]=${slug}${populateAll}`
   );
 
   useEffect(() => {

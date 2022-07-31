@@ -3,6 +3,7 @@ import useFetchDataForUser from '../../Services/Hooks/useFetchDataForUser'
 import CardLink from '../Design/CardLink'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { allUsersCall } from '../../Services/ApiCalls/AllApiCalls'
 
 const backendUrl = process.env.REACT_APP_API_URL
 
@@ -15,7 +16,7 @@ export default function UserResumePost() {
   const { allUsers } = useSelector((state) => state.allUsers);
   
   useEffect(() => {
-    fetch(`${backendUrl}/api/users?populate=*&filters[username][$eq]=${username}`)
+    fetch(`${allUsersCall}&filters[username][$eq]=${username}`)
       .then((res) => res.json())
       .then((data) => setDataRes(data))
       .catch((err) => console.log(err))

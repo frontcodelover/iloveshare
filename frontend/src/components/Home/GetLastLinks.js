@@ -2,22 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useFetchData } from "../../Services/Hooks/useFetchData";
 import useFetchDataForUser from "../../Services/Hooks/useFetchDataForUser";
 import {
-  Flex,
+
   Tag,
   Stack,
   Text,
-  Button,
-  ButtonGroup,
-  Spacer,
   Wrap,
   WrapItem,
   Avatar,
   Image,
 } from "@chakra-ui/react";
-import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import TitleBase from "../Design/TitleBase";
+import {
+  allLinks,
+  allUsersCall,
+  populateAll,
+} from "../../Services/ApiCalls/AllApiCalls";
+import Pagination from "../Design/Pagination";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -26,25 +27,17 @@ export default function GetLastLinks() {
   const [nbArticles, setNbArticles] = useState(5);
   const [page, setPage] = useState(1);
 
-  const { allUsers } = useSelector((state) => state.allUsers);
-
   const {
     data: lastLinks,
     isLoading,
     error,
   } = useFetchData(
-    `${backendUrl}/api/links?populate=*&pagination[pageSize]=${nbArticles}&pagination[page]=${page}`
+    `${allLinks}${populateAll}&pagination[pageSize]=${nbArticles}&pagination[page]=${page}`
   );
-
-
 
   const userIdForPost = lastLinks?.data?.map((link) => link.attributes.userid);
 
-
-
-  const { userInfos } = useFetchDataForUser(
-    `${backendUrl}/api/users/?populate=*`
-  );
+  const { userInfos } = useFetchDataForUser(`${allUsersCall}${populateAll}`);
 
   useEffect(() => {
     if (!isLoading) {
@@ -69,27 +62,13 @@ export default function GetLastLinks() {
 
   return (
     <div>
-      <Flex mt={5} gap="3" alignItems="right">
-        <Spacer />
-        <Text mt={2}>
-          Page {page} / {pageCountMax}
-        </Text>
-        <ButtonGroup gap="2">
-          <Button onClick={handlePrevious} colorScheme="teal" color="white">
-            <IoMdArrowDropleft />
-          </Button>
-
-          <Button onClick={handleNext} colorScheme="teal" color="white">
-            <IoMdArrowDropright />
-          </Button>
-        </ButtonGroup>
-      </Flex>
-
-      <input
-        type="number"
-        value={nbArticles}
-        onChange={(e) => setNbArticles(e.target.value)}
+      <Pagination
+        page={page}
+        pageCountMax={pageCountMax}
+        handleNext={handleNext}
+        handlePrevious={handlePrevious}
       />
+
       {isLoading ? (
         <p>Loading...</p>
       ) : (

@@ -22,6 +22,7 @@ import {
   BsInstagram,
   BsLink,
 } from "react-icons/bs";
+import { allUsersCall, populateAll } from "../../Services/ApiCalls/AllApiCalls";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -32,7 +33,7 @@ const UserRemuseCard = () => {
   const [follow, setFollow] = useState("Suivre");
 
   const { userInfos } = useFetchDataForUser(
-    `${backendUrl}/api/users?populate=*&filters[username][$eq]=${username}`
+    `${allUsersCall}&filters[username][$eq]=${username}${populateAll}`
   );
 
   function handleFollow(e) {

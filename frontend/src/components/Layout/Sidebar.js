@@ -208,9 +208,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                       spacing="1px"
                       ml="2"
                     >
-                      <Text fontSize="sm">{user.user.username}</Text>
+                      <Text fontSize="sm">{user.username}</Text>
                       <Text fontSize="xs" color="gray.600">
-                        {user.user.email}
+                        {user.email}
                       </Text>
                     </VStack>
                     <Box display={{ base: "none", md: "flex" }}>

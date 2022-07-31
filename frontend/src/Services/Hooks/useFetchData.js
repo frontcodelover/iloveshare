@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setLinkData } from "../../Services/Redux/feature/link.slice";
+import { transformStratipResToLink } from "../ApiCalls/TransformStratipResToLink";
 
 export function useFetchData(url) {
   const [data, setData] = useState([]);

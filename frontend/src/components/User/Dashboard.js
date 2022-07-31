@@ -16,6 +16,7 @@ import {
 import LogoutBtn from "./LogoutBtn";
 import useFetchDataForUser from "../../Services/Hooks/useFetchDataForUser";
 import CardLink from "../Design/CardLink";
+import { allUsersCall, allLinks, populateAll } from "../../Services/ApiCalls/AllApiCalls";
 
 export default function Dashboard() {
   const { user } = useSelector((globalState) => globalState.user);
@@ -25,16 +26,16 @@ export default function Dashboard() {
   const token = localStorage.getItem("jwt");
 
   useEffect(() => {
-    fetch(`${backendUrl}/api/users/${user?.user.id || userId}?&populate=*`)
+    fetch(`${backendUrl}/api/users/${user?.id || userId}${populateAll}`)
       .then((res) => res.json())
       .then((data) => setDataRes(data))
       //.then((data) => setDataRes(transformStrapiResToUser(data)))
       .catch((err) => console.log(err));
-  }, [backendUrl, user?.user.id, userId]);
+  }, [backendUrl, user?.id, userId]);
 
   const { userInfos } = useFetchDataForUser(
-    `${backendUrl}/api/links?populate=*&filters[userid][$eq]=${
-      user?.user.id || userId
+    `${allLinks}${populateAll}&filters[userid][$eq]=${
+      user?.id || userId
     }`
   );
 
