@@ -7,6 +7,7 @@ import SinglePostLike from "./SinglePostLike";
 import ReactMarkdown from "react-markdown";
 import Emoji from "react-emoji-render";
 import { allLinks, populateAll } from "../../Services/ApiCalls/AllApiCalls";
+import EditSinglePost from "./EditSinglePost";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -64,6 +65,7 @@ export default function SinglePostContent() {
                 Posted on {link?.attributes?.createdAt.split("T")[0]} / updated
                 on {link?.attributes?.updatedAt?.split("T")[0]}
               </Text>
+              <EditSinglePost userid={link?.attributes?.userid} />
               <TitleBase title={link?.attributes?.name} />
               <Text>{link?.attributes?.url}</Text>
               <div className="markdown-body">

@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -29,19 +29,19 @@ export default function AddLinkView() {
   };
 
   const handleImgChange = (e) => {
-    setInputs({featuredimg: e.target.files[0]});
-  }
+    setInputs({ featuredimg: e.target.files[0] });
+  };
 
   console.log(inputs.featuredimg);
-  
-  const randomNumberForId = Math.floor(Math.random() * 10000000);
+
+  const randomNumberForId = Math.floor(Math.random() * 100000);
 
   const formData = new FormData();
   formData.append("files", inputs.featuredimg);
   formData.append("ref", "api::link.link");
   formData.append("refId", randomNumberForId);
   formData.append("field", "featuredimg");
-  
+
   const randomNumberForSlug = Math.floor(Math.random() * 10000);
   console.log(randomNumberForSlug);
 
@@ -60,6 +60,11 @@ export default function AddLinkView() {
           nsfw: inputs.nsfw,
           public: inputs.public,
           id: randomNumberForId,
+          tag: [
+            {
+              name: inputs.tag,
+            },
+          ],
         },
       },
       { headers: { Authorization: `Bearer ${token}` } }
@@ -69,8 +74,13 @@ export default function AddLinkView() {
       .post(
         `${backendUrl}/api/upload`,
         formData,
-  
-        { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" }  }
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
       )
       .then((response) => {
         console.log(response);
@@ -106,11 +116,23 @@ export default function AddLinkView() {
               value={inputs.name || ""}
               onChange={handleChange}
             />
+            <FormLabel>Tag</FormLabel>
+            <Input
+              bg="white"
+              type="text"
+              name="tag"
+              placeholder="Tag"
+              value={inputs.tag || ""}
+              onChange={handleChange}
+            />
+
             <FormLabel>Image</FormLabel>
             <Input
               type="file"
               name="featuredimg"
               placeholder="Featured Image"
+              bg="white"
+              border="none"
               // value={inputs.featuredimg || ""}
               onChange={handleImgChange}
             />
@@ -122,13 +144,20 @@ export default function AddLinkView() {
               bg="white"
               type="textarea"
               name="body"
-              placeholder="Add your description"
+              height={200}
+              placeholder="Utiliser le markdown pour formater votre texte
+                          Pour faire un lien, utiliser la syntaxe : [titre du lien](url du lien)
+                          Pour faire une image, utiliser la syntaxe : ![titre de l'image](url de l'image)
+                          Pour faire un titre, utiliser la syntaxe : # titre du titre
+                          Pour faire un sous-titre, utiliser la syntaxe : ## sous-titre du sous-titre
+                          Pour faire un paragraphe, utiliser la syntaxe : paragraphe du paragraphe
+                          "
               value={inputs.body || ""}
               onChange={handleChange}
             />
             <FormLabel>Type</FormLabel>
             <Select
-              placeholder="Select option"
+              placeholder="Sélectionnez un type"
               name="type"
               onChange={handleChange}
             >
@@ -146,7 +175,7 @@ export default function AddLinkView() {
               value={true || false}
               onChange={handleChange}
             >
-              Adult only
+              Lien adulte
             </Checkbox>
             <FormLabel>Rendre ce lien privé</FormLabel>
             <Checkbox
@@ -158,7 +187,7 @@ export default function AddLinkView() {
               value={true || false}
               onChange={handleChange}
             >
-              Private link
+              Lien privé
             </Checkbox>
 
             <Button
@@ -166,7 +195,7 @@ export default function AddLinkView() {
               type="submit"
               w={{ base: "100%", md: "max-content" }}
             >
-              Submit
+              Publier
             </Button>
           </VStack>
         </FormControl>
