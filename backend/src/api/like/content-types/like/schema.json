@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "likes",
+  "info": {
+    "singularName": "like",
+    "pluralName": "likes",
+    "displayName": "Like",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userid": {
+      "type": "integer"
+    },
+    "postid": {
+      "type": "integer"
+    }
+  }
+}

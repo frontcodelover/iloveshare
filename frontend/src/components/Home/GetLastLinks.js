@@ -22,6 +22,7 @@ import {
 import Pagination from "../Design/Pagination";
 import SinglePostLike from "../Post/SinglePostLike";
 import SinglePostSave from "../Post/SinglePostSave";
+import { useSelector } from "react-redux";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -29,6 +30,10 @@ export default function GetLastLinks() {
   const [pageCountMax, setPageCountMax] = useState(0);
   const [nbArticles, setNbArticles] = useState(5);
   const [page, setPage] = useState(1);
+
+  const currentUser = useSelector((state) => state.user);
+
+  console.log(currentUser?.user?.id);
 
   const {
     data: lastLinks,
@@ -62,7 +67,6 @@ export default function GetLastLinks() {
       setPage(page - 1);
     }
   };
-
 
   return (
     <>
@@ -139,33 +143,38 @@ export default function GetLastLinks() {
                     title={link.attributes.name}
                   ></TitleBase>
                 </Link>
-                <Text m={4} py={4}>{link.attributes.url}</Text>
-                <ButtonGroup float={'right'} mt={6}>
-                  <SinglePostLike pr={0}/> <Text>23 réactions</Text>
+                <Text m={4} py={4}>
+                  {link.attributes.url}
+                </Text>
+                <ButtonGroup float={"right"} mt={6}>
+                  <SinglePostLike
+                    pr={0}
+                    userId={currentUser?.user?.id}
+                    postId={link.id}
+                  />
                 </ButtonGroup>
                 <p>
                   {link.attributes.tag.map((tag) => {
                     return (
                       <Tag
-                      mr={2}
-                      mt={5}
-                      px={2}
-                      py={1}
-                      colorScheme="white"
-                      color="teal.900"
-                      border="1px"
-                      borderColor="transparent"
-                      _hover={{ bg: "gray.100", borderColor: "gray.300" }}
+                        mr={2}
+                        mt={5}
+                        px={2}
+                        py={1}
+                        colorScheme="white"
+                        color="teal.900"
+                        border="1px"
+                        borderColor="transparent"
+                        _hover={{ bg: "gray.100", borderColor: "gray.300" }}
                       >
                         <Link to={`/t/${tag.name}`}>#{tag.name}</Link>
                       </Tag>
                     );
                   })}
-                  <ButtonGroup float={'right'} mt={4} mr={10}>
-                  <SinglePostSave />
+                  <ButtonGroup float={"right"} mt={4} mr={10}>
+                    <SinglePostSave />
                   </ButtonGroup>
                 </p>
-                
               </Stack>
             </Stack>
           );

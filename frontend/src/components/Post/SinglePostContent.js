@@ -8,10 +8,13 @@ import ReactMarkdown from "react-markdown";
 import Emoji from "react-emoji-render";
 import { allLinks, populateAll } from "../../Services/ApiCalls/AllApiCalls";
 import EditSinglePost from "./EditSinglePost";
+import { useSelector } from "react-redux";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
 export default function SinglePostContent() {
+  const currentUser = useSelector((state) => state.user);
+
   const { slug } = useParams();
   const [bodyEmoji, setBodyEmoji] = useState("");
 
@@ -72,7 +75,11 @@ export default function SinglePostContent() {
               <div className="markdown-body">
                 <ReactMarkdown children={bodyEmoji} />
               </div>
-              <SinglePostLike />
+              <SinglePostLike
+                pr={0}
+                userId={currentUser?.user?.id}
+                postId={link.id}
+              />
             </VStack>
           </Wrap>
         ))}
