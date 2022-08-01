@@ -65,7 +65,7 @@ export default function SinglePostContent() {
                 Posted on {link?.attributes?.createdAt.split("T")[0]} / updated
                 on {link?.attributes?.updatedAt?.split("T")[0]}
               </Text>
-              <EditSinglePost userid={link?.attributes?.userid} />
+              <EditSinglePost userid={link?.attributes?.userid} postid={link?.id} />
               <TitleBase title={link?.attributes?.name} />
               <Text>{link?.attributes?.url}</Text>
               <div className="markdown-body">

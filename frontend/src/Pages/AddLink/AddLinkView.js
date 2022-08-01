@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { nanoid } from "nanoid";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 

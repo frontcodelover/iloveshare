@@ -13,6 +13,7 @@ import AddLinkView from "../../Pages/AddLink/AddLinkView";
 import Profile from "../../Pages/Profile";
 import SinglePost from "../../components/Post/SinglePost";
 import UserDashboard from "../../Pages/UserDashboard";
+import SinglePostEditForm from "../../components/Post/SinglePostEditForm";
 
 export default function Routing() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -29,6 +30,7 @@ export default function Routing() {
       <Route exact path="/addlink" element={<AddLinkView />} />
       <Route exact path="/profile/:username" element={<Profile />} />
       <Route exact path="/post/:slug" element={<SinglePost />} />
+      <Route exact path="/post/edit/:id" element={<SinglePostEditForm />} />
       <Route
         exact
         path="/connect/:providerName/redirect"
