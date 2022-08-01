@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useFetchData } from "../../Services/Hooks/useFetchData";
 import useFetchDataForUser from "../../Services/Hooks/useFetchDataForUser";
 import {
-
   Tag,
   Stack,
   Text,
@@ -22,6 +21,7 @@ import {
 } from "../../Services/ApiCalls/AllApiCalls";
 import Pagination from "../Design/Pagination";
 import SinglePostLike from "../Post/SinglePostLike";
+import SinglePostSave from "../Post/SinglePostSave";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -62,6 +62,7 @@ export default function GetLastLinks() {
       setPage(page - 1);
     }
   };
+
 
   return (
     <>
@@ -138,7 +139,10 @@ export default function GetLastLinks() {
                     title={link.attributes.name}
                   ></TitleBase>
                 </Link>
-                <Text mt={4}>{link.attributes.url}</Text>
+                <Text m={4} py={4}>{link.attributes.url}</Text>
+                <ButtonGroup float={'right'} mt={6}>
+                  <SinglePostLike pr={0}/> <Text>23 réactions</Text>
+                </ButtonGroup>
                 <p>
                   {link.attributes.tag.map((tag) => {
                     return (
@@ -151,15 +155,14 @@ export default function GetLastLinks() {
                       color="teal.900"
                       border="1px"
                       borderColor="transparent"
-                      _hover={{ bg: "gray.50", borderColor: "gray.600" }}
+                      _hover={{ bg: "gray.100", borderColor: "gray.300" }}
                       >
                         <Link to={`/t/${tag.name}`}>#{tag.name}</Link>
                       </Tag>
                     );
                   })}
-                  <ButtonGroup float={'right'} mt={4}>
-                  <SinglePostLike />
-                  <Button colorScheme="gray" mr={10} size='md' >Save</Button>
+                  <ButtonGroup float={'right'} mt={4} mr={10}>
+                  <SinglePostSave />
                   </ButtonGroup>
                 </p>
                 

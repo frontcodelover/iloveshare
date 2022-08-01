@@ -6,8 +6,8 @@ export default function SinglePostLike() {
   const [isLike, setIsLike] = useState(false);
 
   return (
-    <Button bg={'white'} w={'50px'} onClick={() => setIsLike(!isLike)}>
+    <button bg={'white'} _hover={{bg:'white'}} _focus={{bg:'white'}} onClick={() => setIsLike(!isLike)}>
       {isLike ? <BsHeartFill color='red' /> : <BsHeart color='red' />}
-    </Button>
+    </button>
   )
 }
