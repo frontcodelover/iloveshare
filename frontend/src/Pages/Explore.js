@@ -24,7 +24,7 @@ export default function Explore() {
       ) : (
         link.data.map((item) => {
           return (
-            <div>
+            <div className="itemShow">
               <h1>{item.attributes.name}</h1>
               <p>{item.description}</p>
             </div>

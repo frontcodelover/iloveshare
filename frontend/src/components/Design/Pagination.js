@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function Pagination({page, pageCountMax, handleNext, handlePrevious}) {
   return (
-    <Flex mt={5} gap="3" alignItems="right">
+    <Flex mt={0} gap="3" alignItems="right">
     <Spacer />
     <Text mt={2}>
               Page {page} / {pageCountMax}

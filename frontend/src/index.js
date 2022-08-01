@@ -15,7 +15,7 @@ root.render(
     <ChakraProvider>
       <React.StrictMode>
         <Provider store={store}>
-          <Container maxW="1280px">
+          <Container maxW="1280px" className="scroll">
             <SidebarWithHeader>
               <Routing />
             </SidebarWithHeader>

@@ -10,6 +10,8 @@ import {
   WrapItem,
   Avatar,
   Image,
+  Button,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import TitleBase from "../Design/TitleBase";
@@ -19,6 +21,7 @@ import {
   populateAll,
 } from "../../Services/ApiCalls/AllApiCalls";
 import Pagination from "../Design/Pagination";
+import SinglePostLike from "../Post/SinglePostLike";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -32,7 +35,7 @@ export default function GetLastLinks() {
     isLoading,
     error,
   } = useFetchData(
-    `${allLinks}${populateAll}&pagination[pageSize]=${nbArticles}&pagination[page]=${page}`
+    `${allLinks}${populateAll}&pagination[pageSize]=${nbArticles}&pagination[page]=${page}&sort=createdAt:desc`
   );
 
   const userIdForPost = lastLinks?.data?.map((link) => link.attributes.userid);
@@ -61,7 +64,7 @@ export default function GetLastLinks() {
   };
 
   return (
-    <div>
+    <>
       <Pagination
         page={page}
         pageCountMax={pageCountMax}
@@ -109,7 +112,6 @@ export default function GetLastLinks() {
                             name={user?.username}
                             src={backendUrl + user?.photo?.url}
                           />
-
                           <Stack direction="column" ml={2} mt={0} p={0}>
                             <Link to={`/profile/${user.username}`}>
                               <Text fontSize="xs" fontWeight="bold">
@@ -141,27 +143,32 @@ export default function GetLastLinks() {
                   {link.attributes.tag.map((tag) => {
                     return (
                       <Tag
-                        mr={2}
-                        mt={5}
-                        px={2}
-                        py={1}
-                        colorScheme="white"
-                        color="teal.900"
-                        border="1px"
-                        borderColor="transparent"
-                        _hover={{ bg: "gray.50", borderColor: "gray.600" }}
+                      mr={2}
+                      mt={5}
+                      px={2}
+                      py={1}
+                      colorScheme="white"
+                      color="teal.900"
+                      border="1px"
+                      borderColor="transparent"
+                      _hover={{ bg: "gray.50", borderColor: "gray.600" }}
                       >
                         <Link to={`/t/${tag.name}`}>#{tag.name}</Link>
                       </Tag>
                     );
                   })}
+                  <ButtonGroup float={'right'} mt={4}>
+                  <SinglePostLike />
+                  <Button colorScheme="gray" mr={10} size='md' >Save</Button>
+                  </ButtonGroup>
                 </p>
+                
               </Stack>
             </Stack>
           );
         })
       )}
       {error && <p>{error}</p>}
-    </div>
+    </>
   );
 }

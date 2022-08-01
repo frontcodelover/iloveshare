@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useFetchData } from '../../Services/Hooks/useFetchData';
 import { allLinks, populateAll } from '../../Services/ApiCalls/AllApiCalls';
 import { useParams } from 'react-router-dom';
-import {Wrap, Image, Text, Skeleton, Heading, Input, Button } from "@chakra-ui/react";
+import {Wrap, Image, Text, VStack, Heading, Input, Button, Textarea, FormLabel, Select, FormControl } from "@chakra-ui/react";
 import axios from 'axios';
 
 export default function SinglePostEditForm() {
@@ -11,6 +11,12 @@ export default function SinglePostEditForm() {
   const [error, setError] = useState(null);
   const [link, setLink] = useState([]);
   const [name, setName] = useState("");
+  const [body, setBody] = useState("");
+  const [featuredimgUrl, setFeaturedimgUrl] = useState("");
+  const [type, setType] = useState("");
+  const [nsfw, setNsfw] = useState(false);
+  const [publicLink, setPublicLink] = useState(false);
+  const token = localStorage.getItem("jwt");
 
   const {id} = useParams();
   const backendUrl = process.env.REACT_APP_API_URL;
@@ -22,6 +28,14 @@ export default function SinglePostEditForm() {
       .then(data => {
         setLink(data.data.attributes);
         setName(data.data.attributes.name);
+        setBody(data.data.attributes.body);
+        setType(data.data.attributes.type);
+      }
+      ).catch(err => {
+        setError(err);
+      }
+      ).finally(() => {
+        setIsLoading(false);
       }
       )
     
@@ -33,10 +47,14 @@ export default function SinglePostEditForm() {
     axios.put(`${backendUrl}/api/links/${id}`, {
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`
+
       },
       data :{
         name: name,
+        body: body,
+        type: type,
       },
       
     })
@@ -58,13 +76,41 @@ export default function SinglePostEditForm() {
   return (
     <>
     <form onSubmit={handleSubmit}>
-
+    <FormControl bg="white" p={6} rounded="xl">
+    <Heading as="h1" size="xl" pb={6}>
+            Editer l'article
+      </Heading>
+      <VStack spacing={2} align="stretch" w="100%">
+    <FormLabel htmlFor="name">Titre de l'article</FormLabel>
     <Input 
     type={"text"}
     placeholder={link.name}
     value={name}  
     onChange={(e) => setName(e.target.value)}
+    bg="white"
     />
+
+    <FormLabel htmlFor="body">Description</FormLabel>
+    <Textarea  
+    height={400}
+    type={"text"}
+    placeholder={link.body}
+    value={body}
+    onChange={(e) => setBody(e.target.value)}
+    />
+
+    <Select 
+    name="type"
+    placeholder={link.type}
+    value={type}
+    onChange={(e) => setType(e.target.value)}
+    > 
+    <option value="">Type</option>
+    <option value="article">Article</option>
+    <option value="video">Video</option>
+    <option value="image">Image</option>
+    <option value="lien">Lien</option>
+    </Select>
       
       <Button
               colorScheme="green"
@@ -73,6 +119,8 @@ export default function SinglePostEditForm() {
             >
               Publier
             </Button>
+      </VStack>
+      </FormControl>
     </form>
       {/* {
         singlePostData?.data?.map((link) => (
