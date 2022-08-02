@@ -114,6 +114,9 @@
     },
     "website": {
       "type": "string"
+    },
+    "postliked": {
+      "type": "json"
     }
   }
 }

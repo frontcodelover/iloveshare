@@ -11,6 +11,9 @@ import {
   Image,
   Button,
   ButtonGroup,
+  Flex,
+  Spacer,
+  Box,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import TitleBase from "../Design/TitleBase";
@@ -138,21 +141,12 @@ export default function GetLastLinks() {
                 <Link to={`/post/${link?.attributes?.slug}`}>
                   <TitleBase
                     as="h2"
-                    size="2xl"
-                    fontWeight={"extrabold"}
+                    size="xl"
+                    fontWeight={"bold"}
                     title={link.attributes.name}
                   ></TitleBase>
                 </Link>
-                <Text m={4} py={4}>
-                  {link.attributes.url}
-                </Text>
-                <ButtonGroup float={"right"} mt={6}>
-                  <SinglePostLike
-                    pr={0}
-                    userId={currentUser?.user?.id}
-                    postId={link.id}
-                  />
-                </ButtonGroup>
+
                 <p>
                   {link.attributes.tag.map((tag) => {
                     return (
@@ -171,10 +165,22 @@ export default function GetLastLinks() {
                       </Tag>
                     );
                   })}
-                  <ButtonGroup float={"right"} mt={4} mr={10}>
-                    <SinglePostSave />
-                  </ButtonGroup>
+                  <ButtonGroup float={"right"} mt={4} mr={10}></ButtonGroup>
                 </p>
+
+                <Flex>
+                  <Box>
+                    <SinglePostLike
+                      userId={currentUser?.user?.id}
+                      postId={link.id}
+                      />
+                  </Box>
+                      {console.log(link.id)}
+                  <Spacer />
+                  <Box pr={10}>
+                    <SinglePostSave />
+                  </Box>
+                </Flex>
               </Stack>
             </Stack>
           );

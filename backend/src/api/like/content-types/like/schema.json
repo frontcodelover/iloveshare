@@ -17,6 +17,9 @@
     },
     "postid": {
       "type": "integer"
+    },
+    "arraypostid": {
+      "type": "json"
     }
   }
 }
