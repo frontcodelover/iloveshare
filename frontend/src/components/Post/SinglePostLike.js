@@ -14,31 +14,25 @@ export default function SinglePostLike({ postId, userId }) {
 
   const token = localStorage.getItem("jwt");
 
-  console.log(postId)
+  console.log(postId);
 
   useEffect(() => {
     axios
       .get(`${backendUrl}/api/likes?filters[postId][$eq]=${postId}`)
       .then((data) => {
         setLikeData(data.data);
-        console.log()
-
+        console.log();
       });
 
     axios.get(`${backendUrl}/api/links/${postId}`).then((likes) => {
       console.log(likes.data.data);
       setLikeTotalCount(likes.data.data.attributes.numberoflikes);
-
     });
-
-    
   }, [userId, postId]);
-  
-  
-  
+
   const handleLike = async (e) => {
     e.preventDefault();
-    
+
     console.log("isLike", isLike);
     if (isLike) {
     } else {
@@ -48,33 +42,23 @@ export default function SinglePostLike({ postId, userId }) {
       await axios.put(`${backendUrl}/api/links/${postId}`, {
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
-          "Authorization": `Bearer ${token}`
-  
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
         },
         data: {
           numberoflikes: likeTotalCount + 1,
         },
-      },
-      );
+      });
 
-          //!need to fix this
+      //!need to fix this
       await axios.put(`${backendUrl}/api/users/${userId}`, {
-        data : {
-           
-          postliked: postId,
-         },
-        
-        
-      },
-      
-      {  headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": `Bearer ${token}`
-
-      }, }
-      );
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        links: [postId],
+      });
     }
   };
 
@@ -85,13 +69,11 @@ export default function SinglePostLike({ postId, userId }) {
         _hover={{ bg: "white" }}
         _focus={{ bg: "white" }}
         onClick={handleLike}
-       
-        
       >
         {isLike ? <BsHeartFill color="red" /> : <BsHeart color="red" />}
       </button>
 
-      <Text fontSize={'md'}>{likeTotalCount} j'aime</Text>
+      <Text fontSize={"md"}>{likeTotalCount} j'aime</Text>
     </ButtonGroup>
   );
 }
