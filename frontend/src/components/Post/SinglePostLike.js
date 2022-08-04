@@ -26,9 +26,16 @@ export default function SinglePostLike({ postId, userId }) {
     });
 
     axios
-      .get(`${backendUrl}/api/likes?filters[postId][$eq]=${postId}populate=*`)
+      .get(
+        `${backendUrl}/api/likes?filters[postId][$eq]=${postId}&filters[userId][$eq]=${userId}`
+      )
       .then((getLikeData) => {
-        console.log(getLikeData.data.data);
+        if (getLikeData.data.data.length > 0) {
+          setIsLike(true);
+        } else {
+          setIsLike(false);
+        }
+        console.log(isLike);
       });
   }, [userId, postId]);
 
