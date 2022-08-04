@@ -14,26 +14,27 @@ export default function SinglePostLike({ postId, userId }) {
 
   const token = localStorage.getItem("jwt");
 
-  console.log(postId);
-
   useEffect(() => {
     axios
       .get(`${backendUrl}/api/likes?filters[postId][$eq]=${postId}`)
       .then((data) => {
         setLikeData(data.data);
-        console.log();
       });
 
     axios.get(`${backendUrl}/api/links/${postId}`).then((likes) => {
-      console.log(likes.data.data);
       setLikeTotalCount(likes.data.data.attributes.numberoflikes);
     });
+
+    axios
+      .get(`${backendUrl}/api/likes?filters[postId][$eq]=${postId}populate=*`)
+      .then((getLikeData) => {
+        console.log(getLikeData.data.data);
+      });
   }, [userId, postId]);
 
   const handleLike = async (e) => {
     e.preventDefault();
 
-    console.log("isLike", isLike);
     if (isLike) {
     } else {
       setLikeTotalCount(likeTotalCount + 1);
@@ -51,13 +52,16 @@ export default function SinglePostLike({ postId, userId }) {
       });
 
       //!need to fix this
-      await axios.put(`${backendUrl}/api/users/${userId}`, {
+      await axios.post(`${backendUrl}/api/likes/`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
-        links: [postId],
+        data: {
+          postid: postId,
+          userid: userId,
+        },
       });
     }
   };
