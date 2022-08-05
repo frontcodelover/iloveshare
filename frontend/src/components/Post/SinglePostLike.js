@@ -1,4 +1,4 @@
-import { Button, VStack, Text, ButtonGroup } from "@chakra-ui/react";
+import { Text, ButtonGroup } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import axios from "axios";
@@ -10,7 +10,6 @@ export default function SinglePostLike({ postId, userId }) {
   const [likeTotalCount, setLikeTotalCount] = useState(0);
   const [likeData, setLikeData] = useState([]);
   const [idOfLike, setIdOfLike] = useState(0);
-
 
   const token = localStorage.getItem("jwt");
 
@@ -36,15 +35,12 @@ export default function SinglePostLike({ postId, userId }) {
         } else {
           setIsLike(false);
         }
-        console.log(isLike);
       });
-  }, [userId, postId, backendUrl]);
+  }, [userId, postId]);
 
   const handleLike = async (e) => {
     e.preventDefault();
 
-
-    
     await axios.put(`${backendUrl}/api/links/${postId}`, {
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +51,7 @@ export default function SinglePostLike({ postId, userId }) {
         numberoflikes: likeTotalCount + 1,
       },
     });
-    
+
     await axios.post(`${backendUrl}/api/likes/`, {
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +65,6 @@ export default function SinglePostLike({ postId, userId }) {
     });
     setLikeTotalCount(likeTotalCount + 1);
     setIsLike(true);
-
   };
 
   const handleUnlike = async (e) => {
@@ -79,9 +74,8 @@ export default function SinglePostLike({ postId, userId }) {
         "Content-Type": "application/json",
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
-      }
-    }
-    );
+      },
+    });
     setLikeTotalCount(likeTotalCount - 1);
     await axios.put(`${backendUrl}/api/links/${postId}`, {
       headers: {
@@ -94,8 +88,7 @@ export default function SinglePostLike({ postId, userId }) {
       },
     });
     setIsLike(false);
-  }
-
+  };
 
   return (
     <ButtonGroup pl={2}>

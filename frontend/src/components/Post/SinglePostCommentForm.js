@@ -30,7 +30,6 @@ export default function SinglePostCommentForm({ postId, userId }) {
     });
   };
 
-  console.log(inputs);
 
   return (
     <>
