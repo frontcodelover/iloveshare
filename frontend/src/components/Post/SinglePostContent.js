@@ -9,6 +9,8 @@ import Emoji from "react-emoji-render";
 import { allLinks, populateAll } from "../../Services/ApiCalls/AllApiCalls";
 import EditSinglePost from "./EditSinglePost";
 import { useSelector } from "react-redux";
+import SinglePostSave from "./SinglePostSave";
+import SinglePostComment from "./SinglePostComment";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -79,6 +81,14 @@ export default function SinglePostContent() {
                 pr={0}
                 userId={currentUser?.user?.id}
                 postId={link.id}
+              />
+               <SinglePostSave
+                     userId={currentUser?.user?.id}
+                     postId={link.id}
+              />
+              <SinglePostComment
+                postId={link.id}
+                userId={currentUser?.user?.id}
               />
             </VStack>
           </Wrap>

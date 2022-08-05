@@ -9,8 +9,8 @@ export default function SinglePostLike({ postId, userId }) {
   const [isLike, setIsLike] = useState(false);
   const [likeTotalCount, setLikeTotalCount] = useState(0);
   const [likeData, setLikeData] = useState([]);
-  const [currentPostId, setCurrentPostId] = useState(postId);
-  const [currentUserId, setCurrentUserId] = useState(userId);
+  const [idOfLike, setIdOfLike] = useState(0);
+
 
   const token = localStorage.getItem("jwt");
 
@@ -32,46 +32,70 @@ export default function SinglePostLike({ postId, userId }) {
       .then((getLikeData) => {
         if (getLikeData.data.data.length > 0) {
           setIsLike(true);
+          setIdOfLike(getLikeData?.data?.data[0]?.id);
         } else {
           setIsLike(false);
         }
         console.log(isLike);
       });
-  }, [userId, postId]);
+  }, [userId, postId, backendUrl]);
 
   const handleLike = async (e) => {
     e.preventDefault();
 
-    if (isLike) {
-    } else {
-      setLikeTotalCount(likeTotalCount + 1);
-      setIsLike(true);
 
-      await axios.put(`${backendUrl}/api/links/${postId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          numberoflikes: likeTotalCount + 1,
-        },
-      });
+    
+    await axios.put(`${backendUrl}/api/links/${postId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        numberoflikes: likeTotalCount + 1,
+      },
+    });
+    
+    await axios.post(`${backendUrl}/api/likes/`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        postid: postId,
+        userid: userId,
+      },
+    });
+    setLikeTotalCount(likeTotalCount + 1);
+    setIsLike(true);
 
-      //!need to fix this
-      await axios.post(`${backendUrl}/api/likes/`, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          postid: postId,
-          userid: userId,
-        },
-      });
-    }
   };
+
+  const handleUnlike = async (e) => {
+    e.preventDefault();
+    await axios.delete(`${backendUrl}/api/likes/${idOfLike}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }
+    );
+    setLikeTotalCount(likeTotalCount - 1);
+    await axios.put(`${backendUrl}/api/links/${postId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        numberoflikes: likeTotalCount - 1,
+      },
+    });
+    setIsLike(false);
+  }
+
 
   return (
     <ButtonGroup pl={2}>
@@ -79,7 +103,7 @@ export default function SinglePostLike({ postId, userId }) {
         bg={"white"}
         _hover={{ bg: "white" }}
         _focus={{ bg: "white" }}
-        onClick={handleLike}
+        onClick={isLike ? handleUnlike : handleLike}
       >
         {isLike ? <BsHeartFill color="red" /> : <BsHeart color="red" />}
       </button>

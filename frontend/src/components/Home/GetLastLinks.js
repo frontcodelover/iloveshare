@@ -26,17 +26,17 @@ import Pagination from "../Design/Pagination";
 import SinglePostLike from "../Post/SinglePostLike";
 import SinglePostSave from "../Post/SinglePostSave";
 import { useSelector } from "react-redux";
+import NumberOfComments from "../Design/NumberOfComments";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
 export default function GetLastLinks() {
+  const currentUser = useSelector((state) => state.user);
   const [pageCountMax, setPageCountMax] = useState(0);
   const [nbArticles, setNbArticles] = useState(5);
   const [page, setPage] = useState(1);
 
-  const currentUser = useSelector((state) => state.user);
 
-  console.log(currentUser?.user?.id);
 
   const {
     data: lastLinks,
@@ -175,10 +175,17 @@ export default function GetLastLinks() {
                       postId={link.id}
                       />
                   </Box>
-                      {console.log(link.id)}
+                  <Box>
+                    <NumberOfComments 
+                      postId={link.id}
+                    />
+                  </Box>
                   <Spacer />
                   <Box pr={10}>
-                    <SinglePostSave />
+                    <SinglePostSave
+                     userId={currentUser?.user?.id}
+                     postId={link.id}
+                    />
                   </Box>
                 </Flex>
               </Stack>
