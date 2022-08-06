@@ -65,8 +65,7 @@ export default function SinglePostContent() {
 
             <VStack spacing={4} align="stretch" px={20} py={5}>
               <Text fontSize="xs" mt={1}>
-                Posted on {link?.attributes?.createdAt.split("T")[0]} / updated
-                on {link?.attributes?.updatedAt?.split("T")[0]}
+                Posté le {new Date(link?.attributes?.createdAt).toLocaleDateString('fr-FR')} / Mis à  jour le {new Date(link?.attributes?.updatedAt).toLocaleDateString('fr-FR')}
               </Text>
               <EditSinglePost
                 userid={link?.attributes?.userid}

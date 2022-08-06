@@ -10,7 +10,7 @@ const providersNames = ["google"];
 const LoginButton = (props) => (
   <Button colorScheme="blue" leftIcon={<FaGoogle />}>
     <a href={`${backendUrl}/api/connect/${props.providerName}`}>
-      Connect to {props.providerName}{" "}
+      Se connecter avec {props.providerName}{" "}
     </a>
   </Button>
 );
@@ -23,13 +23,13 @@ const LoginBtn = (props) => {
     <LogoutBtn />;
   } else {
     buttons = (
-      <ul style={{ listStyleType: "none" }}>
+      <>
         {providersNames.map((providerName, i) => (
-          <li key={providerName}>
+          <div key={providerName}>
             <LoginButton providerName={providerName} />
-          </li>
+          </div>
         ))}
-      </ul>
+      </>
     );
   }
 
@@ -38,14 +38,13 @@ const LoginBtn = (props) => {
   if (isLogged) {
     text = `Welcome ${localStorage.getItem("username")}, you are connected!`;
   } else {
-    text = "You are not connected. Please log in.";
+    text = "";
   }
 
   return (
-    <div>
-      <p>{text}</p>
+    <>   
       {buttons}
-    </div>
+    </>
   );
 };
 

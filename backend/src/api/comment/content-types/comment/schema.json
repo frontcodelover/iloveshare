@@ -15,11 +15,11 @@
     "postid": {
       "type": "integer"
     },
-    "userid": {
-      "type": "integer"
-    },
     "bodycomment": {
       "type": "text"
+    },
+    "userid": {
+      "type": "integer"
     }
   }
 }

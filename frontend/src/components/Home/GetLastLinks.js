@@ -128,7 +128,7 @@ export default function GetLastLinks() {
                             </Link>
 
                             <Text fontSize="xs" mt={0}>
-                              {link.attributes.createdAt.split("T")[0]}
+                              Posté le {new Date(link.attributes.createdAt).toLocaleDateString('fr-FR')}
                             </Text>
                           </Stack>
                         </>
@@ -141,7 +141,7 @@ export default function GetLastLinks() {
                 <Link to={`/post/${link?.attributes?.slug}`}>
                   <TitleBase
                     as="h2"
-                    size="xl"
+                    fontSize={"xl"}
                     fontWeight={"bold"}
                     title={link.attributes.name}
                   ></TitleBase>
