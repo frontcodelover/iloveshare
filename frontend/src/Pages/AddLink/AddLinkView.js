@@ -9,6 +9,11 @@ import {
   Select,
   Heading,
   Textarea,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -20,6 +25,8 @@ export default function AddLinkView() {
   console.log(user.id);
   const token = localStorage.getItem("jwt");
   const [inputs, setInputs] = useState({});
+  const [inputsImg, setInputsImg] = useState({});
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -28,15 +35,15 @@ export default function AddLinkView() {
   };
 
   const handleImgChange = (e) => {
-    setInputs({ featuredimg: e.target.files[0] });
+    setInputsImg({ featuredimg: e.target.files[0] });
   };
 
-  console.log(inputs.featuredimg);
+  console.log(inputsImg.featuredimg);
 
   const randomNumberForId = Math.floor(Math.random() * 100000);
 
   const formData = new FormData();
-  formData.append("files", inputs.featuredimg);
+  formData.append("files", inputsImg.featuredimg);
   formData.append("ref", "api::link.link");
   formData.append("refId", randomNumberForId);
   formData.append("field", "featuredimg");
@@ -67,8 +74,16 @@ export default function AddLinkView() {
         },
       },
       { headers: { Authorization: `Bearer ${token}` } }
+      )
+        .then(res => {
+          console.log(res);
+          setMessage("Post ajouté avec succès");
+        }).catch(err => {
+          console.log(err);
+          setMessage("Erreur lors de la publication");
+        }
     );
-    //! Need to fix this part
+
     await axios
       .post(
         `${backendUrl}/api/upload`,
@@ -196,6 +211,8 @@ export default function AddLinkView() {
             >
               Publier
             </Button>
+            <Alert status='info'>
+    <AlertIcon />{message}</Alert>
           </VStack>
         </FormControl>
       </form>

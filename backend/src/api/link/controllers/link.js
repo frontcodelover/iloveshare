@@ -12,26 +12,27 @@ module.exports = createCoreController('api::link.link', ({ strapi }) => ({
     
     const { data, meta } = await super.find(ctx);
     const linkId = data.map((link) => link.id);
-    //count all like for each post
-    const allPosts = await strapi
-      .db
-      .query('api::like.like')
-      .count({
-      where: {
-          postid: { $in: linkId },
-        }
-      });
-    console.log("nombre de like dif",allPosts);
 
-    // const data2 = data.map((link) => {
-    //   link.like = allPosts.find(
-    //     (like) => like.attributes.postid === link.id
-    //   );
-    //   link = {id:link.id, ...link.attributes, like:link.like};
-    //   return link;
-    // }
-    // );
+    const allPosts = await strapi.entityService.findMany('api::like.like', {
+      fields: ["postid"],
+      filters: { postid: { $in: linkId } },
+      populate: {
+        links: { count: true },
+      },
+  });
 
-    return { data , meta };
+    console.log(data)
+    // data.forEach(link => {
+    //   link.likes = allPosts.find(({ postid }) => postid === link.id)?.links?.count || 0;
+    // });
+
+    const data2 = data.map((link) => {
+      link.likes = allPosts.find(({ postid }) => postid === link.id)?.links?.count || 0;
+      return link;
+    });
+    
+    // console.log(data2)
+
+    return { data : data2, meta };
   },
 }));

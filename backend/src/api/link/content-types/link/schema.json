@@ -40,12 +40,6 @@
       "type": "uid",
       "targetField": "name"
     },
-    "picture": {
-      "displayName": "picture",
-      "type": "component",
-      "repeatable": true,
-      "component": "picture.picture"
-    },
     "tag": {
       "type": "component",
       "repeatable": true,
@@ -54,7 +48,8 @@
     "users_permissions_user": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user"
     },
     "admin": {
       "type": "boolean",
@@ -92,6 +87,12 @@
     "numberoflikes": {
       "type": "integer",
       "default": 1
+    },
+    "likes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::like.like",
+      "mappedBy": "link"
     }
   }
 }

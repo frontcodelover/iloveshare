@@ -125,6 +125,12 @@
     },
     "test": {
       "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::link.link",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
