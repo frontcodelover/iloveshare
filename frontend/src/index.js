@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { ChakraProvider, Container } from "@chakra-ui/react";
+import { ChakraProvider, Container, useColorModeValue } from "@chakra-ui/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SidebarWithHeader from "./components/Layout/Sidebar";
 import { Provider } from "react-redux";
 import store from "./Services/Redux/app/store";
 import Routing from "./Services/Routing/Routing";
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,8 +16,9 @@ root.render(
     <ChakraProvider>
       <React.StrictMode>
         <Provider store={store}>
-          <Container maxW="1280px" className="scroll">
-            <SidebarWithHeader>
+          <Container maxW="1280px" className="scroll" >
+              <App />
+            <SidebarWithHeader >
               <Routing />
             </SidebarWithHeader>
           </Container>

@@ -3,6 +3,6 @@ import React from 'react'
 
 export default function TitleBase({title}) {
   return (
-    <Heading as="h2" size={"xl"} fontWeight={'extraibold'} color={'black'}>{title}</Heading>
+    <Heading as="h2" size={"xl"} fontWeight={'extrabold'} color={'black'}>{title}</Heading>
   )
 }

@@ -49,6 +49,7 @@ const UserRemuseCard = () => {
   return (
     <>
       {userInfos?.map((user) => (
+      
         <Stack 
           p={4}
           borderRadius={10}
@@ -65,7 +66,8 @@ const UserRemuseCard = () => {
                   src={backendUrl + user.photo.url}
                   name={user.username}
                   size="md"
-                  borderRadius="md"
+                  borderRadius="full"
+                  
                 />
               </Box>
           </HStack>

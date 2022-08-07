@@ -141,8 +141,6 @@ export default function GetLastLinks() {
                 <Link to={`/post/${link?.attributes?.slug}`}>
                   <TitleBase
                     as="h2"
-                    fontSize={"xl"}
-                    fontWeight={"bold"}
                     title={link.attributes.name}
                   ></TitleBase>
                 </Link>

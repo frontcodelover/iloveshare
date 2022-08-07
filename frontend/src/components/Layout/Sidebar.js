@@ -34,6 +34,7 @@ import {
 } from "react-icons/fi";
 import LogoutBtn from "../User/LogoutBtn";
 
+
 const LinkItems = [
   { name: "Accueil", icon: FiHome, url: "/", color: "gray.900" },
   {
@@ -48,9 +49,11 @@ const LinkItems = [
 ];
 
 export default function SidebarWithHeader({ children }) {
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.50", "gray.900")}>
+
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -111,6 +114,7 @@ const NavItem = ({ icon, children, url, ...rest }) => {
   return (
     <Link style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
       <Flex
+        
         align="center"
         p="4"
         mx="4"
@@ -158,6 +162,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         <Flex
           ml={{ base: 0, md: 60 }}
           px={{ base: 4, md: 4 }}
+          
           height="20"
           alignItems="center"
           justifyContent={{ base: "space-between", md: "flex-end" }}
