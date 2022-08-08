@@ -8,6 +8,7 @@ const token = localStorage.getItem("jwt")
 export default function LikeTest({ userId, postId }) {
     const [like, setLike] = useState(false)
     const [myId, setMyId] = useState(0)
+    const [oldLikes, setOldLikes] = useState([])
 
 
     const random = Math.floor(Math.random() * 100)
@@ -15,7 +16,16 @@ export default function LikeTest({ userId, postId }) {
 
     
     const handleLike = async (e) => {
-        e.preventDefault()
+      e.preventDefault()
+      await axios.get(`${backendUrl}/api/links/${postId}?populate=*`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          }
+      }).then(res => {
+        setOldLikes(res.data.likes)
+          
+      })
         setLike(!like)
         await axios.post(`${backendUrl}/api/likes/`, {
             headers: {
@@ -29,6 +39,7 @@ export default function LikeTest({ userId, postId }) {
             },
             
         });   
+
         await axios.put(`${backendUrl}/api/links/${postId}?populate=*`, {
             headers: {
                 "Content-Type": "application/json",
