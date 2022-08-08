@@ -11,6 +11,7 @@ import EditSinglePost from "./EditSinglePost";
 import { useSelector } from "react-redux";
 import SinglePostSave from "./SinglePostSave";
 import SinglePostComment from "./SinglePostComment";
+import LikeTest from "./LikeTest";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -89,6 +90,10 @@ export default function SinglePostContent() {
                 postId={link.id}
                 userId={currentUser?.user?.id}
               />
+              <LikeTest
+                  userId={currentUser?.user?.id}
+                  postId={link.id}
+                />
             </VStack>
           </Wrap>
         ))}
