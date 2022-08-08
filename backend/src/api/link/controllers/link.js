@@ -10,59 +10,65 @@ module.exports = createCoreController("api::link.link", ({ strapi }) => ({
   // Method 2: Wrapping a core action (leaves core logic in place)
   async find(ctx) {
     const { data, meta } = await super.find(ctx);
-    const linkId = data.map((link) => link.id);
+    const displayedPostIds = data.map((link) => link.id);
 
-    const allPosts = await strapi.entityService.findMany("api::link.link", {
-      fields: ["id"],
-      filters: { id: { $in: linkId } },
+    const knex = strapi.db.connection;
 
-      populate: {
-        likes: {
-          count: true,
-        },
-      },
-    });
+    const result = await knex('likes')
+      .select(knex.raw('count(*) as total_likes, postid'))
+      .whereIn('postid', displayedPostIds)
+      .groupBy('postid');
+
+    const myUserId = ctx.request.query.userId || 0
+
+    const resultForMyUser = await knex('likes')
+      .select(knex.raw('postid, id'))
+      .where('userid', myUserId)
+      .whereIn('postid', displayedPostIds);
 
     data.forEach((link) => {
-      link.likes = allPosts.find(({ id }) => id === link.id)?.likes?.count || 0;
+      link.likes = result.find(({ postid }) => postid === link.id)?.total_likes || 0;
+
+      const myLike = resultForMyUser.find(({postid}) => {
+        return postid === link.id
+      })
+      link.userHasLike = myLike ? true : false
+      link.userHasLikeId = myLike ? myLike.id : null
     });
 
-    // await strapi.entityService.update("api::link.link", {
-    //   data: {
-
-    //       likes: [...allPosts.likes.map(({ id }) => id), ...likes],
-
-    //   },
-    // });
 
     return { data, meta };
   },
 
-  async update(ctx) {
-    const { data, meta } = await super.find(ctx);
-    const linkId = data.map((link) => link.id);
+  async findOne(ctx) {
+    const { data, meta } = await super.findOne(ctx);
+    const displayedPostIds = [data.id]
 
-    const allPosts = await strapi.entityService.findMany("api::link.link", {
-      fields: ["id"],
-      filters: { id: { $in: linkId } },
+    const knex = strapi.db.connection;
 
-      populate: {
-        likes: {
-          count: true,
-        },
-      },
-    });
+    const result = await knex('likes')
+      .select(knex.raw('count(*) as total_likes, postid'))
+      .whereIn('postid', displayedPostIds)
+      .groupBy('postid');
 
-    data.forEach((link) => {
-      link.likes = allPosts.find(({ id }) => id === link.id)?.likes?.count || 0;
-    });
+    const myUserId = ctx.request.query.userId || 0
 
-    await strapi.entityService.update("api::link.link", {
-      data: {
-        likes: [...allPosts.likes.map(({ id }) => id), ...likes],
-      },
-    });
+    const resultForMyUser = await knex('likes')
+      .select(knex.raw('postid, id'))
+      .where('userid', myUserId)
+      .whereIn('postid', displayedPostIds);
 
-    return { data, meta };
+    const link = data
+    link.likes = result.find(({ postid }) => postid === link.id)?.total_likes || 0;
+
+    const myLike = resultForMyUser.find(({postid}) => {
+      return postid === link.id
+    })
+
+    link.userHasLike = myLike ? true : false
+    link.userHasLikeId = myLike ? myLike.id : null
+
+    return { data: link, meta };
   },
+
 }));

@@ -37,14 +37,14 @@ export default function GetLastLinks() {
   const [nbArticles, setNbArticles] = useState(5);
   const [page, setPage] = useState(1);
 
-
+  const userId = localStorage.getItem("id");
 
   const {
     data: lastLinks,
     isLoading,
     error,
   } = useFetchData(
-    `${allLinks}${populateAll}&pagination[pageSize]=${nbArticles}&pagination[page]=${page}&sort=createdAt:desc`
+    `${allLinks}${populateAll}&pagination[pageSize]=${nbArticles}&pagination[page]=${page}&sort=createdAt:desc&userId=${userId}`
   );
 
   const userIdForPost = lastLinks?.data?.map((link) => link.attributes.userid);
@@ -172,6 +172,7 @@ export default function GetLastLinks() {
                     <SinglePostLike
                       userId={currentUser?.user?.id}
                       postId={link.id}
+                      link={link}
                       />
                   </Box>
                   <Box>

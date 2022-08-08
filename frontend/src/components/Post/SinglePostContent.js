@@ -21,11 +21,13 @@ export default function SinglePostContent() {
   const { slug } = useParams();
   const [bodyEmoji, setBodyEmoji] = useState("");
 
+  const myWeirduserId = localStorage.getItem("id");
+
   const {
     data: singlePostData,
     isLoading,
     error,
-  } = useFetchData(`${allLinks}filters[slug][$eq]=${slug}${populateAll}`);
+  } = useFetchData(`${allLinks}filters[slug][$eq]=${slug}${populateAll}&userId=${myWeirduserId}`);
 
   useEffect(() => {
     if (!isLoading) {
@@ -81,6 +83,7 @@ export default function SinglePostContent() {
                 pr={0}
                 userId={currentUser?.user?.id}
                 postId={link.id}
+                link={link}
               />
                <SinglePostSave
                      userId={currentUser?.user?.id}
