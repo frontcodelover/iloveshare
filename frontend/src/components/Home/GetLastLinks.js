@@ -27,6 +27,7 @@ import SinglePostLike from "../Post/SinglePostLike";
 import SinglePostSave from "../Post/SinglePostSave";
 import { useSelector } from "react-redux";
 import NumberOfComments from "../Design/NumberOfComments";
+import LikeTest from "../Post/LikeTest";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -53,7 +54,7 @@ export default function GetLastLinks() {
   useEffect(() => {
     if (!isLoading) {
       function getPagination() {
-        setPageCountMax(lastLinks.meta.pagination.pageCount);
+        setPageCountMax(lastLinks?.meta?.pagination.pageCount);
       }
       getPagination();
     }
@@ -83,7 +84,7 @@ export default function GetLastLinks() {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        lastLinks?.data.map((link) => {
+        lastLinks?.data?.map((link) => {
           return (
             <Stack
               key={link.id}
@@ -186,6 +187,10 @@ export default function GetLastLinks() {
                     />
                   </Box>
                 </Flex>
+                <LikeTest
+                  userId={currentUser?.user?.id}
+                  postId={link.id}
+                />
               </Stack>
             </Stack>
           );

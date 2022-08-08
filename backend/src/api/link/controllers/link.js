@@ -13,26 +13,19 @@ module.exports = createCoreController('api::link.link', ({ strapi }) => ({
     const { data, meta } = await super.find(ctx);
     const linkId = data.map((link) => link.id);
 
-    const allPosts = await strapi.entityService.findMany('api::like.like', {
-      fields: ["postid"],
-      filters: { postid: { $in: linkId } },
+    const allPosts = await strapi.entityService.findMany('api::link.link', {
+      fields: ["id"],
+      filters: { id: { $in: linkId } },
       populate: {
-        links: { count: true },
+        likes: { count: true },
       },
   });
+    console.log(allPosts);
 
-    console.log(data)
-    // data.forEach(link => {
-    //   link.likes = allPosts.find(({ postid }) => postid === link.id)?.links?.count || 0;
-    // });
-
-    const data2 = data.map((link) => {
-      link.likes = allPosts.find(({ postid }) => postid === link.id)?.links?.count || 0;
-      return link;
+    data.forEach(link => {
+      link.likes = allPosts.find(({ id }) => id === link.id)?.likes?.count || 0;
     });
-    
-    // console.log(data2)
 
-    return { data : data2, meta };
+    return { data, meta };
   },
 }));
