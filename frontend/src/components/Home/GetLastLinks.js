@@ -9,7 +9,6 @@ import {
   WrapItem,
   Avatar,
   Image,
-  Button,
   ButtonGroup,
   Flex,
   Spacer,
@@ -27,7 +26,8 @@ import SinglePostLike from "../Post/SinglePostLike";
 import SinglePostSave from "../Post/SinglePostSave";
 import { useSelector } from "react-redux";
 import NumberOfComments from "../Design/NumberOfComments";
-import LikeTest from "../Post/LikeTest";
+import Cardindex from "../Post/Cards/CardIndex";
+
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -74,6 +74,10 @@ export default function GetLastLinks() {
 
   return (
     <>
+      <Flex spacing={2}>
+      <Cardindex />
+      <Cardindex />
+      </Flex>
       <Pagination
         page={page}
         pageCountMax={pageCountMax}
@@ -188,10 +192,7 @@ export default function GetLastLinks() {
                     />
                   </Box>
                 </Flex>
-                <LikeTest
-                  userId={currentUser?.user?.id}
-                  postId={link.id}
-                />
+        
               </Stack>
             </Stack>
           );

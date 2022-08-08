@@ -35,6 +35,8 @@ import {
 import LogoutBtn from "../User/LogoutBtn";
 
 
+
+
 const LinkItems = [
   { name: "Accueil", icon: FiHome, url: "/", color: "gray.900" },
   {
@@ -49,6 +51,7 @@ const LinkItems = [
 ];
 
 export default function SidebarWithHeader({ children }) {
+
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -83,12 +86,12 @@ export default function SidebarWithHeader({ children }) {
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
-      transition="3s ease"
-      bg={useColorModeValue("gray.50", "gray.900")}
-      w={{ base: "full", md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}
+    transition="3s ease"
+    bg={useColorModeValue("gray.50", "gray.900")}
+    w={{ base: "full", md: 60 }}
+    pos="fixed"
+    h="full"
+    {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Link as={ReachLink} to="/">
@@ -129,14 +132,14 @@ const NavItem = ({ icon, children, url, ...rest }) => {
       >
         {icon && (
           <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: "white",
-            }}
-            as={icon}
+          mr="4"
+          fontSize="16"
+          _groupHover={{
+            color: "white",
+          }}
+          as={icon}
           />
-        )}
+          )}
         {children}
       </Flex>
     </Link>
@@ -147,7 +150,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
   const { user } = useSelector((state) => state.user);
   const userId = localStorage.getItem("id");
   const [isUser, setIsUser] = useState(false);
-
+  
   useEffect(() => {
     if (user) {
       setIsUser(true);
@@ -155,18 +158,18 @@ const MobileNav = ({ onOpen, ...rest }) => {
       setIsUser(false);
     }
   }, [user]);
-
+  
   return (
     <>
       {user && isUser ? (
         <Flex
-          ml={{ base: 0, md: 60 }}
-          px={{ base: 4, md: 4 }}
-          
-          height="20"
-          alignItems="center"
-          justifyContent={{ base: "space-between", md: "flex-end" }}
-          {...rest}
+        ml={{ base: 0, md: 60 }}
+        px={{ base: 4, md: 4 }}
+        
+        height="20"
+        alignItems="center"
+        justifyContent={{ base: "space-between", md: "flex-end" }}
+        {...rest}
         >
           <IconButton
             display={{ base: "flex", md: "none" }}
@@ -247,12 +250,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
         </Flex>
       ) : (
         <Flex
-          ml={{ base: 0, md: 60 }}
-          px={{ base: 4, md: 4 }}
-          height="20"
-          alignItems="center"
-          justifyContent={{ base: "space-between", md: "flex-end" }}
-          {...rest}
+        ml={{ base: 0, md: 60 }}
+        px={{ base: 4, md: 4 }}
+        height="20"
+        alignItems="center"
+        justifyContent={{ base: "space-between", md: "flex-end" }}
+        {...rest}
         >
           <IconButton
             display={{ base: "flex", md: "none" }}

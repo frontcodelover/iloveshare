@@ -9,18 +9,21 @@ import {
   Select,
   Heading,
   Textarea,
-  Text,
+  Collapse,
   Alert,
   AlertIcon,
-  AlertTitle,
-  AlertDescription,
+  Box,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Head from "next/head";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
 export default function AddLinkView() {
+  const { isOpen, onToggle } = useDisclosure();
   const { user } = useSelector((state) => state.user);
   console.log(user.id);
   const token = localStorage.getItem("jwt");
@@ -53,36 +56,47 @@ export default function AddLinkView() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(
-      `${backendUrl}/api/links`,
-      {
-        data: {
-          userid: user.id,
-          slug: inputs.name.replace(/\W+/g, "-") + "-" + randomNumberForSlug,
-          name: inputs.name,
-          url: inputs.url,
-          body: inputs.body,
-          type: inputs.type,
-          nsfw: inputs.nsfw,
-          public: inputs.public,
-          id: randomNumberForId,
-          tag: [
-            {
-              name: inputs.tag,
-            },
-          ],
+    await axios
+      .post(
+        `${backendUrl}/api/links`,
+        {
+          data: {
+            userid: user.id,
+            slug: inputs.name?.replace(/\W+/g, "-") + "-" + randomNumberForSlug,
+            name: inputs.name,
+            url: inputs.url,
+            body: inputs.body,
+            type: inputs.type,
+            nsfw: inputs.nsfw,
+            public: inputs.public,
+            id: randomNumberForId,
+            tag: [
+              {
+                name: inputs.tag,
+              },
+            ],
+          },
         },
-      },
-      { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       )
-        .then(res => {
-          console.log(res);
-          setMessage("Post ajouté avec succès");
-        }).catch(err => {
-          console.log(err);
-          setMessage("Erreur lors de la publication");
-        }
-    );
+      .then((res) => {
+        console.log(res);
+        setMessage(
+          <Alert status="success">
+            <AlertIcon />
+            Partage ajouté avec succés !
+          </Alert>
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage(
+          <Alert status="error">
+            <AlertIcon />
+            Erreur lors de la publication. Veuillez vérifier tous les champs.
+          </Alert>
+        );
+      });
 
     await axios
       .post(
@@ -111,23 +125,41 @@ export default function AddLinkView() {
           <Heading as="h1" size="xl" pb={6}>
             Ajouter un article
           </Heading>
-          <VStack spacing={2} align="stretch" w="75%">
-            <FormLabel>URL</FormLabel>
-            <Input
-              bg="white"
-              type="text"
-              name="url"
-              placeholder="Add your URL"
-              value={inputs.url || ""}
-              onChange={handleChange}
-            />
-            <FormLabel>Titre</FormLabel>
+          <Button onClick={onToggle}>Besoin d'aide ?</Button>
+          <Collapse in={isOpen} animateOpacity>
+            <Box
+              p="40px"
+              color="white"
+              mt="4"
+              bg="teal.500"
+              rounded="md"
+              shadow="md"
+            >
+              <Text fontSize="sm" fontWeight="600">
+                Pour ajouter un partage il vous suffit de remplir les champs
+                ci-dessous. L'url doit être de la forme http://www.example.com
+                Si le lien ne respect pas la charte du site il pourra être
+                refusé par l'quipe de modération.
+              </Text>
+            </Box>
+          </Collapse>
+          <VStack spacing={2} align="stretch" w="75%" mt="4">
+            <FormLabel fontSize="xl">Titre de votre partage</FormLabel>
             <Input
               bg="white"
               type="text"
               name="name"
-              placeholder="Name"
+              placeholder="Indiquez le titre de votre partage"
               value={inputs.name || ""}
+              onChange={handleChange}
+            />
+            <FormLabel>URL du site</FormLabel>
+            <Input
+              bg="white"
+              type="text"
+              name="url"
+              placeholder="Ajoutez l'url de votre partage"
+              value={inputs.url || ""}
               onChange={handleChange}
             />
             <FormLabel>Tag</FormLabel>
@@ -135,7 +167,7 @@ export default function AddLinkView() {
               bg="white"
               type="text"
               name="tag"
-              placeholder="Tag"
+              placeholder="Indiquez des tags"
               value={inputs.tag || ""}
               onChange={handleChange}
             />
@@ -169,7 +201,7 @@ export default function AddLinkView() {
               value={inputs.body || ""}
               onChange={handleChange}
             />
-            <FormLabel>Type</FormLabel>
+            <FormLabel>Quel est son type</FormLabel>
             <Select
               placeholder="Sélectionnez un type"
               name="type"
@@ -211,8 +243,7 @@ export default function AddLinkView() {
             >
               Publier
             </Button>
-            <Alert status='info'>
-    <AlertIcon />{message}</Alert>
+            {message}
           </VStack>
         </FormControl>
       </form>
