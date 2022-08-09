@@ -11,17 +11,17 @@ import {
 export default function CardIndex() {
   return (
     
+    
       <Box
-        maxW={'50%'}
         w={'full'}
         bg={'white'}
         boxShadow={'2xl'}
         rounded={'md'}
-      p={6}
-      m={5}
+        p={6}
         overflow={'hidden'}>
         <Box
-          h={'280px'}
+          // h={'auto'}
+          maxH={'500px'}
           bg={'gray.100'}
           mt={-6}
           mx={-6}
@@ -31,7 +31,11 @@ export default function CardIndex() {
             src={
               'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
             }
-            layout={'fill'}
+            // layout={'cover'}
+            // h={'auto'}
+            maxH={'400px'}
+            objectFit="cover"
+            width="100%"
           />
         </Box>
         <Stack>

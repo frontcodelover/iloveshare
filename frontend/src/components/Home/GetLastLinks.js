@@ -13,6 +13,7 @@ import {
   Flex,
   Spacer,
   Box,
+  Grid,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import TitleBase from "../Design/TitleBase";
@@ -27,7 +28,6 @@ import SinglePostSave from "../Post/SinglePostSave";
 import { useSelector } from "react-redux";
 import NumberOfComments from "../Design/NumberOfComments";
 import Cardindex from "../Post/Cards/CardIndex";
-
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -74,10 +74,10 @@ export default function GetLastLinks() {
 
   return (
     <>
-      <Flex spacing={2}>
-      <Cardindex />
-      <Cardindex />
-      </Flex>
+      <Grid templateColumns="repeat(1, 1fr)" gap={6}>
+        <Cardindex />
+        <Cardindex />
+      </Grid>
       <Pagination
         page={page}
         pageCountMax={pageCountMax}
@@ -133,7 +133,10 @@ export default function GetLastLinks() {
                             </Link>
 
                             <Text fontSize="xs" mt={0}>
-                              Posté le {new Date(link.attributes.createdAt).toLocaleDateString('fr-FR')}
+                              Posté le{" "}
+                              {new Date(
+                                link.attributes.createdAt
+                              ).toLocaleDateString("fr-FR")}
                             </Text>
                           </Stack>
                         </>
@@ -144,10 +147,7 @@ export default function GetLastLinks() {
               </Wrap>
               <Stack pl={10}>
                 <Link to={`/post/${link?.attributes?.slug}`}>
-                  <TitleBase
-                    as="h2"
-                    title={link.attributes.name}
-                  ></TitleBase>
+                  <TitleBase as="h2" title={link.attributes.name}></TitleBase>
                 </Link>
 
                 <p>
@@ -177,22 +177,19 @@ export default function GetLastLinks() {
                       userId={currentUser?.user?.id}
                       postId={link.id}
                       link={link}
-                      />
+                    />
                   </Box>
                   <Box>
-                    <NumberOfComments 
-                      postId={link.id}
-                    />
+                    <NumberOfComments postId={link.id} />
                   </Box>
                   <Spacer />
                   <Box pr={10}>
                     <SinglePostSave
-                     userId={currentUser?.user?.id}
-                     postId={link.id}
+                      userId={currentUser?.user?.id}
+                      postId={link.id}
                     />
                   </Box>
                 </Flex>
-        
               </Stack>
             </Stack>
           );

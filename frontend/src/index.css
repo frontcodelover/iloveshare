@@ -68,3 +68,14 @@ background: #f8fafc;
   display: inline-block;
 }
 
+.heartIcon {
+  color: rgb(252, 110, 110);
+  font-size: 1em;
+  margin: 5px;
+  transition: 0.3s;
+}
+
+.heartIcon:hover {
+  color: red;
+}
+

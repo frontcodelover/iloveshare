@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import Head from "next/head";
+
 
 const backendUrl = process.env.REACT_APP_API_URL;
 

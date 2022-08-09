@@ -25,7 +25,7 @@ import {
   
   export default function gridListWithCTA() {
     return (
-        <Box p={4}>
+        <Box p={10} bg={'white'} mt={'4'} mb={'4'} border={'1px'} rounded={'xl'} borderColor={'gray.200'}>
         <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
           <Heading fontSize={'3xl'}>Partagez vos meilleurs liens</Heading>
           <Text color={'gray.600'} fontSize={'xl'}>
