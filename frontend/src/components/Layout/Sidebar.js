@@ -45,7 +45,7 @@ const LinkItems = [
     url: "/trending",
     color: "gray.900",
   },
-  { name: "Découvrir", icon: FiCompass, url: "/explore", color: "gray.900" },
+  { name: "Découvrir", icon: FiCompass, url: "/tags", color: "gray.900" },
   { name: "Favoris", icon: FiStar, url: "/favourites", color: "gray.900" },
   { name: "Profil", icon: FiSettings, url: "/dashboard/", color: "gray.900" },
 ];
