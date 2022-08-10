@@ -88,11 +88,10 @@
       "type": "integer",
       "default": 1
     },
-    "likes": {
+    "tagfromusers": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::like.like",
-      "mappedBy": "link"
+      "target": "api::tagfromuser.tagfromuser"
     }
   }
 }

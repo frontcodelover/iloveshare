@@ -1,6 +1,9 @@
 import { Text, ButtonGroup } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { BsHeart, BsHeartFill, BsArrowUpRight } from "react-icons/bs";
+import {AiOutlineThunderbolt, AiFillThunderbolt} from "react-icons/ai";
+import {IoArrowUpOutline} from "react-icons/io";
+import {ImArrowUp2} from "react-icons/im";
 import axios from "axios";
 
 const backendUrl = process.env.REACT_APP_API_URL;
@@ -58,6 +61,15 @@ export default function SinglePostLike({ postId, userId, link }) {
     setIsLike(false);
   };
 
+  function colorSet() {
+    if (isLike) {
+      return "#48bb78";
+    } else {
+      return "black"
+    }
+  }
+
+
   return (
     <ButtonGroup pl={2}>
       <button
@@ -66,10 +78,10 @@ export default function SinglePostLike({ postId, userId, link }) {
         _focus={{ bg: "white" }}
         onClick={myWeirduserId ? (isLike ? handleUnlike : handleLike) : null}
       >
-        {isLike ? <BsHeartFill color="red" /> : <BsHeart color="red" />}
+        {isLike ? <ImArrowUp2 color={'#48bb78'} /> : <ImArrowUp2 color="black" />}
       </button>
-
-      <Text fontSize={"md"}>{likeTotalCount} j'aime</Text>
+      <Text fontSize="md" mx={'0!important'} color={colorSet} fontWeight={500}>+{likeTotalCount}</Text>
+      
     </ButtonGroup>
   );
 }

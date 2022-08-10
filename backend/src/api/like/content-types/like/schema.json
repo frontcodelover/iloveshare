@@ -17,12 +17,6 @@
     },
     "postid": {
       "type": "integer"
-    },
-    "link": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::link.link",
-      "inversedBy": "likes"
     }
   }
 }

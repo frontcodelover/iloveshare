@@ -58,8 +58,9 @@ export default function NavBar({ children }) {
               px={4}
               py={2}
               rounded={"md"}
+              
             >
-               <Link as={ReachLink} to="/">
+               <Link as={ReachLink} to="/" _hover={{textDecoration: "none"}}>
 
               <Flex>
                 I <BsHeartFill className="heartIcon" /> Share

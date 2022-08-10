@@ -38,10 +38,10 @@ export default function SidebarLeft({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
 
-    <Box minH="50vh" bg={useColorModeValue('gray.50', 'gray.900')}>
+    <Box bg={useColorModeValue('gray.50', 'gray.900')}>
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
+        display={{ base: 'none', md: 'none', lg: 'block' }}
       />
         {/* <SidebarRight /> */}
       <Drawer
@@ -70,17 +70,18 @@ const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <>
     <Box
+      
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.100', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
-      pos="fixed"
+      w={'auto'}
       h="auto"
       mt={8}
       py={4}
       rounded="xl"
       border={'1px'}
       borderColor={'gray.200'}
+      
       {...rest}>
 
       {LinkItems.map((link) => (
