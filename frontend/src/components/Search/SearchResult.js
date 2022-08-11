@@ -16,7 +16,7 @@ export default function SearchResult({ query }) {
         const response = await fetch(
           `${backendUrl}/api/links?filters[name][$contains]=${query}&populate=*`
         );
-        console.log(response);
+
         if (response.ok) {
           if (!ignore) {
             const fetchedData = await response.json();
@@ -39,7 +39,7 @@ export default function SearchResult({ query }) {
     };
   }, [query]);
 
-  console.log(data);
+
 
   return (
     <>

@@ -11,6 +11,7 @@ export default function SinglePostLike({ postId, userId }) {
   const token = localStorage.getItem("jwt");
 
   useEffect(() => {
+    if (token) {
     axios
       .get(
         `${backendUrl}/api/saves?filters[postid][$eq]=${postId}&filters[userid][$eq]=${userId}`,
@@ -29,6 +30,7 @@ export default function SinglePostLike({ postId, userId }) {
           setIsSave(false);
         }
       });
+    }
   }, [userId, postId, token]);
 
   const handleSave = async (e) => {

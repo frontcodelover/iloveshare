@@ -2,7 +2,6 @@ import React from "react";
 import {
   Box,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   useDisclosure,
@@ -17,6 +16,8 @@ import {
   FiStar,
   FiSettings,
 } from "react-icons/fi";
+import {Link} from "react-router-dom";
+
 
 const LinkItems = [
   { name: "Home", icon: FiHome },
@@ -84,7 +85,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Text>
       <Button mt={4} colorScheme={"green"}>
         <Link
-          href="/signup"
+          to="/signup"
           style={{ textDecoration: "none" }}
           _focus={{ boxShadow: "none" }}
         >

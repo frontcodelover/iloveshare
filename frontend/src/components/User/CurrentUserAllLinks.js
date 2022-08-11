@@ -12,7 +12,7 @@ export default function CurrentUserAllLinks() {
   const { userInfos } = useFetchDataForUser(
     `${backendUrl}/api/links?filters[userid][$eq]=${user?.id || userId}`
   );
-  console.log({userInfos})
+
 
   return (
     <>

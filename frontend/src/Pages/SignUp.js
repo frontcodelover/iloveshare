@@ -16,7 +16,7 @@ export default function SignUp() {
 
   const token = localStorage.getItem("jwt");
 
-  console.log("token", token);
+
   useEffect(() => {
     if (token) {
       setTimeout(() => history(`/dashboard/`), 3000); // Redirect to homepage after 3 sec
@@ -28,7 +28,7 @@ export default function SignUp() {
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <Text>Loading...</Text>
       ) : (
         <>
           <Flex minH={"auto"} bg={"gray.50"}>

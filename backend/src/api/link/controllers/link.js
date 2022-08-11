@@ -80,7 +80,7 @@ module.exports = createCoreController("api::link.link", ({ strapi }) => ({
         select: ["id", "email", "username"],
         where: { id: { $in: userIds } },
       });
-    console.log(allUsers);
+
 
     const data2 = data.map((link) => {
       link.user = allUsers.find(

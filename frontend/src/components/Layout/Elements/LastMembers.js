@@ -10,7 +10,7 @@ export default function LastMembers() {
     `${process.env.REACT_APP_API_URL}/api/users?populate=*&sort=createdAt:desc&limit=5`
   ); // fetch data from api
 
-  console.log(data);
+
 
   return (
     <Flex

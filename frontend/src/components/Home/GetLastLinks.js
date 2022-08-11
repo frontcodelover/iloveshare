@@ -51,7 +51,7 @@ export default function GetLastLinks() {
         setPageCountMax(lastLinks?.meta?.pagination.pageCount);
       }
 
-      console.log(getPagination());
+
     }
   }, [lastLinks, isLoading]);
 
@@ -63,8 +63,6 @@ export default function GetLastLinks() {
       return minutes + " min de lecture";
     }
   }
-
-  // console.log(countTimeReading("Hello world"));
 
   const handleNext = () => {
     if (page < pageCountMax) {
@@ -147,9 +145,11 @@ export default function GetLastLinks() {
                           src={backendUrl + user?.photo?.url}
                         />
                         <Stack direction={"column"} spacing={0} fontSize={"sm"}>
+                            <Text fontWeight={600}>
                           <Link to={`/profile/${user.username}`}>
-                            <Text fontWeight={600}>{user?.username}</Text>
+                              {user?.username}
                           </Link>
+                            </Text>
                           <Text color={"gray.500"}>
                             {new Date(
                               link.attributes.createdAt

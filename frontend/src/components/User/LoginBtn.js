@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { FaGoogle } from "react-icons/fa";
 import LogoutBtn from "./LogoutBtn";
+import { Link } from "react-router-dom";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 

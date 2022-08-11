@@ -70,7 +70,7 @@ export default function CardLink({
           ></TitleBase>
         </Link>
         <Text mt={4}>{url}</Text>
-        <p>
+        <>
           <Tag
             mr={2}
             mt={5}
@@ -82,11 +82,11 @@ export default function CardLink({
             borderColor="transparent"
             _hover={{ bg: "gray.50", borderColor: "gray.600" }}
           >
-            <p>
+            <>
               <Link to={`/t/${tagName}`}>#{tagName}</Link>
-            </p>
+            </>
           </Tag>
-        </p>
+        </>
       </Stack>
     </Stack>
   );

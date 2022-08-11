@@ -51,6 +51,7 @@ const UserRemuseCard = () => {
       {userInfos?.map((user) => (
       
         <Stack 
+          key={user.id}
           p={4}
           borderRadius={10}
           borderColor="gray.200"
@@ -63,7 +64,7 @@ const UserRemuseCard = () => {
           <HStack justifyContent="space-between" alignItems="baseline">
               <Box pos="relative">
                 <Avatar
-                  src={backendUrl + user.photo.url}
+                  src={backendUrl + user?.photo?.url}
                   name={user.username}
                   size="md"
                   borderRadius="full"

@@ -22,11 +22,11 @@ export default function PostByTags() {
             borderRadius={10}
           >
             <Heading fontSize="xl">{link.attributes.name}</Heading>
-            <p>{link.id}</p>
+            <Text>{link.id}</Text>
             <Text mt={4}>{link.attributes.url}</Text>
-            <p>{link.attributes.type}</p>
+            <Text>{link.attributes.type}</Text>
 
-            <p>
+            <Text>
               {link.attributes.tag.map((tags) => {
                 return (
                   <Tag mr={2} mt={5}>
@@ -34,7 +34,7 @@ export default function PostByTags() {
                   </Tag>
                 );
               })}
-            </p>
+            </Text>
           </Stack>
         ))
       )}

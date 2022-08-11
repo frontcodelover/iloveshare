@@ -24,7 +24,6 @@ const backendUrl = process.env.REACT_APP_API_URL;
 export default function AddLinkView() {
   const { isOpen, onToggle } = useDisclosure();
   const { user } = useSelector((state) => state.user);
-  console.log(user.id);
   const token = localStorage.getItem("jwt");
   const [inputs, setInputs] = useState({});
   const [inputsImg, setInputsImg] = useState({});
@@ -40,8 +39,6 @@ export default function AddLinkView() {
     setInputsImg({ featuredimg: e.target.files[0] });
   };
 
-  console.log(inputsImg.featuredimg);
-
   const randomNumberForId = Math.floor(Math.random() * 100000);
 
   const formData = new FormData();
@@ -51,7 +48,6 @@ export default function AddLinkView() {
   formData.append("field", "featuredimg");
 
   const randomNumberForSlug = Math.floor(Math.random() * 10000);
-  console.log(randomNumberForSlug);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

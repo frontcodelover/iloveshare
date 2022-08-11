@@ -27,7 +27,7 @@ export default function Tags() {
         Les tags
       </Heading>
       {isLoading ? (
-        <p>Loading...</p>
+        <Text>Loading...</Text>
       ) : (
         <>
           <Grid

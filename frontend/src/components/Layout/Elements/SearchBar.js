@@ -9,11 +9,11 @@ export default function SearchBar() {
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    console.log(value);
+
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(value);
+
     navigate(`/search/${value}`);
   };
 

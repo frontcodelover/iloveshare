@@ -18,7 +18,6 @@ export default function SinglePostComment({ postId, userId }) {
         `${backendUrl}/api/comment/getCommentWithUser/?filters[postid][$eq]=${postId}`
       )
       .then((data) => {
-        console.log(data.data.data);
         if (data.data.data.length > 0) {
           setComment(data.data.data);
           setIsCommented(true);
@@ -49,12 +48,12 @@ export default function SinglePostComment({ postId, userId }) {
           );
         })
       ) : (
-        <p>Aucun commentaire</p>
+        <Text>Aucun commentaire</Text>
       )}
       {userId ? (
         <SinglePostCommentForm postId={postId} userId={userId} />
       ) : (
-        <p>Vous devez être connecté pour commenter</p>
+        <Text>Vous devez être connecté pour commenter</Text>
       )}
     </>
   );
