@@ -21,6 +21,9 @@
     "slug": {
       "type": "uid",
       "targetField": "name"
+    },
+    "color": {
+      "type": "string"
     }
   }
 }

@@ -8,7 +8,7 @@ import {
   Image
 } from '@chakra-ui/react';
 
-export default function CardIndex() {
+export default function CardIndex({key, name, src,}) {
   return (
     
     

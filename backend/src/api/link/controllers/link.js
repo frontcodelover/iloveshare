@@ -71,4 +71,27 @@ module.exports = createCoreController("api::link.link", ({ strapi }) => ({
     return { data: link, meta };
   },
 
+  async getUserInfos(ctx) {
+    const { data, meta } = await super.find(ctx);
+    const userIds = data.map((link) => link.attributes.userid);
+    const allUsers = await strapi
+      .query("plugin::users-permissions.user")
+      .findMany({
+        select: ["id", "email", "username"],
+        where: { id: { $in: userIds } },
+      });
+    console.log(allUsers);
+
+    const data2 = data.map((link) => {
+      link.user = allUsers.find(
+        (user) => user.id === link.attributes.userid
+      );
+      link = {id:link.id, ...link.attributes, user:link.user};
+      return link;
+    }).sort((a, b) => {
+      return b.likes - a.likes
+    }).slice(0, 10);
+    return { data: data2, meta };
+  }
+
 }));

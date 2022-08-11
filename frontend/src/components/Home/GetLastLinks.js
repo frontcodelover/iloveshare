@@ -5,18 +5,15 @@ import {
   Tag,
   Stack,
   Text,
-  Wrap,
-  WrapItem,
   Avatar,
   Image,
   ButtonGroup,
   Flex,
   Spacer,
   Box,
-  Grid,
+  Heading,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import TitleBase from "../Design/TitleBase";
 import {
   allLinks,
   allUsersCall,
@@ -27,7 +24,6 @@ import SinglePostLike from "../Post/SinglePostLike";
 import SinglePostSave from "../Post/SinglePostSave";
 import { useSelector } from "react-redux";
 import NumberOfComments from "../Design/NumberOfComments";
-import Cardindex from "../Post/Cards/CardIndex";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -56,9 +52,23 @@ export default function GetLastLinks() {
       function getPagination() {
         setPageCountMax(lastLinks?.meta?.pagination.pageCount);
       }
-      getPagination();
+
+      
+      console.log(getPagination());
     }
   }, [lastLinks, isLoading]);
+  
+  function countTimeReading(sentence) {
+  if (!isLoading) {
+    const words = sentence.length;
+    const wordsPerMinute = 230;
+    const minutes = Math.ceil(words / wordsPerMinute);
+    return minutes + " min de lecture";
+  }
+
+}
+
+// console.log(countTimeReading("Hello world"));
 
   const handleNext = () => {
     if (page < pageCountMax) {
@@ -74,10 +84,6 @@ export default function GetLastLinks() {
 
   return (
     <>
-      <Grid templateColumns="repeat(1, 1fr)" gap={6}>
-        <Cardindex />
-        <Cardindex />
-      </Grid>
       <Pagination
         page={page}
         pageCountMax={pageCountMax}
@@ -86,90 +92,123 @@ export default function GetLastLinks() {
       />
 
       {isLoading ? (
-        <p>Loading...</p>
+        <Text>Chargement...</Text>
       ) : (
         lastLinks?.data?.map((link) => {
           return (
-            <Stack
+            <Box
               key={link.id}
-              background={"white"}
-              mt={5}
-              borderRadius={10}
-              borderColor="gray.200"
-              borderWidth="1px"
-              pb={5}
+              w={"full"}
+              bg={"white"}
+              // boxShadow={"xl"}
+              rounded={"md"}
+              p={6}
+              overflow={"hidden"}
+              mt={6}
+              border={"1px"}
+              borderColor={"gray.200"}
             >
-              <Wrap>
-                {link?.attributes?.featuredimg?.data?.attributes?.url ? (
-                  <Image
-                    src={
-                      backendUrl +
-                      link?.attributes?.featuredimg?.data?.attributes?.url
-                    }
-                    alt="avatar"
-                    maxH={300}
-                    width="100%"
-                    objectFit="cover"
-                    roundedTop={10}
-                  />
-                ) : (
-                  <Image />
-                )}
-                <WrapItem p={5}>
-                  {userInfos.map((user) => {
-                    if (user.id === link.attributes.userid) {
-                      return (
-                        <>
-                          <Avatar
-                            size="sm"
-                            name={user?.username}
-                            src={backendUrl + user?.photo?.url}
-                          />
-                          <Stack direction="column" ml={2} mt={0} p={0}>
-                            <Link to={`/profile/${user.username}`}>
-                              <Text fontSize="xs" fontWeight="bold">
-                                {user?.username}
-                              </Text>
-                            </Link>
-
-                            <Text fontSize="xs" mt={0}>
-                              Posté le{" "}
-                              {new Date(
-                                link.attributes.createdAt
-                              ).toLocaleDateString("fr-FR")}
-                            </Text>
-                          </Stack>
-                        </>
-                      );
-                    }
-                  })}
-                </WrapItem>
-              </Wrap>
-              <Stack pl={10}>
-                <Link to={`/post/${link?.attributes?.slug}`}>
-                  <TitleBase as="h2" title={link.attributes.name}></TitleBase>
-                </Link>
-
-                <p>
-                  {link.attributes.tag.map((tag) => {
+              <Box
+                maxH={"500px"}
+                bg={"gray.100"}
+                mt={-6}
+                mx={-6}
+                mb={6}
+                pos={"relative"}
+              >
+                <Image
+                  src={
+                    backendUrl +
+                    link?.attributes?.featuredimg?.data?.attributes?.url
+                  }
+                  // layout={'cover'}
+                  // h={'auto'}
+                  maxH={"400px"}
+                  objectFit="cover"
+                  width="100%"
+                />
+              </Box>
+              <Stack>
+                <Heading
+                  color={"black"}
+                  fontSize={"2xl"}
+                  fontFamily={"body"}
+                  mt={4}
+                >
+                  <Link to={`/post/${link?.attributes?.slug}`}>
+                    {link.attributes.name}
+                  </Link>
+                </Heading>
+              </Stack>
+              <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
+                {userInfos.map((user) => {
+                  if (user.id === link.attributes.userid) {
                     return (
-                      <Tag
-                        mr={2}
-                        mt={5}
-                        px={2}
-                        py={1}
-                        colorScheme="white"
-                        color="teal.900"
-                        border="1px"
-                        borderColor="transparent"
-                        _hover={{ bg: "gray.100", borderColor: "gray.300" }}
-                      >
-                        <Link to={`/t/${tag.name}`}>#{tag.name}</Link>
-                      </Tag>
+                      <>
+                        <Avatar
+                          name={user?.username}
+                          alt={user?.username}
+                          src={backendUrl + user?.photo?.url}
+                        />
+                        <Stack direction={"column"} spacing={0} fontSize={"sm"}>
+                         
+                          <Link to={`/profile/${user.username}`}>
+                            <Text fontWeight={600}>
+                              {user?.username}
+                            </Text>
+                          </Link>
+                          <Text color={"gray.500"}>
+                            {new Date(
+                              link.attributes.createdAt
+                            ).toLocaleDateString("fr-FR")}{" "} 
+                            {"- " + countTimeReading(link.attributes.body)}
+                          </Text>
+                        </Stack>
+                        <Stack direction="column" ml={2} mt={0} p={0}>
+                        </Stack>
+                      </>
                     );
-                  })}
-                  <ButtonGroup float={"right"} mt={4} mr={10}></ButtonGroup>
-                </p>
+                  }
+                })}
+              </Stack>
+              
+                {link.attributes.tag.map((tag) => {
+                  return (
+                    <Tag
+                      mr={2}
+                      mt={5}
+                      px={2}
+                      py={1}
+                      colorScheme="white"
+                      color="teal.900"
+                      border="1px"
+                      borderColor="transparent"
+                      _hover={{ bg: "gray.100", borderColor: "gray.300" }}
+                    >
+                      <Link to={`/t/${tag.name}`}>#{tag.name}</Link>
+                    </Tag>
+                  );
+                })}
+                <ButtonGroup float={"right"} mt={4} mr={10}></ButtonGroup>
+              
+                {link.attributes.tagfromusers?.data.map((tag) => {
+                  return (
+                    <Tag
+                      mr={2}
+                      mt={5}
+                      px={2}
+                      py={1}
+                      bg={tag.attributes.color}
+                      color="white"
+                      border="1px"
+                      borderColor="transparent"
+                      _hover={{ bg: tag.attributes.color, borderColor: "gray.300" }}
+                    >
+                      <Link to={`/t/${tag.attributes.slug}`}>#{tag.attributes.name}</Link>
+                    </Tag>
+                  );
+                } )}
+                
 
                 <Flex>
                   <Box>
@@ -183,19 +222,20 @@ export default function GetLastLinks() {
                     <NumberOfComments postId={link.id} />
                   </Box>
                   <Spacer />
-                  <Box pr={10}>
+                    <Stack direction={"row"} float={"right"}>
+                  <Box ml={2}>
                     <SinglePostSave
                       userId={currentUser?.user?.id}
                       postId={link.id}
                     />
                   </Box>
-                </Flex>
               </Stack>
-            </Stack>
+                </Flex>
+            </Box>
           );
         })
       )}
-      {error && <p>{error}</p>}
+      {error && <Text>{error}</Text>}
     </>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Text } from "@chakra-ui/react";
+import { Flex, Icon, Text } from "@chakra-ui/react";
+import { FaRegCommentDots } from "react-icons/fa";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -20,10 +21,6 @@ export default function NumberOfComments({ postId }) {
   }, [postId]);
 
   return (
-    <Text ml={2}>
-      {numberOfComments > 1
-        ? numberOfComments + " commentaires"
-        : numberOfComments + " commentaire"}
-    </Text>
+    <Flex ml={4} fontWeight={500}><Text mt={1}><FaRegCommentDots/></Text><Text ml={1}>{numberOfComments}</Text></Flex>
   );
 }
