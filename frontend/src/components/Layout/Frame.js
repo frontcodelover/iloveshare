@@ -14,7 +14,7 @@ export default function Frame({ children }) {
         h={"50px"}
         position={"relative"}
         zIndex={2}
-      >
+        >
         <GridItem
           w="full"
           bg={"white"}

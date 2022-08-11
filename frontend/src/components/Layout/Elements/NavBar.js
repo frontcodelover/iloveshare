@@ -49,6 +49,7 @@ export default function NavBar({ children }) {
             aria-label={"Open Menu"}
             display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
+
           />
           <HStack spacing={8} alignItems={"center"}>
             <Box

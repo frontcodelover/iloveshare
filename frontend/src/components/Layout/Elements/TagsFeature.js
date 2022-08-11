@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Flex, Tag } from "@chakra-ui/react";
+import { Text, Flex, Tag, Heading } from "@chakra-ui/react";
 import { useFetchData } from "../../../Services/Hooks/useFetchData";
 import { Link } from "react-router-dom";
 
@@ -9,9 +9,6 @@ export default function TagsFeature() {
   const { data, isLoading, error } = useFetchData(
     `${backendUrl}/api/tagfromusers`
   );
-
-  console.log(data.data);
-
   return (
     <Flex
       direction={"column"}
@@ -23,6 +20,7 @@ export default function TagsFeature() {
       borderColor={"gray.200"}
       width={"auto"}
     >
+      <Heading as="h3" size="md" mb={5}>#tags</Heading>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
