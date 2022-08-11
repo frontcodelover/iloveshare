@@ -1,11 +1,10 @@
 import React from 'react'
-import { Container, Grid, GridItem, Box } from '@chakra-ui/react'
-import SidebarLeft from '../Elements/SidebarLeft'
-import SidebarRight from '../Elements/SidebarRight'
-import Home from '../../Home/Home'
+import { Container, Grid, GridItem } from '@chakra-ui/react'
 import Tags from '../../../Pages/Tags'
 
+
 export default function TagsLayout() {
+
   return (
 
     <Container maxW="1280px" className="scroll">

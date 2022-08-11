@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useFetchData } from "../Services/Hooks/useFetchData";
-import { allLinks } from "../Services/ApiCalls/AllApiCalls";
-import { Tag, Grid, GridItem, Flex, Text } from "@chakra-ui/react";
+import { Tag, Grid, GridItem, Flex, Text, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-
-//http://localhost:1337/api/links?populate=tag
 
 export default function Tags() {
   const [tags, setTags] = useState([]);
@@ -22,28 +19,15 @@ export default function Tags() {
   if (error) return <div>Error...</div>;
   if (!data) return <div>No data...</div>;
 
-  // function ArrayOfTags() {
-  //   const tagsArray = tags.data?.map((tag) => tag.attributes.tagfromusers);
-  //   const tagsArrayFlat = tagsArray?.map((tags) => tags.data);
-  //   console.log(tagsArrayFlat);
-  //   // const tabflat = tagsArray?.flat();
-  //   // const tableauNew = tabflat?.map((tags) => tags.name);
-  //   // const uniqueArr = [...new Set(tableauNew)];
-  //   // return uniqueArr;
-  //   console.log("Arrayoftags", tagsArray)
-  // }
-
-  // ArrayOfTags();
-
 
   return (
     <>
-      
+    <Heading as="h1" size="lg" my={10}>Les tags</Heading>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <>
-          <Grid templateColumns={{md :"repeat(3, 1fr)", base :"repeat(1,1fr)" }} gap={6} my={20}>
+          <Grid templateColumns={{md :"repeat(3, 1fr)", base :"repeat(1,1fr)" }} gap={6} mb={20}>
             {tags.data?.map((tag) => (
               <GridItem w="100%" key={tag.id}>
                 <Flex
@@ -58,8 +42,6 @@ export default function Tags() {
                   p={4}
                   borderTop={`20px solid`}
                   borderColor={tag.attributes.color}
-                  // border="1px"
-                  // borderColor="gray.200"
                 >
                   <Tag
                     colorScheme="white"
