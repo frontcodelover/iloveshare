@@ -30,7 +30,6 @@ export default function SinglePostCommentForm({ postId, userId }) {
     });
   };
 
-
   return (
     <>
       <Heading as="h3" size="sm">

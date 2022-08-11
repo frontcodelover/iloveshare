@@ -1,11 +1,9 @@
 import React from "react";
-import SidebarLeft from "./Elements/SidebarLeft";
-import SidebarRight from "./Elements/SidebarRight";
 import NavBar from "./Elements/NavBar";
-import { Grid, GridItem, Container, Box } from "@chakra-ui/react";
+import { Grid, GridItem, Container } from "@chakra-ui/react";
 import Routing from "../../Services/Routing/Routing";
 
-export default function Frame({ children }) {
+export default function Frame() {
   return (
     <>
       <Grid
@@ -14,7 +12,7 @@ export default function Frame({ children }) {
         h={"50px"}
         position={"relative"}
         zIndex={2}
-        >
+      >
         <GridItem
           w="full"
           bg={"white"}

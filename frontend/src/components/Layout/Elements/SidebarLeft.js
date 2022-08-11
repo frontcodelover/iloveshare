@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Flex,
@@ -8,18 +8,15 @@ import {
   Drawer,
   DrawerContent,
   useDisclosure,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import {
   FiHome,
   FiTrendingUp,
   FiCompass,
   FiStar,
   FiSettings,
-
-} from 'react-icons/fi';
+} from "react-icons/fi";
 import { Link as ReachLink } from "react-router-dom";
-
-
 
 const LinkItems = [
   { name: "Accueil", icon: FiHome, url: "/", color: "gray.900" },
@@ -37,13 +34,12 @@ const LinkItems = [
 export default function SidebarLeft({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-
-    <Box bg={useColorModeValue('gray.50', 'gray.900')}>
+    <Box bg={useColorModeValue("gray.50", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: 'none', md: 'none', lg: 'block' }}
+        display={{ base: "none", md: "none", lg: "block" }}
       />
-        {/* <SidebarRight /> */}
+      {/* <SidebarRight /> */}
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -51,57 +47,49 @@ export default function SidebarLeft({ children }) {
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full">
+        size="full"
+      >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
       {/* <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} /> */}
-
     </Box>
-
   );
 }
-
-
 
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <>
-    <Box
-      
-      bg={useColorModeValue('white', 'gray.900')}
-      borderRight="1px"
-      borderRightColor={useColorModeValue('gray.100', 'gray.700')}
-      w={'auto'}
-      h="auto"
-      mt={8}
-      py={4}
-      rounded="xl"
-      border={'1px'}
-      borderColor={'gray.200'}
-      
-      {...rest}>
-
-      {LinkItems.map((link) => (
-        
-        <NavItem key={link.name} icon={link.icon}>
-          <Link as={ReachLink} to={link.url}>
-          {link.name}
-        </Link>
-        </NavItem>
-      ))}
-    </Box>
-
-      </>
+      <Box
+        bg={useColorModeValue("white", "gray.900")}
+        borderRight="1px"
+        borderRightColor={useColorModeValue("gray.100", "gray.700")}
+        w={"auto"}
+        h="auto"
+        mt={8}
+        py={4}
+        rounded="xl"
+        border={"1px"}
+        borderColor={"gray.200"}
+        {...rest}
+      >
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} icon={link.icon}>
+            <Link as={ReachLink} to={link.url}>
+              {link.name}
+            </Link>
+          </NavItem>
+        ))}
+      </Box>
+    </>
   );
 };
 
-
 const NavItem = ({ icon, children, ...rest }) => {
   return (
-    <Link style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
       <Flex
         align="center"
         p="4"
@@ -110,31 +98,27 @@ const NavItem = ({ icon, children, ...rest }) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'cyan.400',
-          color: 'white',
+          bg: "cyan.400",
+          color: "white",
         }}
-        {...rest}>
+        {...rest}
+      >
         {icon && (
           <Icon
             mr="4"
             fontSize="16"
             _groupHover={{
-              color: 'white',
+              color: "white",
             }}
             as={icon}
           />
         )}
 
         {children}
-
       </Flex>
-      
     </Link>
   );
 };
-
-
-
 
 // const MobileNav = ({ onOpen, ...rest }) => {
 //   return (

@@ -9,18 +9,17 @@ export default function SinglePostLike({ postId, userId }) {
   const [saveStatus, setSaveStatus] = useState("Sauver");
   const [getIdOfSave, setGetIdOfSave] = useState(0);
   const token = localStorage.getItem("jwt");
-  
-  
-  useEffect(() => {
 
+  useEffect(() => {
     axios
       .get(
-        `${backendUrl}/api/saves?filters[postid][$eq]=${postId}&filters[userid][$eq]=${userId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
+        `${backendUrl}/api/saves?filters[postid][$eq]=${postId}&filters[userid][$eq]=${userId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
       )
       .then((getSaveData) => {
         if (getSaveData.data.data.length > 0) {
@@ -30,9 +29,7 @@ export default function SinglePostLike({ postId, userId }) {
           setIsSave(false);
         }
       });
-  }
-
-    , [userId, postId, backendUrl, token]);
+  }, [userId, postId, token]);
 
   const handleSave = async (e) => {
     e.preventDefault();

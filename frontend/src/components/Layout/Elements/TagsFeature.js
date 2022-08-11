@@ -20,7 +20,9 @@ export default function TagsFeature() {
       borderColor={"gray.200"}
       width={"auto"}
     >
-      <Heading as="h3" size="md" mb={5}>#tags</Heading>
+      <Heading as="h3" size="md" mb={5}>
+        #tags
+      </Heading>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (

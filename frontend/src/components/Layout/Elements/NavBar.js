@@ -18,6 +18,7 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { BsHeartFill } from "react-icons/bs";
 import { Link as ReachLink } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const Links = ["Dashboard", "Projects", "Team"];
 
@@ -49,7 +50,6 @@ export default function NavBar({ children }) {
             aria-label={"Open Menu"}
             display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
-
           />
           <HStack spacing={8} alignItems={"center"}>
             <Box
@@ -59,20 +59,19 @@ export default function NavBar({ children }) {
               px={4}
               py={2}
               rounded={"md"}
-              
             >
-               <Link as={ReachLink} to="/" _hover={{textDecoration: "none"}}>
-
-              <Flex>
-                I <BsHeartFill className="heartIcon" /> Share
-              </Flex>
-               </Link>
+              <Link as={ReachLink} to="/" _hover={{ textDecoration: "none" }}>
+                <Flex>
+                  I <BsHeartFill className="heartIcon" /> Share
+                </Flex>
+              </Link>
             </Box>
             <HStack
               as={"nav"}
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
+              <SearchBar />
               {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))}

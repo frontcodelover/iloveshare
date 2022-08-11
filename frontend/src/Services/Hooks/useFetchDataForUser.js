@@ -18,7 +18,6 @@ export default function useFetchDataForUser(url) {
             const fetchedData = await response.json();
             setUserInfos(fetchedData);
             setAllUsersData(fetchedData);
-            const disp = dispatch(setAllUsersData(fetchedData));
           }
         } else {
           setError("Error");

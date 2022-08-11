@@ -5,13 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Flex,
   Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Checkbox,
   Stack,
-  Link,
-  Button,
   Heading,
   Text,
 } from "@chakra-ui/react";

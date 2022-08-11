@@ -14,7 +14,9 @@ export default function SinglePostComment({ postId, userId }) {
 
   useEffect(() => {
     axios
-      .get(`${backendUrl}/api/comment/getCommentWithUser/?filters[postid][$eq]=${postId}`)
+      .get(
+        `${backendUrl}/api/comment/getCommentWithUser/?filters[postid][$eq]=${postId}`
+      )
       .then((data) => {
         console.log(data.data.data);
         if (data.data.data.length > 0) {
@@ -25,15 +27,7 @@ export default function SinglePostComment({ postId, userId }) {
           setIsCommented(false);
         }
       });
-      
-      
-
-      
-    }, [postId, isCommented, userWhoCommented]);
-    
-
-  
-
+  }, [postId, isCommented, userWhoCommented]);
 
   return (
     <>
@@ -43,10 +37,13 @@ export default function SinglePostComment({ postId, userId }) {
       {isCommented ? (
         comment.map((comment) => {
           return (
-            <Box background={'gray.100'} p={5}>
+            <Box background={"gray.100"} p={5}>
               <Text fontWeight={600}>{comment.user.username}</Text>
               <Text mb={5}>{comment?.bodycomment}</Text>
-              <Text fontSize={'sm'}>Commentaire posté le {new Date(comment.createdAt).toLocaleDateString('fr-FR')}</Text>
+              <Text fontSize={"sm"}>
+                Commentaire posté le{" "}
+                {new Date(comment.createdAt).toLocaleDateString("fr-FR")}
+              </Text>
               <Divider />
             </Box>
           );

@@ -7,7 +7,6 @@ import {
   WrapItem,
   Avatar,
   Text,
-  Heading,
   Tag,
   Image,
 } from "@chakra-ui/react";

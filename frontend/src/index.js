@@ -2,13 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { ChakraProvider, Container, Grid, GridItem } from "@chakra-ui/react";
+import { ChakraProvider} from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./Services/Redux/app/store";
-import App from "./App";
 import Frame from "./components/Layout/Frame";
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,7 +14,7 @@ root.render(
     <ChakraProvider>
       <React.StrictMode>
         <Provider store={store}>
-          <Frame />  
+          <Frame />
         </Provider>
       </React.StrictMode>
     </ChakraProvider>

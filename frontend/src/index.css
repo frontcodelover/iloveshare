@@ -19,6 +19,7 @@ code {
 
 #root {
 background: #f8fafc;
+min-height: 100vh;
 }
 
 

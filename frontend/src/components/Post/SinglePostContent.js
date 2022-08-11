@@ -5,7 +5,6 @@ import { useFetchData } from "../../Services/Hooks/useFetchData";
 import TitleBase from "../Design/TitleBase";
 import SinglePostLike from "./SinglePostLike";
 import ReactMarkdown from "react-markdown";
-import Emoji from "react-emoji-render";
 import { allLinks, populateAll } from "../../Services/ApiCalls/AllApiCalls";
 import EditSinglePost from "./EditSinglePost";
 import { useSelector } from "react-redux";
@@ -25,8 +24,9 @@ export default function SinglePostContent() {
   const {
     data: singlePostData,
     isLoading,
-    error,
-  } = useFetchData(`${allLinks}filters[slug][$eq]=${slug}${populateAll}&userId=${myWeirduserId}`);
+  } = useFetchData(
+    `${allLinks}filters[slug][$eq]=${slug}${populateAll}&userId=${myWeirduserId}`
+  );
 
   useEffect(() => {
     if (!isLoading) {
@@ -67,7 +67,14 @@ export default function SinglePostContent() {
 
             <VStack spacing={4} align="stretch" px={20} py={5}>
               <Text fontSize="xs" mt={1}>
-                Posté le {new Date(link?.attributes?.createdAt).toLocaleDateString('fr-FR')} / Mis à  jour le {new Date(link?.attributes?.updatedAt).toLocaleDateString('fr-FR')}
+                Posté le{" "}
+                {new Date(link?.attributes?.createdAt).toLocaleDateString(
+                  "fr-FR"
+                )}{" "}
+                / Mis à jour le{" "}
+                {new Date(link?.attributes?.updatedAt).toLocaleDateString(
+                  "fr-FR"
+                )}
               </Text>
               <EditSinglePost
                 userid={link?.attributes?.userid}
@@ -84,15 +91,11 @@ export default function SinglePostContent() {
                 postId={link.id}
                 link={link}
               />
-               <SinglePostSave
-                     userId={currentUser?.user?.id}
-                     postId={link.id}
-              />
+              <SinglePostSave userId={currentUser?.user?.id} postId={link.id} />
               <SinglePostComment
                 postId={link.id}
                 userId={currentUser?.user?.id}
               />
-
             </VStack>
           </Wrap>
         ))}

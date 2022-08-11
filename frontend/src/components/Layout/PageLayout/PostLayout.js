@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, GridItem, Box } from "@chakra-ui/react";
+import { Container, Grid, GridItem } from "@chakra-ui/react";
 import SidebarRight from "../Elements/SidebarRight";
 import SinglePostLike from "../../Post/SinglePost";
 
