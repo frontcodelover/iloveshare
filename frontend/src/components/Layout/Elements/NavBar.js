@@ -20,21 +20,21 @@ import { BsHeartFill } from "react-icons/bs";
 import { Link as ReachLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
-const Links = ["Dashboard", "Projects", "Team"];
+// const Links = ["Dashboard", "Projects", "Team"];
 
-const NavLink = ({ children }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.50", "gray.700"),
-    }}
-    href={"#"}
-  >
-    {children}
-  </Link>
+const Links = [
+  { name: "Dashboard", path: "/dashboard" },
+  { name: "Projects", path: "/projects" },
+  { name: "Team", path: "/team" },
+  {name:"addlink", path: "/addlink"},
+];
+
+const NavLink = () => (
+  Links.map((link) => (
+    <Link as={ReachLink} key={link.name} to={link.path}>
+      {link.name}
+    </Link>
+  ))
 );
 
 export default function NavBar({ children }) {
@@ -72,9 +72,9 @@ export default function NavBar({ children }) {
               display={{ base: "none", md: "flex" }}
             >
               <SearchBar />
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
+
+                <NavLink />
+
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
@@ -107,7 +107,7 @@ export default function NavBar({ children }) {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink />
               ))}
             </Stack>
           </Box>

@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -120,6 +121,12 @@ export default function AddLinkView() {
           <Heading as="h1" size="xl" pb={6}>
             Ajouter un article
           </Heading>
+          <Text>{inputs.name}</Text>
+          <div className="markdown-body">
+          <ReactMarkdown>
+            {inputs.body}
+          </ReactMarkdown>
+          </div>
           <Button onClick={onToggle}>Besoin d'aide ?</Button>
           <Collapse in={isOpen} animateOpacity>
             <Box
@@ -129,6 +136,7 @@ export default function AddLinkView() {
               bg="teal.500"
               rounded="md"
               shadow="md"
+
             >
               <Text fontSize="sm" fontWeight="600">
                 Pour ajouter un partage il vous suffit de remplir les champs
@@ -139,16 +147,57 @@ export default function AddLinkView() {
             </Box>
           </Collapse>
           <VStack spacing={2} align="stretch" w="75%" mt="4">
-            <FormLabel fontSize="xl">Titre de votre partage</FormLabel>
+            <FormLabel>Image de couverture</FormLabel>
+            <Input
+              type="file"
+              name="featuredimg"
+              bg="white"
+              border="none"
+              placeholder="Your label here..."
+              // value={inputs.featuredimg || ""}
+              _focusVisible={false}
+              onChange={handleImgChange}
+            />
             <Input
               bg="white"
               type="text"
               name="name"
+              color={"gray.900"}
               placeholder="Indiquez le titre de votre partage"
+              fontWeight={500}
+              border={'none'}
+              fontSize="3xl"
               value={inputs.name || ""}
               onChange={handleChange}
+              _focusVisible={{
+                boxShadow: "none",
+                borderColor: "teal.500",
+              }}
             />
-            <FormLabel>URL du site</FormLabel>
+            
+            <Textarea
+              bg="white"
+              type="textarea"
+              name="body"
+              border={'none'}
+              _focusVisible={{
+                boxShadow: "none",
+                borderColor: "teal.500",
+              }}
+              fontSize={'xl'}
+              height={'500px'}
+              placeholder="Ajoutez le texte de votre article
+                          Vous devez utiliser le markdown pour formater votre texte
+                          Pour faire un lien, utiliser la syntaxe : [titre du lien](url du lien)
+                          Pour faire une image, utiliser la syntaxe : ![titre de l'image](url de l'image)
+                          Pour faire un titre, utiliser la syntaxe : # titre du titre
+                          Pour faire un sous-titre, utiliser la syntaxe : ## sous-titre
+                          Pour faire un paragraphe, utiliser la syntaxe : paragraphe du paragraphe
+                          Pour écrire du code, utiliser la syntaxe : ```code```
+                          "
+              value={inputs.body || ""}
+              onChange={handleChange}
+            />
             <Input
               bg="white"
               type="text"
@@ -167,35 +216,9 @@ export default function AddLinkView() {
               onChange={handleChange}
             />
 
-            <FormLabel>Image</FormLabel>
-            <Input
-              type="file"
-              name="featuredimg"
-              placeholder="Featured Image"
-              bg="white"
-              border="none"
-              // value={inputs.featuredimg || ""}
-              onChange={handleImgChange}
-            />
             {/* <input type="text" name="ref" value="api::links.links" />
             <input type="text" name="refId" value="5c126648c7415f0c0ef1bccd" /> */}
 
-            <FormLabel>Description </FormLabel>
-            <Textarea
-              bg="white"
-              type="textarea"
-              name="body"
-              height={200}
-              placeholder="Utiliser le markdown pour formater votre texte
-                          Pour faire un lien, utiliser la syntaxe : [titre du lien](url du lien)
-                          Pour faire une image, utiliser la syntaxe : ![titre de l'image](url de l'image)
-                          Pour faire un titre, utiliser la syntaxe : # titre du titre
-                          Pour faire un sous-titre, utiliser la syntaxe : ## sous-titre du sous-titre
-                          Pour faire un paragraphe, utiliser la syntaxe : paragraphe du paragraphe
-                          "
-              value={inputs.body || ""}
-              onChange={handleChange}
-            />
             <FormLabel>Quel est son type</FormLabel>
             <Select
               placeholder="Sélectionnez un type"

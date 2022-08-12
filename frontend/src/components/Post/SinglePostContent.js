@@ -48,6 +48,7 @@ export default function SinglePostContent() {
             borderRadius={10}
             borderColor="gray.200"
             borderWidth="1px"
+            mt={4}
           >
             {link?.attributes?.featuredimg?.data?.attributes?.url ? (
               <Image
@@ -65,7 +66,7 @@ export default function SinglePostContent() {
               <></>
             )}
 
-            <VStack spacing={4} align="stretch" px={20} py={5}>
+            <VStack spacing={4} align="stretch" px={20} py={10} w={'100%'}>
               <Text fontSize="xs" mt={1}>
                 Posté le{" "}
                 {new Date(link?.attributes?.createdAt).toLocaleDateString(

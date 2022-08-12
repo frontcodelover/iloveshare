@@ -190,7 +190,8 @@ export default function GetLastLinks() {
                       borderColor="transparent"
                       _hover={{
                         bg: tag.attributes.color,
-                        borderColor: "gray.300",
+                        color: "white",
+                        opacity: 1,
                       }}
                     >
                       <Link to={`/t/${tag.attributes.slug}`}>
