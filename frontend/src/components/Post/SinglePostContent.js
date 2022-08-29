@@ -10,6 +10,7 @@ import EditSinglePost from "./EditSinglePost";
 import { useSelector } from "react-redux";
 import SinglePostSave from "./SinglePostSave";
 import SinglePostComment from "./SinglePostComment";
+import parse from 'html-react-parser';
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -83,9 +84,12 @@ export default function SinglePostContent() {
               />
               <TitleBase title={link?.attributes?.name} />
               <Text>{link?.attributes?.url}</Text>
-              <div className="markdown-body">
+              <>
+              {parse(link.attributes.body)}
+              </>
+              {/* <div className="markdown-body">
                 <ReactMarkdown children={bodyEmoji} />
-              </div>
+              </div> */}
               <SinglePostLike
                 pr={0}
                 userId={currentUser?.user?.id}

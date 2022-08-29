@@ -8,17 +8,19 @@ import {
   VStack,
   Select,
   Heading,
-  Textarea,
   Collapse,
   Alert,
   AlertIcon,
   Box,
   Text,
   useDisclosure,
+  Stack,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -29,6 +31,7 @@ export default function AddLinkView() {
   const [inputs, setInputs] = useState({});
   const [inputsImg, setInputsImg] = useState({});
   const [message, setMessage] = useState("");
+  const [inputBody, setInputBody] = useState();
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -61,7 +64,7 @@ export default function AddLinkView() {
             slug: inputs.name?.replace(/\W+/g, "-") + "-" + randomNumberForSlug,
             name: inputs.name,
             url: inputs.url,
-            body: inputs.body,
+            body: inputBody,
             type: inputs.type,
             nsfw: inputs.nsfw,
             public: inputs.public,
@@ -123,9 +126,7 @@ export default function AddLinkView() {
           </Heading>
           <Text>{inputs.name}</Text>
           <div className="markdown-body">
-          <ReactMarkdown>
-            {inputs.body}
-          </ReactMarkdown>
+            {/* <ReactMarkdown>{inputs.body}</ReactMarkdown> */}
           </div>
           <Button onClick={onToggle}>Besoin d'aide ?</Button>
           <Collapse in={isOpen} animateOpacity>
@@ -136,7 +137,6 @@ export default function AddLinkView() {
               bg="teal.500"
               rounded="md"
               shadow="md"
-
             >
               <Text fontSize="sm" fontWeight="600">
                 Pour ajouter un partage il vous suffit de remplir les champs
@@ -165,7 +165,7 @@ export default function AddLinkView() {
               color={"gray.900"}
               placeholder="Indiquez le titre de votre partage"
               fontWeight={500}
-              border={'none'}
+              border={"none"}
               fontSize="3xl"
               value={inputs.name || ""}
               onChange={handleChange}
@@ -174,8 +174,29 @@ export default function AddLinkView() {
                 borderColor: "teal.500",
               }}
             />
-            
-            <Textarea
+            <Stack height={'400px'}>
+
+              <CKEditor
+              editor={ClassicEditor}    
+              data="<p>Hello from CKEditor 5!</p>"
+              // value={inputs.body}
+              onInit={(editor) => {
+                // You can store the "editor" and use when it is needed.
+
+                console.log("Editor is ready to use!", editor);
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                console.log(typeof data);
+                setInputBody(data);
+              }}
+              onBlur={(event, editor) => {
+                console.log("Blur.", editor);
+              }}
+              />
+              </Stack>
+
+            {/* <Textarea
               bg="white"
               type="textarea"
               name="body"
@@ -187,9 +208,9 @@ export default function AddLinkView() {
               fontSize={'xl'}
               height={'500px'}
               placeholder="Ajoutez le texte de votre article
-                          Vous devez utiliser le markdown pour formater votre texte
-                          Pour faire un lien, utiliser la syntaxe : [titre du lien](url du lien)
-                          Pour faire une image, utiliser la syntaxe : ![titre de l'image](url de l'image)
+              Vous devez utiliser le markdown pour formater votre texte
+              Pour faire un lien, utiliser la syntaxe : [titre du lien](url du lien)
+              Pour faire une image, utiliser la syntaxe : ![titre de l'image](url de l'image)
                           Pour faire un titre, utiliser la syntaxe : # titre du titre
                           Pour faire un sous-titre, utiliser la syntaxe : ## sous-titre
                           Pour faire un paragraphe, utiliser la syntaxe : paragraphe du paragraphe
@@ -197,7 +218,7 @@ export default function AddLinkView() {
                           "
               value={inputs.body || ""}
               onChange={handleChange}
-            />
+            /> */}
             <Input
               bg="white"
               type="text"

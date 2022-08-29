@@ -12,7 +12,7 @@ export default function useFetchDataByTags() {
     async function fetchData() {
       try {
         const res = await fetch(
-          `${backendUrl}/api/links?populate=*&filters[tag][name]=${tags}`
+          `${backendUrl}/api/links?populate=*&filters[tagfromusers][slug][$eq]=${tags}`
         );
         if (res.ok) {
           const data = await res.json();

@@ -22,6 +22,20 @@ background: #f8fafc;
 min-height: 100vh;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
 
 
 ::-webkit-scrollbar {
@@ -36,6 +50,10 @@ min-height: 100vh;
 ::-webkit-scrollbar-thumb {
   background-color: #48bb78;
   border-radius: 0px;
+}
+
+.ck-editor__editable {
+  min-height: 300px;
 }
 
 .css-1re5hfz {

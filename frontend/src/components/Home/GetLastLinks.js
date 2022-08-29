@@ -21,12 +21,10 @@ import {
   allUsersCall,
   populateAll,
 } from "../../Services/ApiCalls/AllApiCalls";
-import Pagination from "../Design/Pagination";
 import SinglePostLike from "../Post/SinglePostLike";
 import SinglePostSave from "../Post/SinglePostSave";
 import { useSelector } from "react-redux";
 import NumberOfComments from "../Design/NumberOfComments";
-import axios from "axios";
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -158,23 +156,7 @@ export default function GetLastLinks() {
                   })}
                 </Stack>
 
-                {link.attributes.tag.map((tag) => {
-                  return (
-                    <Tag
-                      mr={2}
-                      my={5}
-                      px={2}
-                      py={1}
-                      colorScheme="white"
-                      color="teal.900"
-                      border="1px"
-                      borderColor="transparent"
-                      _hover={{ bg: "gray.100", borderColor: "gray.300" }}
-                    >
-                      <Link to={`/t/${tag.name}`}>#{tag.name}</Link>
-                    </Tag>
-                  );
-                })}
+               
                 <ButtonGroup float={"right"} mt={4} mr={10}></ButtonGroup>
 
                 {link.attributes.tagfromusers?.data.map((tag) => {

@@ -16,6 +16,7 @@ import HomeLayout from "../../components/Layout/PageLayout/HomeLayout";
 import PostLayout from "../../components/Layout/PageLayout/PostLayout";
 import TagsLayout from "../../components/Layout/PageLayout/TagsLayout";
 import SearchLayout from "../../components/Layout/PageLayout/SearchLayout";
+import PostsByTagsLayout from "../../components/Layout/PageLayout/PostsByTagsLayout";
 
 export default function Routing() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -23,7 +24,7 @@ export default function Routing() {
   return (
     <Routes>
       <Route exact path="/" element={<HomeLayout />} />
-      <Route exact path="/t/:tags" element={<PostByTags />} />
+      <Route exact path="/t/:tags" element={<PostsByTagsLayout />} />
       <Route exact path="/trending" element={<Trending />} />
       <Route exact path="/favourites" element={<Favourites />} />
       <Route exact path="/tags" element={<TagsLayout />} />
