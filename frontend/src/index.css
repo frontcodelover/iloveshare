@@ -22,21 +22,34 @@ background: #f8fafc;
 min-height: 100vh;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+
+ul > li {
+  margin: 0 0 0 10%;
+  list-style: disc;
 }
 
-li {
-  
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem;
-  border-bottom: 1px solid #e0e0e0;
+
+
+ol > li {
+  margin: 0 0 0 10%;
 }
 
+.quill-editor {
+  min-height: 400px;
+}
+
+.ql-editor {
+  min-height: 400px;
+}
+
+.ql-snow {
+  border: 1px solid #e2e9f3!important;
+}
+
+.ql-toolbar.ql-snow {
+  border-radius: 5px 5px 0 0;
+  background: #e2e9f3;
+}
 
 ::-webkit-scrollbar {
   width: 16px;

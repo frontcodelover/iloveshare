@@ -17,6 +17,7 @@ import PostLayout from "../../components/Layout/PageLayout/PostLayout";
 import TagsLayout from "../../components/Layout/PageLayout/TagsLayout";
 import SearchLayout from "../../components/Layout/PageLayout/SearchLayout";
 import PostsByTagsLayout from "../../components/Layout/PageLayout/PostsByTagsLayout";
+import AddPostLayout from "../../components/Layout/PageLayout/AddPostLayout";
 
 export default function Routing() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -30,7 +31,7 @@ export default function Routing() {
       <Route exact path="/tags" element={<TagsLayout />} />
       <Route exact path="/signup" element={<SignUp />} />
       <Route exact path="/dashboard/" element={<UserDashboard />} />
-      <Route exact path="/addlink" element={<AddLinkView />} />
+      <Route exact path="/addlink" element={<AddPostLayout />} />
       <Route exact path="/profile/:username" element={<Profile />} />
       <Route exact path="/post/:slug" element={<PostLayout />} />
       <Route exact path="/post/edit/:id" element={<SinglePostEditForm />} />

@@ -5,9 +5,6 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.0.6",
     "@chakra-ui/react": "^2.2.1",
-    "@ckeditor/ckeditor5-build-classic": "^35.0.1",
-    "@ckeditor/ckeditor5-code-block": "^35.0.1",
-    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@reduxjs/toolkit": "^1.8.3",
@@ -19,12 +16,14 @@
     "framer-motion": "^6.4.2",
     "html-react-parser": "^3.0.4",
     "nanoid": "^4.0.0",
+    "raw-loader": "4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-emoji-render": "^1.2.4",
     "react-icons": "^4.4.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-markdown": "^8.0.3",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -58,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@ckeditor/ckeditor5-dev-webpack-plugin": "^30.4.0",
     "@types/node": "^18.0.3"
   },
   "browser": {

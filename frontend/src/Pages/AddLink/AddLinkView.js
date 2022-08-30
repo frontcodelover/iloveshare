@@ -18,9 +18,29 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import ReactMarkdown from "react-markdown";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+// import ReactMarkdown from "react-markdown";
+// import Editor from 'ckeditor5-custom-build/build/ckeditor';
+// import { CKEditor } from '@ckeditor/ckeditor5-react'
+
+// import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+// import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
+// import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
+// import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
+// import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+
+// ClassicEditor
+//     .create( document.querySelector( '#editor' ), {
+//         plugins: [ Essentials, Paragraph, Bold, Italic ],
+//         toolbar: [ 'bold', 'italic', 'alignment' ] 
+//     } )
+//     .then( editor => {
+//         console.log( 'Editor was initialized', editor );
+//     } )
+//     .catch( error => {
+//         console.error( error.stack );
+//     } );
 
 const backendUrl = process.env.REACT_APP_API_URL;
 
@@ -32,6 +52,22 @@ export default function AddLinkView() {
   const [inputsImg, setInputsImg] = useState({});
   const [message, setMessage] = useState("");
   const [inputBody, setInputBody] = useState();
+
+
+  
+//   const editorConfiguration = {
+//     toolbar: [ 'bold', 'italic' ]
+// };
+  
+  const modulesToolbar = {
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ['code-block'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      ['link', 'image'],
+    ],
+  }
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -120,14 +156,14 @@ export default function AddLinkView() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <FormControl bg="white" p={6} rounded="xl">
+        <FormControl bg="white" px={12} py={6} rounded="xl"  mb={10}>
           <Heading as="h1" size="xl" pb={6}>
             Ajouter un article
           </Heading>
-          <Text>{inputs.name}</Text>
-          <div className="markdown-body">
+          {/* <Text>{inputs.name}</Text> */}
+          {/* <div className="markdown-body"> */}
             {/* <ReactMarkdown>{inputs.body}</ReactMarkdown> */}
-          </div>
+          {/* </div> */}
           <Button onClick={onToggle}>Besoin d'aide ?</Button>
           <Collapse in={isOpen} animateOpacity>
             <Box
@@ -146,7 +182,7 @@ export default function AddLinkView() {
               </Text>
             </Box>
           </Collapse>
-          <VStack spacing={2} align="stretch" w="75%" mt="4">
+          <VStack spacing={6} align="stretch"  mt="4">
             <FormLabel>Image de couverture</FormLabel>
             <Input
               type="file"
@@ -158,15 +194,13 @@ export default function AddLinkView() {
               _focusVisible={false}
               onChange={handleImgChange}
             />
+             <FormLabel>Titre</FormLabel>
             <Input
               bg="white"
               type="text"
               name="name"
               color={"gray.900"}
               placeholder="Indiquez le titre de votre partage"
-              fontWeight={500}
-              border={"none"}
-              fontSize="3xl"
               value={inputs.name || ""}
               onChange={handleChange}
               _focusVisible={{
@@ -174,27 +208,35 @@ export default function AddLinkView() {
                 borderColor: "teal.500",
               }}
             />
-            <Stack height={'400px'}>
-
-              <CKEditor
-              editor={ClassicEditor}    
-              data="<p>Hello from CKEditor 5!</p>"
-              // value={inputs.body}
-              onInit={(editor) => {
-                // You can store the "editor" and use when it is needed.
-
-                console.log("Editor is ready to use!", editor);
-              }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                console.log(typeof data);
-                setInputBody(data);
-              }}
-              onBlur={(event, editor) => {
-                console.log("Blur.", editor);
-              }}
+             <FormLabel>Votre article</FormLabel>
+              <ReactQuill
+                theme="snow"
+                value={inputBody || ""}
+                onChange={setInputBody}
+                name="body"
+                modules={modulesToolbar}
+                className="quill-editor"
               />
-              </Stack>
+             
+              {/* <CKEditor
+               editor={ ClassicEditor }
+              //  config={ editorConfiguration }
+                // config={ editorConfiguration  }
+                data="<p>Hello from CKEditor 5!</p>"
+                // value={inputs.body}
+                onReady={(editor) => {
+                  // You can store the "editor" and use when it is needed.
+                  console.log("Editor1 is ready to use!", editor);
+                }}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  console.log(typeof data);
+                  setInputBody(data);
+                }}
+                
+                /> */}
+
+            
 
             {/* <Textarea
               bg="white"
